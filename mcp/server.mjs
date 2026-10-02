@@ -22,7 +22,8 @@ const SECTOR = { type: 'string', enum: Object.keys(bundle.sectors), default: 'ge
 const SEVERITY = { type: 'string', enum: Object.keys(bundle.severities), default: 'high', description: 'The grade your own classification gives: critical, high, medium or low.' };
 const PERSONAL = { type: 'boolean', default: false, description: 'True when personal data was affected. A data-breach always counts as personal data.' };
 const AT = { type: 'string', description: 'When the incident was discovered, ISO 8601 with offset, for example "2026-10-04T08:00:00+03:00".' };
-const INCIDENT = { countries: COUNTRY_LIST, incident_type: TYPE, discovered_at: AT, sector: SECTOR, severity: SEVERITY, personal_data: PERSONAL };
+const ZONES = { type: 'array', items: { type: 'string', enum: Object.keys(bundle.zones) }, description: 'Financial free zones the organization also operates in: difc and adgm (UAE), qfc (Qatar). Their data protection duties are added; federal duties still apply outside the zone.' };
+const INCIDENT = { countries: COUNTRY_LIST, zones: ZONES, incident_type: TYPE, discovered_at: AT, sector: SECTOR, severity: SEVERITY, personal_data: PERSONAL };
 const RO = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
 
 const tools = [
@@ -58,12 +59,16 @@ function incidentInput(args) {
   if (args.severity && !bundle.severities[args.severity]) throw new ToolError(`severity must be one of ${Object.keys(bundle.severities).join(', ')}.`);
   let discovered;
   try { discovered = core.toDate(args.discovered_at); } catch { throw new ToolError('discovered_at must be an ISO 8601 date and time with offset, for example "2026-10-04T08:00:00+03:00".'); }
-  return { countries, type: args.incident_type, sector: args.sector || 'general', severity: args.severity || 'high', personal: Boolean(args.personal_data), discovered };
+  const zones = Array.isArray(args.zones) ? args.zones : [];
+  const badZone = zones.filter((z) => !bundle.zones[z]);
+  if (badZone.length) throw new ToolError(`zones must list ${Object.keys(bundle.zones).join(', ')}, not ${badZone.join(', ')}.`);
+  return { countries, zones, type: args.incident_type, sector: args.sector || 'general', severity: args.severity || 'high', personal: Boolean(args.personal_data), discovered };
 }
 function dutyRow(ob, lang) {
   return {
     id: ob.id,
     country: ob.country,
+    zone: ob.zone || null,
     authority: tr(bundle.authorities[ob.authority], lang),
     trigger: ob.trigger,
     applies_to: tr(ob.applies_to, lang),
@@ -119,6 +124,7 @@ const handlers = {
       return {
         id: d.id,
         country: d.country,
+        zone: d.zone,
         authority: tr(bundle.authorities[d.authority], lang),
         verification: d.verification,
         note: core.noteText(bundle, d.note, lang) || null,
@@ -128,7 +134,7 @@ const handlers = {
         url: ob.source.url || null,
       };
     });
-    const out = { discovered_at: a.discovered.toISOString(), countries: a.countries, sector: a.sector, severity: a.severity, personal_data: a.personal, duties };
+    const out = { discovered_at: a.discovered.toISOString(), countries: a.countries, zones: a.zones, sector: a.sector, severity: a.severity, personal_data: a.personal, duties };
     const md = [
       `# ${core.ui(bundle, 'clock', lang)} (${duties.filter((d) => d.triggered).length})`, '',
       ...duties.map((d) => [
@@ -218,9 +224,11 @@ if (process.argv.includes('--selftest')) {
   try {
     ok(tools.length === 8, 'eight tools');
     const ov = call('najjab_overview').structuredContent;
-    ok(ov.duties === 19 && ov.countries.length === 6 && ov.pending.length === 3, 'overview counts 19 duties, 6 countries, 3 pending');
+    ok(ov.duties === 22 && ov.countries.length === 6 && ov.pending.length === 3, 'overview counts 22 duties, 6 countries, 3 pending');
     ok(call('najjab_list_obligations', { country: 'SA' }).structuredContent.total === 5, 'five Saudi duties');
-    ok(call('najjab_list_obligations', { trigger: 'personal-data-breach' }).structuredContent.total === 8, 'eight personal data duties');
+    ok(call('najjab_list_obligations', { trigger: 'personal-data-breach' }).structuredContent.total === 11, 'eleven personal data duties');
+    const fz = call('najjab_deadlines', { countries: ['AE', 'QA'], zones: ['adgm', 'qfc'], incident_type: 'data-breach', discovered_at: at }).structuredContent;
+    ok(fz.duties.some((d) => d.id === 'ae-adgm-dp' && d.items[0].due === plus(72)) && fz.duties.some((d) => d.id === 'qa-qfc-dp') && !fz.duties.some((d) => d.id === 'ae-difc-dp'), 'free zone duties follow the zones chosen');
     const gcc = call('najjab_deadlines', { countries: ['BH', 'AE'], sector: 'banking', incident_type: 'ransomware', severity: 'high', discovered_at: at }).structuredContent;
     ok(gcc.duties[0].id === 'bh-cbb-banks' && gcc.duties[0].items[0].due === plus(1), 'CBB due in one hour');
     ok(gcc.duties.some((d) => d.id === 'ae-cbuae-oprisk' && d.items[0].due === plus(4)), 'CBUAE due in four hours');

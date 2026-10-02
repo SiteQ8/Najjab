@@ -27,11 +27,11 @@ function h(tag, props = {}, ...kids) {
 const t = (key, vars) => core.ui(B, key, S.lang, vars);
 const P = (pair) => core.tr(pair, S.lang);
 const personal = () => S.personal || B.incident_types[S.type].triggers.includes('personal-data-breach');
-const incident = () => ({ countries: S.countries, sector: S.sector, type: S.type, severity: S.severity, personal: personal(), discovered: S.discovered });
+const incident = () => ({ countries: S.countries, zones: S.zones, sector: S.sector, type: S.type, severity: S.severity, personal: personal(), discovered: S.discovered });
 const lowerFirst = (s) => (S.lang === 'en' ? s.charAt(0).toLowerCase() + s.slice(1) : s);
 
 function defaults() {
-  return { lang: 'ar', countries: ['KW'], sector: 'banking', type: 'ransomware', severity: 'high', personal: false, discovered: new Date().toISOString(), checks: {}, draft: {}, tab: 'playbook', tt: { type: null, started: null, shown: 0 }, reg: 'all' };
+  return { lang: 'ar', countries: ['KW'], zones: [], sector: 'banking', type: 'ransomware', severity: 'high', personal: false, discovered: new Date().toISOString(), checks: {}, draft: {}, tab: 'playbook', tt: { type: null, started: null, shown: 0 }, reg: 'all' };
 }
 
 function load() {
@@ -42,6 +42,7 @@ function load() {
   } catch { /* storage unavailable */ }
   const q = new URLSearchParams(location.search);
   if (q.has('c')) s.countries = q.get('c').split(',');
+  if (q.has('z')) s.zones = q.get('z').split(',').filter(Boolean);
   if (q.has('s')) s.sector = q.get('s');
   if (q.has('t')) s.type = q.get('t');
   if (q.has('v')) s.severity = q.get('v');
@@ -50,6 +51,7 @@ function load() {
   if (q.has('lang')) s.lang = q.get('lang');
   s.lang = s.lang === 'en' ? 'en' : 'ar';
   s.countries = (Array.isArray(s.countries) ? s.countries : []).filter((c) => B.countries[c]);
+  s.zones = (Array.isArray(s.zones) ? s.zones : []).filter((z) => B.zones[z] && s.countries.includes(B.zones[z].country));
   if (!B.sectors[s.sector]) s.sector = 'general';
   if (!B.incident_types[s.type]) s.type = 'ransomware';
   if (!B.severities[s.severity]) s.severity = 'high';
@@ -61,7 +63,7 @@ function load() {
 
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* storage unavailable */ }
-  const q = new URLSearchParams({ c: S.countries.join(','), s: S.sector, t: S.type, v: S.severity, p: personal() ? '1' : '0', d: S.discovered, lang: S.lang });
+  const q = new URLSearchParams({ c: S.countries.join(','), z: S.zones.join(','), s: S.sector, t: S.type, v: S.severity, p: personal() ? '1' : '0', d: S.discovered, lang: S.lang });
   history.replaceState(null, '', `${location.pathname}?${q}`);
 }
 
@@ -105,6 +107,8 @@ function renderForm() {
   const countries = h('fieldset', {}, h('legend', { text: t('countries') }), h('div', { class: 'chips' }, Object.keys(B.countries).map((c) => h('label', { class: 'chip' },
     h('input', { type: 'checkbox', name: 'country', value: c, checked: S.countries.includes(c), onchange: (e) => {
       S.countries = Object.keys(B.countries).filter((k) => (k === c ? e.target.checked : S.countries.includes(k)));
+      S.zones = S.zones.filter((z) => S.countries.includes(B.zones[z].country));
+      renderZones();
       changed('countries');
     } }),
     h('span', { text: P(B.countries[c]) })))));
@@ -133,8 +137,23 @@ function renderForm() {
         changed('time');
       } })),
     h('p', { class: 'hint', text: t('discovered_hint') }));
-  form.append(countries, sector, types, grades, h('div', { id: 'personal-wrap' }), time);
+  form.append(countries, h('div', { id: 'zones-wrap' }), sector, types, grades, h('div', { id: 'personal-wrap' }), time);
+  renderZones();
   renderPersonal();
+}
+
+function renderZones() {
+  const wrap = $('zones-wrap');
+  const open = Object.keys(B.zones).filter((z) => S.countries.includes(B.zones[z].country));
+  if (!open.length) { wrap.replaceChildren(); return; }
+  wrap.replaceChildren(h('fieldset', {}, h('legend', { text: t('zones') }),
+    h('div', { class: 'chips' }, open.map((z) => h('label', { class: 'chip' },
+      h('input', { type: 'checkbox', name: 'zone', value: z, checked: S.zones.includes(z), onchange: (e) => {
+        S.zones = Object.keys(B.zones).filter((k) => (k === z ? e.target.checked : S.zones.includes(k)));
+        changed('zones');
+      } }),
+      h('span', { text: P(B.zones[z]) })))),
+    h('p', { class: 'hint', text: t('zones_hint') })));
 }
 
 function renderPersonal() {
@@ -151,7 +170,7 @@ function sealFor(d) {
   if (!lead) return { cls: 'u-off', word: t('seal_off') };
   if (lead.kind === 'deadline') return { cls: '', count: true };
   if (lead.kind === 'immediate') return { cls: 'u-now', word: t('rule_immediately') };
-  if (lead.kind === 'promptly' || lead.kind === 'undue-delay') return { cls: 'u-open', word: t('seal_promptly') };
+  if (lead.kind === 'promptly' || lead.kind === 'practicable' || lead.kind === 'undue-delay') return { cls: 'u-open', word: t('seal_promptly') };
   if (lead.kind === 'by-regulation') return { cls: 'u-open', word: t('seal_open') };
   return { cls: 'u-open', word: t('seal_none') };
 }
@@ -202,6 +221,7 @@ function slip(d) {
 function renderBrief() {
   const pairs = [
     [t('countries'), S.countries.map((c) => P(B.countries[c])).join(S.lang === 'ar' ? ' و' : ', ')],
+    ...(S.zones.length ? [[t('zones'), S.zones.map((z) => P(B.zones[z])).join(S.lang === 'ar' ? ' و' : ', ')]] : []),
     [t('sector'), P(B.sectors[S.sector])],
     [t('type'), P(B.incident_types[S.type])],
     [t('severity'), P(B.severities[S.severity])],

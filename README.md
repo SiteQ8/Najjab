@@ -16,7 +16,7 @@
 
 ### ماذا يقدّم
 
-- **ساعة الإبلاغ** وفيها تختار الدول التي تعمل فيها والقطاع ونوع الحادثة ودرجة خطورتها ووقت اكتشافها فتظهر كل جهة يجب إبلاغها مع موعدها بتوقيتك وبتوقيت الدولة وعدّاد تنازلي يتغير لونه كلما اقتربت المهلة.
+- **ساعة الإبلاغ** وفيها تختار الدول التي تعمل فيها والمناطق الحرة المالية والقطاع ونوع الحادثة ودرجة خطورتها ووقت اكتشافها فتظهر كل جهة يجب إبلاغها مع موعدها بتوقيتك وبتوقيت الدولة وعدّاد تنازلي يتغير لونه كلما اقتربت المهلة.
 - **أدلة الاستجابة** ولكل من برمجيات الفدية واختراق البريد الإلكتروني للأعمال وتسرّب البيانات وانكشاف مفاتيح الوصول السحابية خطوات تبدأ بالساعة الأولى ثمّ الاحتواء والاستئصال والتعافي والأدلة الواجب حفظها وما بعد الحادثة.
 - **ملف التقويم** ويضيف كل مهلة بوقت محدد إلى Outlook أو تقويم Google أو تقويم Apple مع تنبيه قبلها بربع ساعة.
 - **مسودة الإشعار** وهي نص بالعربية والإنجليزية يجمع الحقائق التي تطلبها كل جهة أولاً ويُوجَّه تلقائياً إلى الجهات التي تستدعيها الحادثة.
@@ -39,9 +39,12 @@
 | السعودية | الهيئة الوطنية للأمن السيبراني | الجهات الحكومية والبنى التحتية الحساسة | بلا مهلة محددة | النص الرسمي |
 | الإمارات | مصرف الإمارات العربية المتحدة المركزي | الأحداث التي تمس العمليات الحرجة | خلال 4 ساعات ثمّ تقرير موجز خلال 24 ساعة وإشعار بالحوادث عالية الخطورة خلال 72 ساعة | النص الرسمي |
 | الإمارات | مكتب الإمارات للبيانات | خرق البيانات الشخصية | عند العلم والمهلة متروكة للائحة التنفيذية | مصدر ثانوي |
+| الإمارات | مفوض حماية البيانات في مركز دبي المالي العالمي | خرق البيانات الشخصية في المركز | في أقرب وقت ممكن عملياً | النص الرسمي |
+| الإمارات | مكتب حماية البيانات في سوق أبوظبي العالمي | خرق البيانات الشخصية في السوق | خلال 72 ساعة من العلم متى أمكن | النص الرسمي |
 | قطر | الوكالة الوطنية للأمن السيبراني | الحوادث الحرجة | خلال ساعتين من التحديد | النص الرسمي |
 | قطر | الوكالة الوطنية للأمن السيبراني | خرق البيانات الشخصية | خلال 72 ساعة | النص الرسمي |
 | قطر | مصرف قطر المركزي | خروقات البيانات لدى المؤسسات المالية | وفق إرشادات المصرف مع إبلاغ الوكالة ووزارة الداخلية | النص الرسمي |
+| قطر | مكتب حماية البيانات في مركز قطر للمال | خرق البيانات الشخصية لدى الشركات المرخصة في المركز | خلال 72 ساعة من العلم | النص الرسمي |
 | البحرين | مصرف البحرين المركزي | حوادث البنوك التي تمس العملاء أو الخدمات الحرجة | اتصال خلال ساعة ثمّ تقرير أولي خلال ساعتين وتقرير كامل خلال 10 أيام | النص الرسمي |
 | البحرين | المركز الوطني للأمن السيبراني | حوادث الجهات الحكومية والبنى التحتية الحساسة | بلا مهلة محددة في الخطة الوطنية للاستجابة | النص الرسمي |
 | البحرين | هيئة حماية البيانات الشخصية | خرق البيانات الشخصية | خلال 72 ساعة من الاكتشاف | مصدر ثانوي |
@@ -82,7 +85,7 @@ In the first hour of an incident everyone asks the same question: who do we noti
 
 ### What it does
 
-- **The notification clock.** Pick the countries you operate in, your sector, the type of incident, its severity and when it was discovered. Every authority you must notify appears with its due time in your time zone and the country's, and a countdown that changes colour as the deadline nears.
+- **The notification clock.** Pick the countries and financial free zones you operate in, your sector, the type of incident, its severity and when it was discovered. Every authority you must notify appears with its due time in your time zone and the country's, and a countdown that changes colour as the deadline nears.
 - **Playbooks.** Ransomware, business email compromise, data breach and exposed cloud access keys, each with how it shows up, the first hour, containment, eradication, recovery, the evidence to keep and what to do after.
 - **Calendar file.** Every deadline with a fixed time, as events for Outlook, Google Calendar or Apple Calendar with a reminder 15 minutes before each.
 - **Notice draft.** Arabic and English text that gathers the facts every regulator asks for first, addressed to the authorities the incident triggers.
@@ -105,9 +108,12 @@ In the first hour of an incident everyone asks the same question: who do we noti
 | Saudi Arabia | NCA | Government and critical national infrastructure (ECC-2:2024, 2-13-3) | No fixed period | Official text |
 | UAE | Central Bank of the UAE | Events affecting critical operations (Operational Risk Management Regulation, Articles 15.2 and 15.3) | Within 4 hours, summary report within 24 hours, high-risk incidents within 72 hours | Official text |
 | UAE | UAE Data Office | Personal data breach (Decree by Law 45 of 2021, Article 9) | Upon awareness, period left to executive regulations | Secondary source |
+| UAE (DIFC) | DIFC Commissioner of Data Protection | Personal data breach (DIFC Law No. 5 of 2020, Articles 41 and 42) | As soon as practicable | Official text |
+| UAE (ADGM) | ADGM Office of Data Protection | Personal data breach (Data Protection Regulations 2021, Articles 32 and 33) | Within 72 hours of awareness where feasible | Official text |
 | Qatar | NCSA | Critical incidents (NIA Standard v2.1, IM 8) | Within 2 hours of identification | Official text |
 | Qatar | NCSA | Personal data breach (PDPPL breach notification guideline) | Within 72 hours | Official text |
 | Qatar | Qatar Central Bank | Data breaches at licensed financial institutions (Data Handling and Protection Regulation, Article 16) | Under QCB incident reporting guidelines, also to NCSA and the Ministry of Interior | Official text |
+| Qatar (QFC) | QFC Data Protection Office | Personal data breach at QFC firms (Data Protection Regulations 2021, Article 31) | Within 72 hours of awareness | Official text |
 | Bahrain | Central Bank of Bahrain | Bank incidents affecting customers or critical services (Rulebook OM-5.5.57 and OM-5.5.58) | Call within 1 hour, Section A within 2 hours, Section B within 10 days | Official text |
 | Bahrain | National Cyber Security Center | Incidents at government entities and critical national infrastructure (National Cybersecurity Incident Response Plan) | No fixed period | Official text |
 | Bahrain | Personal Data Protection Authority | Personal data breach (Resolution 43 of 2022, Article 4(2)) | Within 72 hours of discovery | Secondary source |
@@ -141,7 +147,7 @@ To run the MCP server, add it to your assistant's configuration:
 | `najjab_overview` | Countries, authorities, verification levels and what is still being verified. Start here. |
 | `najjab_list_obligations` | Duties filtered by country, trigger or sector, paged. |
 | `najjab_get_obligation` | One duty with every deadline row, its source, link and secondary sources. |
-| `najjab_deadlines` | Every duty an incident triggers across the given countries, soonest first, with due times computed from the discovery time. |
+| `najjab_deadlines` | Every duty an incident triggers across the given countries and free zones, soonest first, with due times computed from the discovery time. |
 | `najjab_playbook` | The playbook for an incident type. |
 | `najjab_tabletop` | A tabletop exercise for an incident type. |
 | `najjab_calendar` | An .ics file with one event per timed deadline and a reminder 15 minutes before each. |

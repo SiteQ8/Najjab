@@ -34,8 +34,11 @@ Names of authorities and frameworks belong to their owners and are used only to 
 | sa-nca-ecc | NCA Essential Cybersecurity Controls ECC-2:2024, control 2-13-3 |
 | ae-pdpl | https://uaelegislation.gov.ae/en/legislations/1972 |
 | ae-cbuae-oprisk | https://rulebook.centralbank.ae/en/rulebook/operational-risk-management-regulation |
+| ae-difc-dp | https://www.difc.ae/business/laws-regulations/legal-database/data-protection-law-difc-law-no-5-2020/ |
+| ae-adgm-dp | https://adgm.com/operating-in-adgm/office-of-data-protection/data-breach-notifications |
 | qa-ncsa-nia | NCSA National Information Assurance Standard v2.1, control IM 8 |
 | qa-pdppl | NCSA guideline PDPPL-02050217E v2.0 |
+| qa-qfc-dp | https://www.qfc.qa/en/operating-with-qfc/data-protection/data-protection-for-data-controllers-and-data-processors |
 | qa-qcb-data | https://www.qcb.gov.qa/Documents/InformationSecurity/Data%20Handling%20and%20Protection%20Regulation.pdf |
 | bh-cbb-banks | https://cbben.thomsonreuters.com/node/2300925 |
 | bh-ncsc-irp | https://www.ncsc.gov.bh/en/services/incident-response-plan.html |

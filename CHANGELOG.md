@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0 (2026-10-02)
+
+- Financial free zones: pick DIFC, ADGM or QFC beside the country and their data protection duties join the clock, while federal duties stay for work outside the zone.
+- DIFC Commissioner of Data Protection (as soon as practicable), ADGM Office of Data Protection (72 hours where feasible) and QFC Data Protection Office (72 hours), each read in the official text.
+- The register now holds 22 duties, 16 read in the official text.
+
 ## 0.3.1 (2026-10-02)
 
 - Oman Cyber Defense Centre: the duty of government entities and critical infrastructure operators to report cyber incidents, recorded by the National Cyber Security Index, with no published period.

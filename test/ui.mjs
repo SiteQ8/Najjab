@@ -36,6 +36,11 @@ try {
   await page.click('label.chip:has(input[value="QA"])');
   await page.click('label.chip:has(input[value="critical"])');
   assert.equal(await page.locator('.slip', { hasText: 'الوكالة الوطنية للأمن السيبراني' }).count(), 1);
+  // Free zones show up with their country and add their duties.
+  await page.click('label.chip:has(input[value="AE"])');
+  await page.click('label.chip:has(input[value="difc"])');
+  await page.click('label.chip:has(input[value="data-breach"])');
+  assert.equal(await page.locator('.slip', { hasText: 'مفوض حماية البيانات في مركز دبي المالي العالمي' }).count(), 1);
   // Work tabs.
   await page.click('#tab-draft');
   assert.match(await page.textContent('#notice-ar'), /بنك الكويت المركزي/);
@@ -43,7 +48,7 @@ try {
   await page.click('#panel-tabletop .btn.primary');
   assert.equal(await page.locator('#panel-tabletop .injects li').count(), 1);
   await page.click('#tab-register');
-  assert.ok(await page.locator('#panel-register .duty').count() >= 14);
+  assert.ok(await page.locator('#panel-register .duty').count() >= 22);
   await page.click('#tab-playbook');
   // English.
   await page.click('#lang');

@@ -94,6 +94,20 @@ test('the calendar file holds one event per timed deadline, in UTC, folded to 75
   assert.equal(core.calendar(b, { countries: ['AE'], type: 'data-breach', discovered: at }, 'en').events, 0, 'no fixed time, no event');
 });
 
+test('free zone duties appear only for the zones chosen, alongside the federal ones', () => {
+  const base = { countries: ['AE', 'QA'], type: 'data-breach' };
+  const none = run(base);
+  assert.ok(!none.duties.some((d) => d.zone), 'no zone, no zone duties');
+  assert.ok(duty(none, 'ae-pdpl') && duty(none, 'qa-pdppl'), 'federal and national duties stay');
+  const a = run({ ...base, zones: ['difc', 'qfc'] });
+  assert.equal(duty(a, 'ae-difc-dp').lead.kind, 'practicable');
+  assert.equal(duty(a, 'qa-qfc-dp').lead.due.getTime(), plus(72));
+  assert.equal(duty(a, 'ae-adgm-dp'), undefined);
+  const orphan = run({ countries: ['KW'], type: 'data-breach', zones: ['adgm'] });
+  assert.equal(duty(orphan, 'ae-adgm-dp'), undefined, 'a zone needs its country');
+  assert.equal(core.itemText(b, duty(a, 'ae-difc-dp').items[1], 'ar'), 'في أقرب وقت ممكن عملياً إذا كان الخطر على أصحاب البيانات كبيراً');
+});
+
 test('Arabic counts agree with the number', () => {
   assert.equal(core.span(1, 'hour', 'ar'), 'ساعة');
   assert.equal(core.span(2, 'hour', 'ar'), 'ساعتين');

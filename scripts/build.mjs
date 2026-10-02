@@ -17,7 +17,7 @@ const ui = src('ui.json');
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 
 const STAGES = new Set(['initial', 'preliminary', 'update', 'report', 'high_risk', 'data_subjects', 'restored', 'closure']);
-const RULES = new Set(['immediately', 'promptly', 'no-fixed-period', 'by-regulation', 'without-undue-delay', 'as-incident']);
+const RULES = new Set(['immediately', 'promptly', 'as-soon-as-practicable', 'no-fixed-period', 'by-regulation', 'without-undue-delay', 'as-incident']);
 const FROM = new Set(['discovery', 'awareness', 'identification']);
 const WHEN = new Set(['resolution', 'monthly', 'resumed', 'normal']);
 
@@ -33,6 +33,7 @@ for (const ob of reg.obligations) {
   if (!auth) fail(`${where} has unknown authority ${ob.authority}`);
   else if (auth.country !== ob.country) fail(`${where} authority belongs to ${auth.country}`);
   if (!reg.triggers[ob.trigger]) fail(`${where} has unknown trigger ${ob.trigger}`);
+  if (ob.zone && (!reg.zones[ob.zone] || reg.zones[ob.zone].country !== ob.country)) fail(`${where} has a zone outside its country: ${ob.zone}`);
   for (const s of ob.sectors) if (s !== 'all' && !reg.sectors[s]) fail(`${where} has unknown sector ${s}`);
   if (!reg.verification_levels[ob.verification]) fail(`${where} has unknown verification ${ob.verification}`);
   if (ob.verification === 'secondary' && !(ob.secondary || []).length) fail(`${where} is secondary but lists no secondary source`);
@@ -71,6 +72,7 @@ const bundle = {
   schema: 'najjab/1',
   project,
   countries: reg.countries,
+  zones: reg.zones,
   sectors: reg.sectors,
   severities: reg.severities,
   triggers: reg.triggers,

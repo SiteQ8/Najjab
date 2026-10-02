@@ -518,5 +518,21 @@
   "cal_none": {
     "en": "No deadline with a fixed time to add yet.",
     "ar": "لا توجد مهلة بوقت محدد لإضافتها بعد."
+  },
+  "zones": {
+    "en": "Financial free zones you also operate in",
+    "ar": "المناطق الحرة المالية التي تعمل فيها أيضاً"
+  },
+  "zones_hint": {
+    "en": "Federal duties still apply to your work outside the free zone.",
+    "ar": "تبقى الواجبات الاتحادية قائمة لعملك خارج المنطقة الحرة."
+  },
+  "rule_practicable": {
+    "en": "As soon as practicable",
+    "ar": "في أقرب وقت ممكن عملياً"
+  },
+  "cond_high-risk": {
+    "en": "if the risk to the people concerned is high",
+    "ar": "إذا كان الخطر على أصحاب البيانات كبيراً"
   }
 }

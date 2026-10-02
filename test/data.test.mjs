@@ -14,8 +14,10 @@ test('every text exists in both languages and follows the Arabic writing rules',
   }
 });
 
-test('the register holds 19 duties across all six countries', () => {
-  assert.equal(b.obligations.length, 19);
+test('the register holds 22 duties across all six countries and three free zones', () => {
+  assert.equal(b.obligations.length, 22);
+  for (const z of Object.keys(b.zones)) assert.ok(b.obligations.some((o) => o.zone === z), `${z} has a duty`);
+  for (const o of b.obligations.filter((x) => x.zone)) assert.equal(b.zones[o.zone].country, o.country, `${o.id}: zone in its country`);
   assert.deepEqual(Object.keys(b.countries), ['KW', 'SA', 'AE', 'QA', 'BH', 'OM']);
   for (const c of Object.keys(b.countries)) assert.ok(b.obligations.some((o) => o.country === c), `${c} has at least one duty`);
   assert.equal(new Set(b.obligations.map((o) => o.id)).size, b.obligations.length, 'ids are unique');
@@ -40,7 +42,7 @@ test('verification is honest: official duties link the text, secondary ones name
     if (o.verification === 'secondary') assert.ok((o.secondary || []).length > 0, `${o.id}: secondary sources listed`);
     for (const u of [o.source.url, ...(o.secondary || [])].filter(Boolean)) assert.match(u, /^https:\/\//, `${o.id}: https link`);
   }
-  assert.equal(b.obligations.filter((o) => o.verification === 'official').length, 13);
+  assert.equal(b.obligations.filter((o) => o.verification === 'official').length, 16);
   assert.equal(b.obligations.filter((o) => o.verification === 'secondary').length, 6);
 });
 
@@ -65,6 +67,9 @@ test('the deadlines encode what the sources say', () => {
   assert.equal(first('qa-qcb-data').rule, 'promptly');
   assert.equal(first('bh-ncsc-irp').rule, 'no-fixed-period');
   assert.equal(first('om-cdc').rule, 'no-fixed-period');
+  assert.equal(first('ae-difc-dp').rule, 'as-soon-as-practicable');
+  assert.equal(first('ae-adgm-dp').hours, 72);
+  assert.equal(first('qa-qfc-dp').hours, 72);
 });
 
 test('every incident type has a full playbook and a tabletop exercise', () => {

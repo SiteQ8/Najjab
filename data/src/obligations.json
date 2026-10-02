@@ -31,6 +31,23 @@
       "tz": "Asia/Muscat"
     }
   },
+  "zones": {
+    "difc": {
+      "country": "AE",
+      "en": "DIFC",
+      "ar": "مركز دبي المالي العالمي"
+    },
+    "adgm": {
+      "country": "AE",
+      "en": "ADGM",
+      "ar": "سوق أبوظبي العالمي"
+    },
+    "qfc": {
+      "country": "QA",
+      "en": "QFC",
+      "ar": "مركز قطر للمال"
+    }
+  },
   "sectors": {
     "general": {
       "en": "Any organization",
@@ -200,6 +217,18 @@
       "ar": "مصرف الإمارات العربية المتحدة المركزي",
       "url": "https://www.centralbank.ae/"
     },
+    "difc-dp": {
+      "country": "AE",
+      "en": "DIFC Commissioner of Data Protection",
+      "ar": "مفوض حماية البيانات في مركز دبي المالي العالمي",
+      "url": "https://www.difc.ae/"
+    },
+    "adgm-odp": {
+      "country": "AE",
+      "en": "ADGM Office of Data Protection",
+      "ar": "مكتب حماية البيانات في سوق أبوظبي العالمي",
+      "url": "https://www.adgm.com/"
+    },
     "ncsa": {
       "country": "QA",
       "en": "National Cyber Security Agency",
@@ -211,6 +240,12 @@
       "en": "Qatar Central Bank",
       "ar": "مصرف قطر المركزي",
       "url": "https://www.qcb.gov.qa/"
+    },
+    "qfc-dpo": {
+      "country": "QA",
+      "en": "QFC Data Protection Office",
+      "ar": "مكتب حماية البيانات في مركز قطر للمال",
+      "url": "https://www.qfc.qa/"
     },
     "bh-pdpa": {
       "country": "BH",
@@ -735,6 +770,93 @@
       "verification": "official"
     },
     {
+      "id": "ae-difc-dp",
+      "country": "AE",
+      "zone": "difc",
+      "authority": "difc-dp",
+      "trigger": "personal-data-breach",
+      "sectors": [
+        "all"
+      ],
+      "applies_to": {
+        "en": "Controllers incorporated or processing in the DIFC",
+        "ar": "جهات التحكم المسجلة في مركز دبي المالي العالمي أو التي تعالج البيانات فيه"
+      },
+      "deadlines": [
+        {
+          "stage": "initial",
+          "rule": "as-soon-as-practicable"
+        },
+        {
+          "stage": "data_subjects",
+          "rule": "as-soon-as-practicable",
+          "condition": "high-risk"
+        }
+      ],
+      "summary": {
+        "en": "Notify the DIFC Commissioner of Data Protection as soon as practicable when a breach compromises confidentiality, security or privacy, and tell the people affected as soon as practicable when the risk to them is high.",
+        "ar": "يُخطَر مفوض حماية البيانات في المركز في أقرب وقت ممكن عملياً إذا مسّ الخرق السرية أو الأمن أو الخصوصية ويُبلَّغ المتأثرون في أقرب وقت ممكن عملياً إذا كان الخطر عليهم كبيراً."
+      },
+      "source": {
+        "title": {
+          "en": "DIFC Data Protection Law, DIFC Law No. 5 of 2020",
+          "ar": "قانون حماية البيانات في مركز دبي المالي العالمي رقم 5 لسنة 2020"
+        },
+        "ref": {
+          "en": "Articles 41 and 42",
+          "ar": "المادتان 41 و42"
+        },
+        "url": "https://www.difc.ae/business/laws-regulations/legal-database/data-protection-law-difc-law-no-5-2020/"
+      },
+      "secondary": [
+        "https://www.tamimi.com/law-update-articles/personal-data-breaches-in-the-dubai-international-financial-centre"
+      ],
+      "verification": "official"
+    },
+    {
+      "id": "ae-adgm-dp",
+      "country": "AE",
+      "zone": "adgm",
+      "authority": "adgm-odp",
+      "trigger": "personal-data-breach",
+      "sectors": [
+        "all"
+      ],
+      "applies_to": {
+        "en": "Controllers registered in ADGM",
+        "ar": "جهات التحكم المسجلة في سوق أبوظبي العالمي"
+      },
+      "deadlines": [
+        {
+          "stage": "initial",
+          "hours": 72,
+          "from": "awareness",
+          "condition": "likely-rights"
+        },
+        {
+          "stage": "data_subjects",
+          "rule": "without-undue-delay",
+          "condition": "high-risk"
+        }
+      ],
+      "summary": {
+        "en": "Notify the ADGM Office of Data Protection without undue delay and where feasible within 72 hours of becoming aware unless the breach is unlikely to put people at risk, give reasons for any delay, and tell the people affected without undue delay when the risk is high.",
+        "ar": "يُخطَر مكتب حماية البيانات في السوق دون تأخير غير مبرر وخلال 72 ساعة من العلم متى أمكن ما لم يُستبعد أن يُعرّض الخرق الأشخاص لخطر وتُذكر أسباب أي تأخير ثمّ يُبلَّغ المتأثرون دون تأخير غير مبرر إذا كان الخطر كبيراً."
+      },
+      "source": {
+        "title": {
+          "en": "ADGM Data Protection Regulations 2021",
+          "ar": "لوائح حماية البيانات في سوق أبوظبي العالمي لسنة 2021"
+        },
+        "ref": {
+          "en": "Articles 32 and 33",
+          "ar": "المادتان 32 و33"
+        },
+        "url": "https://adgm.com/operating-in-adgm/office-of-data-protection/data-breach-notifications"
+      },
+      "verification": "official"
+    },
+    {
       "id": "qa-ncsa-nia",
       "country": "QA",
       "authority": "ncsa",
@@ -848,6 +970,44 @@
           "ar": "المواد من 16.1 إلى 16.3"
         },
         "url": "https://www.qcb.gov.qa/Documents/InformationSecurity/Data%20Handling%20and%20Protection%20Regulation.pdf"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "qa-qfc-dp",
+      "country": "QA",
+      "zone": "qfc",
+      "authority": "qfc-dpo",
+      "trigger": "personal-data-breach",
+      "sectors": [
+        "all"
+      ],
+      "applies_to": {
+        "en": "QFC licensed firms acting as controllers",
+        "ar": "الشركات المرخصة في مركز قطر للمال بصفتها جهات تحكم"
+      },
+      "deadlines": [
+        {
+          "stage": "initial",
+          "hours": 72,
+          "from": "awareness",
+          "condition": "likely-rights"
+        }
+      ],
+      "summary": {
+        "en": "Notify the QFC Data Protection Office within 72 hours of becoming aware of a breach unless it is unlikely to put people at risk, and the Office can order the people affected to be told.",
+        "ar": "يُخطَر مكتب حماية البيانات في المركز خلال 72 ساعة من العلم بالخرق ما لم يُستبعد أن يُعرّض الأشخاص لخطر وللمكتب أن يأمر بإبلاغ المتأثرين."
+      },
+      "source": {
+        "title": {
+          "en": "QFC Data Protection Regulations 2021",
+          "ar": "لوائح حماية البيانات في مركز قطر للمال لسنة 2021"
+        },
+        "ref": {
+          "en": "Article 31",
+          "ar": "المادة 31"
+        },
+        "url": "https://www.qfc.qa/en/operating-with-qfc/data-protection/data-protection-for-data-controllers-and-data-processors"
       },
       "verification": "official"
     },

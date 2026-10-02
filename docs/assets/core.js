@@ -4,7 +4,7 @@
 export const SCHEMA = 'najjab/1';
 export const RANK = { low: 1, medium: 2, high: 3, critical: 4 };
 const HOUR = 3600000;
-const ORDER = { immediate: 0, deadline: 1, promptly: 2, 'undue-delay': 3, 'by-regulation': 4, 'no-fixed': 5, cadence: 6, event: 7 };
+const ORDER = { immediate: 0, deadline: 1, promptly: 2, practicable: 2, 'undue-delay': 3, 'by-regulation': 4, 'no-fixed': 5, cadence: 6, event: 7 };
 
 export const tr = (pair, lang) => (pair ? (lang === 'ar' ? pair.ar : pair.en) : '');
 export const fill = (template, vars = {}) => String(template).replace(/\{(\w+)\}/g, (m, k) => (vars[k] !== undefined ? String(vars[k]) : m));
@@ -63,6 +63,7 @@ function resolve(bundle, ob, row, discovered, severity) {
   if (typeof row.days === 'number') return [{ ...base, kind: 'deadline', days: row.days, due: new Date(discovered.getTime() + row.days * 24 * HOUR) }];
   if (row.rule === 'immediately') return [{ ...base, kind: 'immediate', due: new Date(discovered.getTime()) }];
   if (row.rule === 'promptly') return [{ ...base, kind: 'promptly' }];
+  if (row.rule === 'as-soon-as-practicable') return [{ ...base, kind: 'practicable' }];
   if (row.rule === 'no-fixed-period') return [{ ...base, kind: 'no-fixed' }];
   if (row.rule === 'by-regulation') return [{ ...base, kind: 'by-regulation' }];
   if (row.rule === 'without-undue-delay') return [{ ...base, kind: 'undue-delay' }];
@@ -85,6 +86,7 @@ function compare(a, b) {
 // Every notification duty an incident triggers, soonest first.
 export function assess(bundle, input) {
   const countries = (input.countries || []).filter((c) => bundle.countries[c]);
+  const zones = (input.zones || []).filter((z) => bundle.zones[z] && countries.includes(bundle.zones[z].country));
   const sector = bundle.sectors[input.sector] ? input.sector : 'general';
   const severity = bundle.severities[input.severity] ? input.severity : 'high';
   const discovered = toDate(input.discovered);
@@ -93,16 +95,17 @@ export function assess(bundle, input) {
   const duties = [];
   for (const ob of bundle.obligations) {
     if (!countries.includes(ob.country) || !triggers.includes(ob.trigger) || !sectorOk(ob, sector)) continue;
+    if (ob.zone && !zones.includes(ob.zone)) continue;
     const { rows, note } = rowsAt(ob, severity);
     const items = rows.flatMap((r) => resolve(bundle, ob, r, discovered, severity));
     const first = (i) => (i.stage === 'initial' ? 0 : 1);
     const at = (i) => (i.due ? i.due.getTime() : Number.MAX_SAFE_INTEGER);
     items.sort((x, y) => first(x) - first(y) || at(x) - at(y));
     const lead = items.find((i) => i.stage === 'initial') || items[0] || null;
-    duties.push({ id: ob.id, country: ob.country, authority: ob.authority, trigger: ob.trigger, verification: ob.verification, note, lead, items });
+    duties.push({ id: ob.id, country: ob.country, zone: ob.zone || null, authority: ob.authority, trigger: ob.trigger, verification: ob.verification, note, lead, items });
   }
   duties.sort(compare);
-  return { discovered, countries, sector, severity, type: input.type, personal, triggers, duties };
+  return { discovered, countries, zones, sector, severity, type: input.type, personal, triggers, duties };
 }
 
 // Arabic counts agree with the number: 1 and 2 have their own forms, 3 to 10 take the plural, 11 and up the singular.
@@ -126,6 +129,7 @@ export function itemText(bundle, item, lang) {
     }
     case 'immediate': text = ui(bundle, 'rule_immediately', lang); break;
     case 'promptly': text = ui(bundle, item.via ? 'via_incident' : 'rule_promptly', lang); break;
+    case 'practicable': text = ui(bundle, 'rule_practicable', lang); break;
     case 'no-fixed': text = ui(bundle, 'rule_no_fixed', lang); break;
     case 'by-regulation': text = ui(bundle, 'rule_by_regulation', lang); break;
     case 'undue-delay': text = ui(bundle, 'rule_undue_delay', lang); break;
