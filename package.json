@@ -1,0 +1,23 @@
+{
+  "name": "najjab",
+  "version": "0.1.0",
+  "description": "Najjab: the first hours of a cyber incident in the Gulf. Who to notify, by when, with the official source of every deadline, plus playbooks, a notice draft, a tabletop exercise and an MCP server",
+  "type": "module",
+  "bin": { "najjab": "mcp/server.mjs" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "test": "node --test test/data.test.mjs test/engine.test.mjs test/mcp.test.mjs test/site.test.mjs",
+    "test:ui": "node test/ui.mjs",
+    "preflight": "node scripts/preflight.mjs",
+    "selftest": "node mcp/server.mjs --selftest",
+    "start": "node mcp/server.mjs"
+  },
+  "files": ["mcp/", "docs/assets/core.js", "docs/data/bundle.json", "README.md", "LICENSE", "NOTICE.md"],
+  "engines": { "node": ">=18" },
+  "author": "Ali AlEnezi",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/SiteQ8/Najjab.git" },
+  "homepage": "https://najjab.3li.info",
+  "keywords": ["incident-response", "breach-notification", "gcc", "kuwait", "saudi-arabia", "uae", "qatar", "bahrain", "oman", "playbooks", "tabletop-exercise", "regulatory", "mcp", "mcp-server", "arabic", "bilingual"]
+}

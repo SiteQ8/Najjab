@@ -1,0 +1,69 @@
+{
+  "exercises": {
+    "ransomware": {
+      "setup": {"en": "Early on a Sunday morning, branches of a financial company operating in Kuwait and Saudi Arabia report that shared files will not open.", "ar": "في صباح يوم أحد باكراً تبلغ فروع شركة مالية تعمل في الكويت والسعودية بأنّ الملفات المشتركة لا تُفتح."},
+      "countries": ["KW", "SA"],
+      "sector": "banking",
+      "injects": [
+        {"at": 0, "text": {"en": "Monitoring shows mass file renames on two file servers and EDR flags the same tool on 12 machines.", "ar": "تُظهر المراقبة إعادة تسمية جماعية للملفات على خادمين للملفات ويرصد EDR الأداة نفسها على 12 جهازاً."}},
+        {"at": 30, "text": {"en": "The backup console shows that last night's backup jobs were deleted.", "ar": "تُظهر وحدة إدارة النسخ الاحتياطي أنّ مهام نسخ الليلة الماضية حُذفت."}},
+        {"at": 90, "text": {"en": "A leak site post claims 200 GB of customer data and starts a 72 hour countdown.", "ar": "يدّعي منشور على موقع تسريبات امتلاك 200 جيجابايت من بيانات العملاء ويبدأ عداً تنازلياً مدته 72 ساعة."}},
+        {"at": 180, "text": {"en": "A journalist calls the communications team asking for comment.", "ar": "يتصل صحفي بفريق الاتصال المؤسسي طالباً تعليقاً."}}
+      ],
+      "questions": [
+        {"en": "Who declares the incident, and from which moment does each notice deadline count?", "ar": "من يعلن الحادثة ومن أي لحظة تُحتسب كل مهلة إبلاغ؟"},
+        {"en": "Which authorities in Kuwait and Saudi Arabia must hear from us, and by when?", "ar": "أي الجهات في الكويت والسعودية يجب أن نبلغها ومتى؟"},
+        {"en": "Do we have backups the attacker could not reach, and how long would critical services take to restore?", "ar": "هل لدينا نسخ احتياطية لم يصل إليها المهاجم وكم تستغرق استعادة الخدمات الحرجة؟"},
+        {"en": "Who approves what we say to customers and to the media?", "ar": "من يعتمد ما نقوله للعملاء ولوسائل الإعلام؟"}
+      ]
+    },
+    "bec": {
+      "setup": {"en": "On a Thursday afternoon the finance team of a contracting company in Qatar and the UAE pays a supplier invoice that arrived with new bank details.", "ar": "بعد ظهر يوم خميس يدفع فريق المالية في شركة مقاولات تعمل في قطر والإمارات فاتورة مورد وصلت ببيانات بنكية جديدة."},
+      "countries": ["QA", "AE"],
+      "sector": "general",
+      "injects": [
+        {"at": 0, "text": {"en": "On Sunday the real supplier calls to ask why the payment has not arrived.", "ar": "يوم الأحد يتصل المورد الحقيقي ليسأل عن سبب عدم وصول الدفعة."}},
+        {"at": 20, "text": {"en": "IT finds a rule in the accounts manager's mailbox that hides every message from that supplier.", "ar": "يعثر فريق التقنية على قاعدة في بريد مدير الحسابات تخفي كل رسالة من ذلك المورد."}},
+        {"at": 60, "text": {"en": "Sign in logs show access to the mailbox from abroad over the past 3 weeks.", "ar": "تُظهر سجلات الدخول وصولاً إلى البريد من خارج الدولة طوال 3 أسابيع مضت."}},
+        {"at": 120, "text": {"en": "A second supplier reports a similar email sent from the same mailbox.", "ar": "يبلغ مورد ثانٍ عن رسالة مماثلة أُرسلت من البريد نفسه."}}
+      ],
+      "questions": [
+        {"en": "Who calls the bank, and what details do they need to attempt a recall?", "ar": "من يتصل بالبنك وما البيانات التي يحتاجها لمحاولة الاسترداد؟"},
+        {"en": "Did the attacker read personal data in that mailbox, and does that trigger notices in Qatar or the UAE?", "ar": "هل اطّلع المهاجم على بيانات شخصية في ذلك البريد وهل يوجب ذلك إشعارات في قطر أو الإمارات؟"},
+        {"en": "How do we warn other suppliers without spreading the attacker's message further?", "ar": "كيف ننبّه بقية الموردين دون أن نزيد انتشار رسالة المهاجم؟"}
+      ]
+    },
+    "data-breach": {
+      "setup": {"en": "A security researcher emails an online retailer in Bahrain and Oman to say that a backup of its customer database can be downloaded publicly.", "ar": "يراسل باحث أمني متجراً إلكترونياً يعمل في البحرين وعُمان ليخبره بأنّ نسخة احتياطية من قاعدة بيانات عملائه متاحة للتنزيل علناً."},
+      "countries": ["BH", "OM"],
+      "sector": "general",
+      "injects": [
+        {"at": 0, "text": {"en": "The file is confirmed genuine and holds names, phone numbers and order histories for about 40000 customers.", "ar": "يتأكد أنّ الملف حقيقي وأنه يحوي أسماء وأرقام هواتف وسجلات طلبات لنحو 40000 عميل."}},
+        {"at": 45, "text": {"en": "Access logs show 3 downloads from unknown addresses during the past week.", "ar": "تُظهر سجلات الوصول 3 عمليات تنزيل من عناوين مجهولة خلال الأسبوع الماضي."}},
+        {"at": 120, "text": {"en": "A sample of the data is posted on a forum.", "ar": "تُنشر عينة من البيانات في منتدى."}},
+        {"at": 240, "text": {"en": "Customers start asking on social media whether their data leaked.", "ar": "يبدأ العملاء بالسؤال على وسائل التواصل هل تسربت بياناتهم."}}
+      ],
+      "questions": [
+        {"en": "When did we become aware, and what does that mean for the deadlines in Bahrain and Oman?", "ar": "متى علمنا بالخرق وما أثر ذلك على المهل في البحرين وعُمان؟"},
+        {"en": "Is the risk to customers high enough that they must be told directly?", "ar": "هل الخطر على العملاء كبير بما يوجب إبلاغهم مباشرة؟"},
+        {"en": "What do we tell customers today, before the investigation ends?", "ar": "ماذا نقول للعملاء اليوم قبل أن ينتهي التحقيق؟"}
+      ]
+    },
+    "cloud-key": {
+      "setup": {"en": "Overnight, the cloud bill of a payments startup in Saudi Arabia rises tenfold.", "ar": "خلال الليل ترتفع الفاتورة السحابية لشركة ناشئة في المدفوعات تعمل في السعودية عشرة أضعاف."},
+      "countries": ["SA"],
+      "sector": "payments",
+      "injects": [
+        {"at": 0, "text": {"en": "A developer finds that an access key was pushed to a public repository 5 days ago.", "ar": "يكتشف مطوّر أنّ مفتاح وصول رُفع إلى مستودع عام قبل 5 أيام."}},
+        {"at": 30, "text": {"en": "Audit logs show a new administrator user created with that key.", "ar": "تُظهر سجلات التدقيق مستخدماً مسؤولاً جديداً أُنشئ بذلك المفتاح."}},
+        {"at": 60, "text": {"en": "The same key listed and read a storage bucket that holds customer documents.", "ar": "استعرض المفتاح نفسه حاوية تخزين تحوي مستندات العملاء وقرأ محتواها."}},
+        {"at": 120, "text": {"en": "A partner bank asks whether the startup has had a security incident.", "ar": "يسأل بنك شريك هل تعرضت الشركة لحادثة أمنية."}}
+      ],
+      "questions": [
+        {"en": "Is this a medium or higher incident under our classification, and what does SAMA expect from us right now?", "ar": "هل هذه حادثة متوسطة فأعلى وفق تصنيفنا وماذا يتوقع منا البنك المركزي الآن؟"},
+        {"en": "Does reading customer documents make this a personal data breach under the Saudi law?", "ar": "هل تجعل قراءة مستندات العملاء هذه الحادثة خرقاً للبيانات الشخصية وفق النظام السعودي؟"},
+        {"en": "What do we tell the partner bank, and who signs it off?", "ar": "ماذا نقول للبنك الشريك ومن يعتمد ذلك؟"}
+      ]
+    }
+  }
+}

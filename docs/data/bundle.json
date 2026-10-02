@@ -1,0 +1,2008 @@
+{
+ "schema": "najjab/1",
+ "project": {
+  "name_en": "Najjab",
+  "name_ar": "نجّاب",
+  "version": "0.1.0",
+  "domain": "najjab.3li.info",
+  "repo": "https://github.com/SiteQ8/Najjab",
+  "updated": "2026-10-02",
+  "author": {
+   "en": "Ali AlEnezi",
+   "ar": "علي العنزي"
+  },
+  "author_url": "https://3li.info",
+  "about": {
+   "en": "A guide to the first hours of a cyber incident in the Gulf that turns the incident into a list of who to notify and by when, with playbooks, a notice draft and a tabletop exercise.",
+   "ar": "دليل الساعات الأولى من الحادثة السيبرانية في الخليج يحوّل الحادثة إلى قائمة بمن يجب إبلاغه ومتى ومعها أدلة الاستجابة ومسودة الإشعار وتمرين المحاكاة."
+  }
+ },
+ "countries": {
+  "KW": {
+   "en": "Kuwait",
+   "ar": "الكويت",
+   "tz": "Asia/Kuwait"
+  },
+  "SA": {
+   "en": "Saudi Arabia",
+   "ar": "السعودية",
+   "tz": "Asia/Riyadh"
+  },
+  "AE": {
+   "en": "UAE",
+   "ar": "الإمارات",
+   "tz": "Asia/Dubai"
+  },
+  "QA": {
+   "en": "Qatar",
+   "ar": "قطر",
+   "tz": "Asia/Qatar"
+  },
+  "BH": {
+   "en": "Bahrain",
+   "ar": "البحرين",
+   "tz": "Asia/Bahrain"
+  },
+  "OM": {
+   "en": "Oman",
+   "ar": "عُمان",
+   "tz": "Asia/Muscat"
+  }
+ },
+ "sectors": {
+  "general": {
+   "en": "Any organization",
+   "ar": "أي جهة"
+  },
+  "banking": {
+   "en": "Banking and finance",
+   "ar": "البنوك والتمويل"
+  },
+  "insurance": {
+   "en": "Insurance",
+   "ar": "التأمين"
+  },
+  "payments": {
+   "en": "Payment services",
+   "ar": "خدمات المدفوعات"
+  },
+  "telecom": {
+   "en": "Telecom and ICT",
+   "ar": "الاتصالات وتقنية المعلومات"
+  },
+  "government": {
+   "en": "Government",
+   "ar": "الجهات الحكومية"
+  },
+  "critical": {
+   "en": "Critical infrastructure",
+   "ar": "البنى التحتية الحساسة"
+  }
+ },
+ "severities": {
+  "critical": {
+   "en": "Critical",
+   "ar": "حرجة"
+  },
+  "high": {
+   "en": "High",
+   "ar": "عالية"
+  },
+  "medium": {
+   "en": "Medium",
+   "ar": "متوسطة"
+  },
+  "low": {
+   "en": "Low",
+   "ar": "منخفضة"
+  }
+ },
+ "triggers": {
+  "cyber-incident": {
+   "en": "Cybersecurity incident",
+   "ar": "حادثة أمن سيبراني"
+  },
+  "personal-data-breach": {
+   "en": "Personal data breach",
+   "ar": "خرق البيانات الشخصية"
+  }
+ },
+ "incident_types": {
+  "ransomware": {
+   "en": "Ransomware",
+   "ar": "برمجيات الفدية",
+   "triggers": [
+    "cyber-incident"
+   ],
+   "personal_hint": {
+    "en": "Personal data was encrypted, copied or exposed",
+    "ar": "شُفّرت بيانات شخصية أو نُسخت أو انكشفت"
+   }
+  },
+  "bec": {
+   "en": "Business email compromise",
+   "ar": "اختراق البريد الإلكتروني للأعمال",
+   "triggers": [
+    "cyber-incident"
+   ],
+   "personal_hint": {
+    "en": "Mailboxes holding personal data were accessed",
+    "ar": "جرى الوصول إلى صناديق بريد تحوي بيانات شخصية"
+   }
+  },
+  "data-breach": {
+   "en": "Data breach",
+   "ar": "تسرّب البيانات",
+   "triggers": [
+    "cyber-incident",
+    "personal-data-breach"
+   ],
+   "personal_hint": {
+    "en": "Personal data leaked",
+    "ar": "تسرّبت بيانات شخصية"
+   }
+  },
+  "cloud-key": {
+   "en": "Exposed cloud access keys",
+   "ar": "انكشاف مفاتيح الوصول السحابية",
+   "triggers": [
+    "cyber-incident"
+   ],
+   "personal_hint": {
+    "en": "The keys could reach stores holding personal data",
+    "ar": "كانت المفاتيح تصل إلى مخازن تحوي بيانات شخصية"
+   }
+  }
+ },
+ "verification_levels": {
+  "official": {
+   "en": "Official text",
+   "ar": "النص الرسمي",
+   "about": {
+    "en": "Read in the official text published by the issuing authority.",
+    "ar": "قُرئ في النص الرسمي المنشور لدى الجهة المصدرة."
+   }
+  },
+  "secondary": {
+   "en": "Secondary source",
+   "ar": "مصدر ثانوي",
+   "about": {
+    "en": "Confirmed by reputable secondary sources because the official text could not be retrieved automatically.",
+    "ar": "أكّدته مصادر ثانوية موثوقة لتعذّر الوصول الآلي إلى النص الرسمي."
+   }
+  }
+ },
+ "authorities": {
+  "cbk": {
+   "country": "KW",
+   "en": "Central Bank of Kuwait",
+   "ar": "بنك الكويت المركزي",
+   "url": "https://www.cbk.gov.kw/"
+  },
+  "kw-ncsc": {
+   "country": "KW",
+   "en": "National Cyber Security Center",
+   "ar": "المركز الوطني للأمن السيبراني"
+  },
+  "citra": {
+   "country": "KW",
+   "en": "Communication and Information Technology Regulatory Authority",
+   "ar": "الهيئة العامة للاتصالات وتقنية المعلومات"
+  },
+  "sama": {
+   "country": "SA",
+   "en": "Saudi Central Bank",
+   "ar": "البنك المركزي السعودي",
+   "url": "https://www.sama.gov.sa/"
+  },
+  "nca": {
+   "country": "SA",
+   "en": "National Cybersecurity Authority",
+   "ar": "الهيئة الوطنية للأمن السيبراني",
+   "url": "https://nca.gov.sa/"
+  },
+  "sdaia": {
+   "country": "SA",
+   "en": "Saudi Data and AI Authority",
+   "ar": "الهيئة السعودية للبيانات والذكاء الاصطناعي",
+   "url": "https://sdaia.gov.sa/"
+  },
+  "uae-data-office": {
+   "country": "AE",
+   "en": "UAE Data Office",
+   "ar": "مكتب الإمارات للبيانات"
+  },
+  "ncsa": {
+   "country": "QA",
+   "en": "National Cyber Security Agency",
+   "ar": "الوكالة الوطنية للأمن السيبراني",
+   "url": "https://ncsa.gov.qa/"
+  },
+  "bh-pdpa": {
+   "country": "BH",
+   "en": "Personal Data Protection Authority",
+   "ar": "هيئة حماية البيانات الشخصية"
+  },
+  "om-mtcit": {
+   "country": "OM",
+   "en": "Ministry of Transport, Communications and Information Technology",
+   "ar": "وزارة النقل والاتصالات وتقنية المعلومات"
+  }
+ },
+ "pending": [
+  {
+   "country": "AE",
+   "en": "Central Bank of the UAE",
+   "ar": "مصرف الإمارات العربية المتحدة المركزي"
+  },
+  {
+   "country": "QA",
+   "en": "Qatar Central Bank",
+   "ar": "مصرف قطر المركزي"
+  },
+  {
+   "country": "BH",
+   "en": "Central Bank of Bahrain",
+   "ar": "مصرف البحرين المركزي"
+  },
+  {
+   "country": "OM",
+   "en": "Central Bank of Oman",
+   "ar": "البنك المركزي العُماني"
+  },
+  {
+   "country": "AE",
+   "en": "UAE Cyber Security Council",
+   "ar": "مجلس الأمن السيبراني لدولة الإمارات"
+  },
+  {
+   "country": "BH",
+   "en": "National Cyber Security Center of Bahrain",
+   "ar": "المركز الوطني للأمن السيبراني في البحرين"
+  },
+  {
+   "country": "OM",
+   "en": "Oman Cyber Defense Center",
+   "ar": "مركز الدفاع الإلكتروني في عُمان"
+  }
+ ],
+ "obligations": [
+  {
+   "id": "kw-cbk-incident",
+   "country": "KW",
+   "authority": "cbk",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "banking"
+   ],
+   "applies_to": {
+    "en": "Entities regulated by the Central Bank of Kuwait",
+    "ar": "الجهات الخاضعة لرقابة بنك الكويت المركزي"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "severity": "high",
+     "hours": 1,
+     "from": "discovery"
+    },
+    {
+     "stage": "initial",
+     "severity": "medium",
+     "hours": 4,
+     "from": "discovery"
+    },
+    {
+     "stage": "update",
+     "severity": "high",
+     "every_hours": 4
+    },
+    {
+     "stage": "update",
+     "severity": "medium",
+     "every": "daily"
+    },
+    {
+     "stage": "closure",
+     "severity": "high",
+     "when": "resolution"
+    },
+    {
+     "stage": "closure",
+     "severity": "medium",
+     "when": "resolution"
+    },
+    {
+     "stage": "closure",
+     "severity": "low",
+     "when": "monthly"
+    }
+   ],
+   "summary": {
+    "en": "Report high severity incidents within one hour of discovery and medium ones within four hours, send updates every four hours or daily, estimate the financial loss in the first situation report and confirm it in the closure report.",
+    "ar": "يُبلَّغ البنك بالحادثة عالية الخطورة خلال ساعة من اكتشافها وبالمتوسطة خلال أربع ساعات ثمّ تُرسل التحديثات كل أربع ساعات للعالية ويومياً للمتوسطة وتُقدَّر الخسارة المالية في أول تقرير للحالة ثمّ تُثبَّت في تقرير الإغلاق."
+   },
+   "source": {
+    "title": {
+     "en": "CBK Cyber and Operational Resilience Framework v1.0, Operational Resilience Baselines",
+     "ar": "إطار المرونة السيبرانية والتشغيلية الصادر عن بنك الكويت المركزي الإصدار 1.0 والضوابط الأساسية للمرونة التشغيلية"
+    },
+    "ref": {
+     "en": "Control area 8.2.2",
+     "ar": "مجال الضوابط 8.2.2"
+    },
+    "issued": "2025-12-03",
+    "url": "https://www.cbk.gov.kw/en/images/corf-170113_v10_tcm10-170113.pdf"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "kw-cbk-pdb",
+   "country": "KW",
+   "authority": "cbk",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "banking"
+   ],
+   "applies_to": {
+    "en": "Entities regulated by the Central Bank of Kuwait",
+    "ar": "الجهات الخاضعة لرقابة بنك الكويت المركزي"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "rule": "as-incident",
+     "ref_obligation": "kw-cbk-incident"
+    }
+   ],
+   "summary": {
+    "en": "Notify the Central Bank promptly when a personal data breach is discovered, on the incident reporting timelines.",
+    "ar": "يُخطَر البنك المركزي فور اكتشاف خرق البيانات الشخصية وفق مهل الإبلاغ عن الحوادث."
+   },
+   "source": {
+    "title": {
+     "en": "CBK Cyber and Operational Resilience Framework v1.0, Cyber Resilience Baselines",
+     "ar": "إطار المرونة السيبرانية والتشغيلية الصادر عن بنك الكويت المركزي الإصدار 1.0 والضوابط الأساسية للمرونة السيبرانية"
+    },
+    "ref": {
+     "en": "Control 5.11.2.4",
+     "ar": "الضابط 5.11.2.4"
+    },
+    "issued": "2025-12-03",
+    "url": "https://www.cbk.gov.kw/en/images/corf-170113_v10_tcm10-170113.pdf"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "kw-ncsc-rs1",
+   "country": "KW",
+   "authority": "kw-ncsc",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "all"
+   ],
+   "applies_to": {
+    "en": "Entities bound by the National Basic Cybersecurity Controls",
+    "ar": "الجهات الملزمة بالضوابط الوطنية الأساسية للأمن السيبراني"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "rule": "promptly"
+    }
+   ],
+   "summary": {
+    "en": "Notify the Center promptly through its official channels within the timelines its guidance sets, use out of band channels when normal ones are affected, and send follow up updates.",
+    "ar": "يُخطَر المركز فوراً عبر قنواته الرسمية وضمن المهل التي تحددها إرشاداته وتُستخدم قنوات بديلة إذا تأثرت القنوات المعتادة ثمّ تُرسل التحديثات اللاحقة."
+   },
+   "source": {
+    "title": {
+     "en": "NCSC Decision No. 2 of 2026, Annex 1, National Basic Cybersecurity Controls",
+     "ar": "قرار المركز الوطني للأمن السيبراني رقم 2 لسنة 2026 والملحق 1 للضوابط الوطنية الأساسية للأمن السيبراني"
+    },
+    "ref": {
+     "en": "Control RS-1",
+     "ar": "الضابط RS-1"
+    },
+    "gazette": {
+     "en": "Kuwait Al Youm, issue 1785, year 72",
+     "ar": "جريدة الكويت اليوم العدد 1785 السنة 72"
+    }
+   },
+   "verification": "official"
+  },
+  {
+   "id": "kw-citra-pdb",
+   "country": "KW",
+   "authority": "citra",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "telecom"
+   ],
+   "applies_to": {
+    "en": "Service providers licensed by CITRA",
+    "ar": "مزودو الخدمة المرخصون من الهيئة العامة للاتصالات وتقنية المعلومات"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "hours": 24,
+     "from": "awareness"
+    }
+   ],
+   "summary": {
+    "en": "Notify CITRA within 24 hours of becoming aware of a personal data breach.",
+    "ar": "تُخطَر الهيئة خلال 24 ساعة من العلم بخرق البيانات الشخصية."
+   },
+   "source": {
+    "title": {
+     "en": "CITRA Resolution No. 26 of 2024 on the Data Privacy Protection Regulation",
+     "ar": "قرار الهيئة العامة للاتصالات وتقنية المعلومات رقم 26 لسنة 2024 بشأن لائحة حماية خصوصية البيانات"
+    },
+    "ref": {
+     "en": "Breach notification provision",
+     "ar": "حكم الإخطار بالخرق"
+    },
+    "issued": "2024-02-18"
+   },
+   "secondary": [
+    "https://www.tamimi.com/news/communications-and-information-technology-regulatory-authority-has-issued-new-data-privacy-regulations/"
+   ],
+   "verification": "secondary"
+  },
+  {
+   "id": "sa-sdaia-pdb",
+   "country": "SA",
+   "authority": "sdaia",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "all"
+   ],
+   "applies_to": {
+    "en": "Controllers processing personal data in Saudi Arabia",
+    "ar": "جهات التحكم التي تعالج البيانات الشخصية في المملكة"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "hours": 72,
+     "from": "awareness"
+    },
+    {
+     "stage": "data_subjects",
+     "rule": "without-undue-delay"
+    }
+   ],
+   "summary": {
+    "en": "Notify SDAIA within 72 hours of becoming aware when the breach may harm the data or the people, supply missing details as soon as possible with reasons for the delay, and tell the people affected without undue delay.",
+    "ar": "تُخطَر سدايا خلال 72 ساعة من العلم إذا كان الخرق قد يضر بالبيانات أو بأصحابها وتُستكمل المعلومات الناقصة في أقرب وقت مع مسوغات التأخير ويُبلَّغ المتأثرون دون تأخير غير مبرر."
+   },
+   "source": {
+    "title": {
+     "en": "Implementing Regulation of the Personal Data Protection Law",
+     "ar": "اللائحة التنفيذية لنظام حماية البيانات الشخصية"
+    },
+    "ref": {
+     "en": "Article 24",
+     "ar": "المادة 24"
+    },
+    "url": "https://sdaia.gov.sa/en/SDAIA/about/Pages/PersonalDataProtection.aspx"
+   },
+   "secondary": [
+    "https://www.clydeco.com/en/insights/2023/09/saudi-arabia-issues-implementing-regulations"
+   ],
+   "verification": "secondary"
+  },
+  {
+   "id": "sa-sama-csf",
+   "country": "SA",
+   "authority": "sama",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "banking",
+    "insurance"
+   ],
+   "applies_to": {
+    "en": "Organizations regulated by SAMA",
+    "ar": "الجهات الخاضعة لإشراف البنك المركزي السعودي"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "min_severity": "medium",
+     "rule": "immediately"
+    },
+    {
+     "stage": "closure",
+     "min_severity": "medium",
+     "when": "resumed"
+    }
+   ],
+   "summary": {
+    "en": "Inform SAMA immediately of medium and high incidents, obtain its no objection before any media contact, and submit a formal report after operations resume.",
+    "ar": "يُبلَّغ البنك المركزي فوراً بالحوادث المتوسطة والعالية ويُستأذن قبل أي تواصل إعلامي ثمّ يُرفع إليه تقرير رسمي بعد استئناف العمليات."
+   },
+   "source": {
+    "title": {
+     "en": "SAMA Cyber Security Framework",
+     "ar": "إطار الأمن السيبراني الصادر عن البنك المركزي السعودي"
+    },
+    "ref": {
+     "en": "Section 3.3.15",
+     "ar": "البند 3.3.15"
+    },
+    "url": "https://rulebook.sama.gov.sa/node/3956"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "sa-sama-itgf",
+   "country": "SA",
+   "authority": "sama",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "banking",
+    "insurance"
+   ],
+   "applies_to": {
+    "en": "Organizations regulated by SAMA, for incidents that affect customers",
+    "ar": "الجهات الخاضعة لإشراف البنك المركزي السعودي في الحوادث التي تمس العملاء"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "min_severity": "medium",
+     "rule": "immediately"
+    },
+    {
+     "stage": "report",
+     "min_severity": "medium",
+     "days": 5
+    }
+   ],
+   "summary": {
+    "en": "Inform SAMA immediately of medium or higher incidents that affect customers and submit a detailed report within five days.",
+    "ar": "يُبلَّغ البنك المركزي فوراً بالحوادث المتوسطة فأعلى التي تمس العملاء ثمّ يُرفع إليه تقرير مفصل خلال خمسة أيام."
+   },
+   "source": {
+    "title": {
+     "en": "SAMA Information Technology Governance Framework",
+     "ar": "إطار حوكمة تقنية المعلومات الصادر عن البنك المركزي السعودي"
+    },
+    "ref": {
+     "en": "Section 3.3.8",
+     "ar": "البند 3.3.8"
+    },
+    "url": "https://www.rulebook.sama.gov.sa/en/node/4199"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "sa-sama-payments",
+   "country": "SA",
+   "authority": "sama",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "payments"
+   ],
+   "applies_to": {
+    "en": "Payment service providers licensed by SAMA",
+    "ar": "مقدمو خدمات المدفوعات المرخصون من البنك المركزي السعودي"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "min_severity": "medium",
+     "rule": "immediately"
+    }
+   ],
+   "summary": {
+    "en": "Notify SAMA immediately when a medium or higher cyber incident is identified.",
+    "ar": "يُخطَر البنك المركزي فور اكتشاف حادثة سيبرانية متوسطة فأعلى."
+   },
+   "source": {
+    "title": {
+     "en": "Implementing Regulations of the Law of Payments and Payment Services",
+     "ar": "اللائحة التنفيذية لنظام المدفوعات وخدماتها"
+    },
+    "ref": {
+     "en": "Article 121(2)",
+     "ar": "المادة 121 الفقرة 2"
+    },
+    "url": "https://rulebook.sama.gov.sa/en/node/1574"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "sa-nca-ecc",
+   "country": "SA",
+   "authority": "nca",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "government",
+    "critical"
+   ],
+   "applies_to": {
+    "en": "Government entities and operators of critical national infrastructure",
+    "ar": "الجهات الحكومية ومشغلو البنى التحتية الوطنية الحساسة"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "rule": "no-fixed-period"
+    }
+   ],
+   "summary": {
+    "en": "Report cybersecurity incidents to NCA and share incident notifications, threat intelligence, indicators and incident reports with it, the controls set no fixed period.",
+    "ar": "تُبلَّغ الهيئة بحوادث الأمن السيبراني وتُشارَك معها إشعارات الحوادث ومعلومات التهديدات ومؤشرات الاختراق وتقارير الحوادث ولا تحدد الضوابط مهلة بعينها."
+   },
+   "source": {
+    "title": {
+     "en": "NCA Essential Cybersecurity Controls ECC-2:2024",
+     "ar": "الضوابط الأساسية للأمن السيبراني الصادرة عن الهيئة الوطنية للأمن السيبراني الإصدار 2 لعام 2024"
+    },
+    "ref": {
+     "en": "Control 2-13-3, items 3 and 4",
+     "ar": "الضابط 2-13-3 البندان 3 و4"
+    },
+    "url": "https://cdn.nca.gov.sa/api/files/public/upload/86e09090-44e4-481f-bc28-355673607654_ECC--2024-EN.pdf"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "ae-pdpl",
+   "country": "AE",
+   "authority": "uae-data-office",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "all"
+   ],
+   "applies_to": {
+    "en": "Controllers under the federal law, outside the financial free zones",
+    "ar": "جهات التحكم الخاضعة للقانون الاتحادي خارج المناطق الحرة المالية"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "rule": "by-regulation"
+    }
+   ],
+   "summary": {
+    "en": "Notify the UAE Data Office upon becoming aware of a breach that prejudices privacy, confidentiality or security, the law leaves the period to Executive Regulations whose status is unsettled in public sources.",
+    "ar": "يُخطَر مكتب الإمارات للبيانات عند العلم بخرق يمس الخصوصية أو السرية أو الأمن ويترك القانون المهلة للائحة التنفيذية التي لم يُحسم وضعها في المصادر العامة."
+   },
+   "source": {
+    "title": {
+     "en": "Federal Decree by Law No. 45 of 2021 on the Protection of Personal Data",
+     "ar": "المرسوم بقانون اتحادي رقم 45 لسنة 2021 بشأن حماية البيانات الشخصية"
+    },
+    "ref": {
+     "en": "Article 9",
+     "ar": "المادة 9"
+    },
+    "url": "https://uaelegislation.gov.ae/en/legislations/1972"
+   },
+   "secondary": [
+    "https://docs.modulos.ai/frameworks/uae-pdpl/security-breaches-dpia-and-cross-border-transfers"
+   ],
+   "verification": "secondary"
+  },
+  {
+   "id": "qa-ncsa-nia",
+   "country": "QA",
+   "authority": "ncsa",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "all"
+   ],
+   "applies_to": {
+    "en": "All organizations in Qatar",
+    "ar": "جميع الجهات في دولة قطر"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "severity": "critical",
+     "hours": 2,
+     "from": "identification"
+    }
+   ],
+   "summary": {
+    "en": "Report every critical incident to NCSA within two hours of identifying it.",
+    "ar": "تُبلَّغ الوكالة بكل حادثة حرجة خلال ساعتين من تحديدها."
+   },
+   "source": {
+    "title": {
+     "en": "National Information Assurance Standard v2.1, NCSA, May 2023",
+     "ar": "معيار تأمين المعلومات الوطنية الإصدار 2.1 الصادر عن الوكالة الوطنية للأمن السيبراني في مايو 2023"
+    },
+    "ref": {
+     "en": "Control IM 8",
+     "ar": "الضابط IM 8"
+    },
+    "url": "https://ncsa.gov.qa/shared/document_library/94787172324409/33000/1928/1.0~eeb6a930-9a7f-4f8f-9843-e4e45404668e?mimetype=application/pdf&filename=NCSA_CSGA_%20National_Information_Assurance_Standard_En_V2.1%20(2).pdf"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "qa-pdppl",
+   "country": "QA",
+   "authority": "ncsa",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "all"
+   ],
+   "applies_to": {
+    "en": "Controllers under Law No. 13 of 2016",
+    "ar": "جهات التحكم الخاضعة للقانون رقم 13 لسنة 2016"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "hours": 72,
+     "from": "awareness"
+    },
+    {
+     "stage": "data_subjects",
+     "hours": 72,
+     "from": "awareness",
+     "condition": "serious-damage"
+    }
+   ],
+   "summary": {
+    "en": "Report to the competent department at NCSA without delay and within 72 hours when the breach could cause damage, and tell the individuals within the same period when the damage could be serious.",
+    "ar": "تُبلَّغ الإدارة المختصة في الوكالة بلا تأخير وخلال 72 ساعة إذا كان الخرق قد يسبب ضرراً ويُبلَّغ الأفراد في المهلة نفسها إذا كان الضرر المحتمل جسيماً."
+   },
+   "source": {
+    "title": {
+     "en": "Personal Data Breach Notifications, Guidelines for Regulated Entities, v2.0, September 2022",
+     "ar": "إرشادات الإخطار بخروقات البيانات الشخصية للجهات الخاضعة للتنظيم الإصدار 2.0 سبتمبر 2022"
+    },
+    "ref": {
+     "en": "Breach notification summary",
+     "ar": "ملخص أحكام الإخطار بالخرق"
+    },
+    "code": "PDPPL-02050217E",
+    "url": "https://ncsa.gov.qa/shared/document_library/94787172324409/33000/8870/1.0~740b1248-e3a9-40e1-b66e-589091cc182a?mimetype=application%2Fpdf&filename=Personal+Data+Breach+Notifications+-+Guideline+for+Regulated+Entities+%284%29.pdf"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "bh-pdpa",
+   "country": "BH",
+   "authority": "bh-pdpa",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "all"
+   ],
+   "applies_to": {
+    "en": "Data managers under Law No. 30 of 2018",
+    "ar": "مديرو البيانات الخاضعون للقانون رقم 30 لسنة 2018"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "hours": 72,
+     "from": "discovery",
+     "condition": "likely-rights"
+    }
+   ],
+   "summary": {
+    "en": "Notify the Authority within 72 hours of discovering the breach unless it is unlikely to affect the rights of the people concerned, and justify any delay.",
+    "ar": "تُخطَر الهيئة خلال 72 ساعة من اكتشاف الخرق ما لم يُستبعد مساسه بحقوق أصحاب البيانات ويُسوَّغ أي تأخير."
+   },
+   "source": {
+    "title": {
+     "en": "PDPA Resolution No. 43 of 2022",
+     "ar": "قرار هيئة حماية البيانات الشخصية رقم 43 لسنة 2022"
+    },
+    "ref": {
+     "en": "Article 4(2)",
+     "ar": "المادة 4 الفقرة 2"
+    }
+   },
+   "secondary": [
+    "https://www.trowers.com/insights/2022/may/bahrain-enhances-its-data-protection-regime",
+    "https://www.lexmundi.com/guides/data-privacy-guide/jurisdictions/middle-east/bahrain/"
+   ],
+   "verification": "secondary"
+  },
+  {
+   "id": "om-pdpl",
+   "country": "OM",
+   "authority": "om-mtcit",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "all"
+   ],
+   "applies_to": {
+    "en": "Controllers under Royal Decree 6/2022",
+    "ar": "جهات التحكم الخاضعة للمرسوم السلطاني 6/2022"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "hours": 72,
+     "from": "awareness",
+     "condition": "threatens-rights"
+    },
+    {
+     "stage": "data_subjects",
+     "hours": 72,
+     "from": "awareness",
+     "condition": "serious-harm"
+    }
+   ],
+   "summary": {
+    "en": "Notify the Ministry within 72 hours of learning of a breach that threatens the rights of the people concerned, and tell them within the same period when the harm could be serious.",
+    "ar": "تُخطَر الوزارة خلال 72 ساعة من العلم بخرق يهدد حقوق أصحاب البيانات ويُبلَّغون في المهلة نفسها إذا كان الضرر المحتمل جسيماً."
+   },
+   "source": {
+    "title": {
+     "en": "Executive Regulation of the Personal Data Protection Law, Ministerial Decision No. 34 of 2024",
+     "ar": "اللائحة التنفيذية لقانون حماية البيانات الشخصية الصادرة بالقرار الوزاري رقم 34 لسنة 2024"
+    },
+    "ref": {
+     "en": "Articles 30 and 32",
+     "ar": "المادتان 30 و32"
+    },
+    "enforceable": "2026-02-05"
+   },
+   "secondary": [
+    "https://www.trowers.com/insights/2024/february/omans-data-protection-law---new-regulations",
+    "https://cms.law/en/omn/legal-updates/oman-personal-data-protection-law-entering-the-enforcement-phase"
+   ],
+   "verification": "secondary"
+  }
+ ],
+ "phases": [
+  "signs",
+  "first_hour",
+  "contain",
+  "eradicate",
+  "recover",
+  "evidence",
+  "after"
+ ],
+ "playbooks": {
+  "ransomware": {
+   "signs": [
+    {
+     "en": "Files suddenly carry a new extension and ransom notes appear in folders and on desktops.",
+     "ar": "تحمل الملفات فجأة امتداداً جديداً وتظهر رسائل الفدية في المجلدات وعلى سطح المكتب."
+    },
+    {
+     "en": "File servers show mass renames and writes within minutes.",
+     "ar": "تُظهر خوادم الملفات عمليات إعادة تسمية وكتابة جماعية في دقائق."
+    },
+    {
+     "en": "Security tools are switched off and backup jobs disappear or fail.",
+     "ar": "تتعطل أدوات الحماية وتختفي مهام النسخ الاحتياطي أو تفشل."
+    },
+    {
+     "en": "Administrator accounts sign in at odd hours or from unusual machines.",
+     "ar": "تدخل حسابات المسؤولين في أوقات غريبة أو من أجهزة غير معتادة."
+    }
+   ],
+   "first_hour": [
+    {
+     "en": "Isolate affected machines from the network but leave them powered on so memory evidence survives.",
+     "ar": "اعزل الأجهزة المصابة عن الشبكة واتركها تعمل كي تبقى الأدلة في الذاكرة."
+    },
+    {
+     "en": "Take backups offline and confirm they are intact before anything else touches them.",
+     "ar": "افصل النسخ الاحتياطية عن الشبكة وتحقق من سلامتها قبل أن يصل إليها أي شيء."
+    },
+    {
+     "en": "Disable the accounts the attacker used and reset privileged passwords, starting with domain and service accounts.",
+     "ar": "عطّل الحسابات التي استخدمها المهاجم ثمّ غيّر كلمات مرور الحسابات ذات الصلاحيات بدءاً بحسابات النطاق والخدمات."
+    },
+    {
+     "en": "Open an incident log that starts with the time of discovery, because every notice deadline counts from a moment you must be able to prove.",
+     "ar": "افتح سجلاً للحادثة يبدأ بوقت الاكتشاف لأنّ كل مهلة إبلاغ تُحتسب من لحظة عليك أن تثبتها."
+    },
+    {
+     "en": "Do not contact the attackers or pay without a decision by senior management and legal counsel.",
+     "ar": "لا تتواصل مع المهاجمين ولا تدفع قبل قرار من الإدارة العليا والمستشار القانوني."
+    },
+    {
+     "en": "Establish whether personal data was copied or encrypted, since that adds data protection notices.",
+     "ar": "تحقق هل نُسخت بيانات شخصية أو شُفّرت لأنّ ذلك يضيف إشعارات حماية البيانات."
+    }
+   ],
+   "contain": [
+    {
+     "en": "Block the attacker's addresses, domains and command servers at the firewall, the proxy and DNS.",
+     "ar": "احجب عناوين المهاجم ونطاقاته وخوادم التحكم في جدار الحماية والوكيل وخادم DNS."
+    },
+    {
+     "en": "Close the remote access paths that were used, such as exposed RDP or VPN accounts without MFA.",
+     "ar": "أغلق مسارات الوصول عن بُعد التي استُخدمت مثل RDP المكشوف أو حسابات VPN التي لا تحميها MFA."
+    },
+    {
+     "en": "Use EDR to isolate every host that shows the same indicators.",
+     "ar": "استخدم EDR لعزل كل جهاز تظهر عليه المؤشرات نفسها."
+    },
+    {
+     "en": "Remove the scheduled tasks, group policies and services the attacker created to spread.",
+     "ar": "أزل المهام المجدولة وسياسات المجموعة والخدمات التي أنشأها المهاجم للانتشار."
+    }
+   ],
+   "eradicate": [
+    {
+     "en": "Remove every persistence mechanism, including new accounts, tasks and services.",
+     "ar": "أزل كل وسائل البقاء التي زرعها المهاجم ومنها الحسابات والمهام والخدمات الجديدة."
+    },
+    {
+     "en": "Patch or close the weakness that let the attacker in.",
+     "ar": "عالج الثغرة التي دخل منها المهاجم أو أغلقها."
+    },
+    {
+     "en": "Rebuild affected systems from known good images rather than cleaning them in place.",
+     "ar": "أعد بناء الأنظمة المصابة من صور سليمة موثوقة بدلاً من تنظيفها في مكانها."
+    },
+    {
+     "en": "Reset every credential in the domain, including the Kerberos service account twice.",
+     "ar": "أعد تعيين كل بيانات الدخول في النطاق ومنها حساب خدمة Kerberos مرتين."
+    }
+   ],
+   "recover": [
+    {
+     "en": "Restore from clean backups in the order of your most critical services.",
+     "ar": "استعد البيانات من نسخ سليمة بحسب أولوية الخدمات الأكثر أهمية."
+    },
+    {
+     "en": "Check data integrity before restored systems go back to users.",
+     "ar": "تحقق من سلامة البيانات قبل أن تعود الأنظمة المستعادة إلى المستخدمين."
+    },
+    {
+     "en": "Watch restored systems closely for at least two weeks.",
+     "ar": "راقب الأنظمة المستعادة عن كثب مدة أسبوعين على الأقل."
+    }
+   ],
+   "evidence": [
+    {
+     "en": "Memory and disk images of the first infected machine.",
+     "ar": "صور الذاكرة والقرص من أول جهاز أصيب."
+    },
+    {
+     "en": "EDR, firewall, VPN, directory and backup logs from before the first sign.",
+     "ar": "سجلات EDR وجدار الحماية وشبكة VPN والدليل النشط والنسخ الاحتياطي منذ ما قبل أول علامة."
+    },
+    {
+     "en": "The ransom note and samples of encrypted files.",
+     "ar": "رسالة الفدية وعينات من الملفات المشفرة."
+    }
+   ],
+   "after": [
+    {
+     "en": "Hold a lessons learned review within two weeks and update this playbook.",
+     "ar": "اعقد مراجعة للدروس المستفادة خلال أسبوعين ثمّ حدّث هذا الدليل."
+    },
+    {
+     "en": "Send the closure reports your regulators require.",
+     "ar": "أرسل تقارير الإغلاق التي تطلبها الجهات الرقابية."
+    },
+    {
+     "en": "Test restores from offline backups on a schedule.",
+     "ar": "اختبر الاستعادة من النسخ الاحتياطية المعزولة بانتظام."
+    }
+   ]
+  },
+  "bec": {
+   "signs": [
+    {
+     "en": "A supplier or an executive asks by email to change bank details or to rush a payment.",
+     "ar": "يطلب مورد أو مسؤول كبير بالبريد تغيير بيانات الحساب البنكي أو تعجيل دفعة."
+    },
+    {
+     "en": "Mailbox rules forward or delete messages without the owner knowing.",
+     "ar": "تحوّل قواعد صندوق البريد الرسائل أو تحذفها دون علم صاحبه."
+    },
+    {
+     "en": "Sign ins come from countries or devices the user has never used.",
+     "ar": "تأتي عمليات الدخول من دول أو أجهزة لم يستخدمها صاحب الحساب قط."
+    },
+    {
+     "en": "Replies arrive from a lookalike domain that differs by a single letter.",
+     "ar": "تصل الردود من نطاق مشابه يختلف بحرف واحد."
+    }
+   ],
+   "first_hour": [
+    {
+     "en": "Call your bank at once to stop or recall the payment, because hours decide whether the money comes back.",
+     "ar": "اتصل بالبنك فوراً لإيقاف الدفعة أو استردادها لأنّ الساعات تحدد هل يعود المال."
+    },
+    {
+     "en": "Reset the compromised account password and revoke all of its sessions and tokens.",
+     "ar": "غيّر كلمة مرور الحساب المخترق وألغِ كل جلساته ورموز دخوله."
+    },
+    {
+     "en": "Remove the forwarding and inbox rules the attacker created.",
+     "ar": "أزل قواعد التحويل وقواعد صندوق الوارد التي أنشأها المهاجم."
+    },
+    {
+     "en": "Enforce MFA on the account and confirm that it holds.",
+     "ar": "فعّل MFA على الحساب وتأكد من سريانها."
+    },
+    {
+     "en": "Warn the finance team and the affected counterparties through phone numbers you already know.",
+     "ar": "نبّه فريق المالية والأطراف المتأثرة عبر أرقام هواتف معروفة لديكم مسبقاً."
+    },
+    {
+     "en": "Export the mailbox audit and sign in logs before retention removes them.",
+     "ar": "صدّر سجلات تدقيق البريد وسجلات الدخول قبل أن تحذفها مدة الاحتفاظ."
+    }
+   ],
+   "contain": [
+    {
+     "en": "Search the whole mail environment for the same phishing messages and remove them.",
+     "ar": "ابحث في بيئة البريد كلها عن رسائل التصيد نفسها واحذفها."
+    },
+    {
+     "en": "Block the attacker's lookalike domains and sending addresses.",
+     "ar": "احجب النطاقات المشابهة وعناوين الإرسال التي استخدمها المهاجم."
+    },
+    {
+     "en": "Review OAuth app consents and revoke any the attacker granted.",
+     "ar": "راجع أذونات تطبيقات OAuth وألغِ ما منحه المهاجم منها."
+    },
+    {
+     "en": "Check other accounts for the same indicators.",
+     "ar": "افحص الحسابات الأخرى بحثاً عن المؤشرات نفسها."
+    }
+   ],
+   "eradicate": [
+    {
+     "en": "Disable legacy authentication that bypasses MFA.",
+     "ar": "عطّل أساليب المصادقة القديمة التي تتجاوز MFA."
+    },
+    {
+     "en": "Apply conditional access to finance and executive accounts.",
+     "ar": "طبّق الوصول المشروط على حسابات المالية والإدارة العليا."
+    }
+   ],
+   "recover": [
+    {
+     "en": "Confirm every changed bank detail with the supplier by a verified phone call.",
+     "ar": "أكّد كل تغيير في البيانات البنكية مع المورد باتصال هاتفي موثّق."
+    },
+    {
+     "en": "Resume payments only with approval from two people.",
+     "ar": "استأنف الدفعات بموافقة شخصين فقط."
+    }
+   ],
+   "evidence": [
+    {
+     "en": "Full message headers of the fraudulent emails.",
+     "ar": "الترويسات الكاملة للرسائل الاحتيالية."
+    },
+    {
+     "en": "The unified audit log, the sign in logs and the mailbox rules.",
+     "ar": "سجل التدقيق الموحد وسجلات الدخول وقواعد صندوق البريد."
+    },
+    {
+     "en": "Payment records and the bank's reference numbers.",
+     "ar": "سجلات الدفع والأرقام المرجعية لدى البنك."
+    }
+   ],
+   "after": [
+    {
+     "en": "Make a callback to a known number mandatory for any change of bank details.",
+     "ar": "اجعل الاتصال برقم معروف شرطاً لأي تغيير في البيانات البنكية."
+    },
+    {
+     "en": "Move your domains to a DMARC reject policy.",
+     "ar": "انقل نطاقاتكم إلى سياسة DMARC بالرفض."
+    },
+    {
+     "en": "Train the finance team on the exact pattern that was used.",
+     "ar": "درّب فريق المالية على النمط نفسه الذي استُخدم."
+    }
+   ]
+  },
+  "data-breach": {
+   "signs": [
+    {
+     "en": "Your data appears on a leak site, a forum or a messaging channel.",
+     "ar": "تظهر بياناتكم على موقع تسريبات أو منتدى أو قناة مراسلة."
+    },
+    {
+     "en": "Large or unusual transfers leave the network or a cloud store.",
+     "ar": "تخرج تحويلات كبيرة أو غير معتادة من الشبكة أو من مخزن سحابي."
+    },
+    {
+     "en": "Customers or a researcher report that your data is exposed.",
+     "ar": "يبلغكم عملاء أو باحث بأنّ بياناتكم مكشوفة."
+    },
+    {
+     "en": "An extortion email claims to hold your data.",
+     "ar": "تصلكم رسالة ابتزاز تدّعي امتلاك بياناتكم."
+    }
+   ],
+   "first_hour": [
+    {
+     "en": "Confirm whether the data is genuine and where it came from while touching as little of it as possible.",
+     "ar": "تحقق هل البيانات حقيقية ومن أين خرجت مع أقل اطلاع ممكن عليها."
+    },
+    {
+     "en": "Stop the exposure by closing the open store or revoking the access that leaked it.",
+     "ar": "أوقف الانكشاف بإغلاق المخزن المفتوح أو بإلغاء الوصول الذي سرّبها."
+    },
+    {
+     "en": "Work out which types of data and how many people are involved, since that decides who must be told.",
+     "ar": "حدّد أنواع البيانات وعدد الأشخاص المعنيين لأنّ ذلك يحدد من يجب إبلاغه."
+    },
+    {
+     "en": "Bring in the data protection officer and legal counsel and start the notice clock.",
+     "ar": "أشرك مسؤول حماية البيانات والمستشار القانوني وابدأ عدّاد مهل الإبلاغ."
+    },
+    {
+     "en": "Preserve the access logs before they rotate.",
+     "ar": "احفظ سجلات الوصول قبل أن تُستبدل."
+    }
+   ],
+   "contain": [
+    {
+     "en": "Lock down exposed buckets, shares and databases.",
+     "ar": "أغلق الحاويات والمجلدات المشتركة وقواعد البيانات المكشوفة."
+    },
+    {
+     "en": "Revoke the credentials and API keys that could reach the data.",
+     "ar": "ألغِ بيانات الدخول ومفاتيح API التي قد تصل إلى البيانات."
+    },
+    {
+     "en": "Ask the hosting platforms to take down published copies where possible.",
+     "ar": "اطلب من المنصات المستضيفة حذف النسخ المنشورة متى أمكن."
+    },
+    {
+     "en": "Monitor for any further publication of the same data.",
+     "ar": "راقب أي نشر جديد للبيانات نفسها."
+    }
+   ],
+   "eradicate": [
+    {
+     "en": "Fix the root cause, whether a misconfiguration, a vulnerability or excessive access.",
+     "ar": "عالج السبب الجذري سواء كان خطأ في الإعدادات أو ثغرة أو صلاحيات زائدة."
+    }
+   ],
+   "recover": [
+    {
+     "en": "Notify the people affected as the law requires and tell them what they should do.",
+     "ar": "أبلغ المتأثرين كما يوجب القانون وأخبرهم بما ينبغي أن يفعلوه."
+    },
+    {
+     "en": "Reset passwords and watch for fraud against the affected accounts.",
+     "ar": "أعد تعيين كلمات المرور وراقب محاولات الاحتيال على الحسابات المتأثرة."
+    }
+   ],
+   "evidence": [
+    {
+     "en": "Access logs for the store that leaked.",
+     "ar": "سجلات الوصول إلى المخزن الذي حصل منه التسريب."
+    },
+    {
+     "en": "A secured copy of the published sample and where it was found.",
+     "ar": "نسخة محفوظة بأمان من العينة المنشورة ومكان العثور عليها."
+    },
+    {
+     "en": "A timeline of the exposure, the discovery and the closure.",
+     "ar": "تسلسل زمني للانكشاف والاكتشاف والإغلاق."
+    }
+   ],
+   "after": [
+    {
+     "en": "Delete the data you do not need to keep.",
+     "ar": "احذف البيانات التي لا تحتاج إلى الاحتفاظ بها."
+    },
+    {
+     "en": "Review who can reach sensitive data and add leak detection.",
+     "ar": "راجع من يصل إلى البيانات الحساسة وأضف رصداً للتسريب."
+    }
+   ]
+  },
+  "cloud-key": {
+   "signs": [
+    {
+     "en": "A secret scanner flags a key in a public repository or in a log.",
+     "ar": "يرصد ماسح الأسرار مفتاحاً في مستودع عام أو في سجل."
+    },
+    {
+     "en": "The cloud bill or API usage jumps without explanation.",
+     "ar": "ترتفع الفاتورة السحابية أو استخدام API دون تفسير."
+    },
+    {
+     "en": "New users, keys or machines appear in regions you never use.",
+     "ar": "يظهر مستخدمون جدد أو مفاتيح أو أجهزة في مناطق لا تستخدمونها."
+    }
+   ],
+   "first_hour": [
+    {
+     "en": "Deactivate the exposed key at once and then replace it in the applications that need it.",
+     "ar": "عطّل المفتاح المكشوف فوراً ثمّ استبدله في التطبيقات التي تحتاجه."
+    },
+    {
+     "en": "Read the cloud audit logs for every action the key took since it was exposed.",
+     "ar": "اقرأ سجلات التدقيق السحابية لكل إجراء نفّذه المفتاح منذ انكشافه."
+    },
+    {
+     "en": "Look for identities, keys or roles the attacker created to stay in.",
+     "ar": "ابحث عن هويات أو مفاتيح أو أدوار أنشأها المهاجم ليبقى في البيئة."
+    },
+    {
+     "en": "Stop resources you did not create, such as mining machines.",
+     "ar": "أوقف الموارد التي لم تنشئوها مثل أجهزة التعدين."
+    },
+    {
+     "en": "Check whether the key could read storage that holds personal data.",
+     "ar": "تحقق هل كان المفتاح قادراً على قراءة مخازن تحوي بيانات شخصية."
+    }
+   ],
+   "contain": [
+    {
+     "en": "Apply deny policies at the account or organization level while you investigate.",
+     "ar": "طبّق سياسات منع على مستوى الحساب أو المؤسسة طوال التحقيق."
+    },
+    {
+     "en": "Quarantine the workloads that ran with the exposed key.",
+     "ar": "اعزل أحمال العمل التي عملت بالمفتاح المكشوف."
+    },
+    {
+     "en": "Remove the secret from the repository history and invalidate cached copies.",
+     "ar": "احذف السر من تاريخ المستودع وأبطل النسخ المخزنة مؤقتاً."
+    }
+   ],
+   "eradicate": [
+    {
+     "en": "Delete every identity and resource the attacker created.",
+     "ar": "احذف كل هوية ومورد أنشأه المهاجم."
+    },
+    {
+     "en": "Cut permissions back to what each workload needs.",
+     "ar": "قلّص الصلاحيات إلى ما يحتاجه كل حمل عمل."
+    }
+   ],
+   "recover": [
+    {
+     "en": "Redeploy with secrets held in a secrets manager.",
+     "ar": "أعد النشر مع حفظ الأسرار في مدير أسرار."
+    },
+    {
+     "en": "Confirm the bill has returned to normal.",
+     "ar": "تأكد من عودة الفاتورة إلى معدلها الطبيعي."
+    }
+   ],
+   "evidence": [
+    {
+     "en": "Cloud audit logs from the moment of exposure.",
+     "ar": "سجلات التدقيق السحابية منذ لحظة الانكشاف."
+    },
+    {
+     "en": "The commit or file where the key was exposed and when it happened.",
+     "ar": "الإيداع أو الملف الذي انكشف فيه المفتاح وتوقيت ذلك."
+    }
+   ],
+   "after": [
+    {
+     "en": "Block secrets at commit time with secret scanning and push protection.",
+     "ar": "امنع الأسرار عند الإيداع بفحص الأسرار وحماية الدفع."
+    },
+    {
+     "en": "Replace long lived keys with short lived credentials.",
+     "ar": "استبدل المفاتيح طويلة الأمد ببيانات دخول قصيرة الأمد."
+    }
+   ]
+  }
+ },
+ "tabletop": {
+  "ransomware": {
+   "setup": {
+    "en": "Early on a Sunday morning, branches of a financial company operating in Kuwait and Saudi Arabia report that shared files will not open.",
+    "ar": "في صباح يوم أحد باكراً تبلغ فروع شركة مالية تعمل في الكويت والسعودية بأنّ الملفات المشتركة لا تُفتح."
+   },
+   "countries": [
+    "KW",
+    "SA"
+   ],
+   "sector": "banking",
+   "injects": [
+    {
+     "at": 0,
+     "text": {
+      "en": "Monitoring shows mass file renames on two file servers and EDR flags the same tool on 12 machines.",
+      "ar": "تُظهر المراقبة إعادة تسمية جماعية للملفات على خادمين للملفات ويرصد EDR الأداة نفسها على 12 جهازاً."
+     }
+    },
+    {
+     "at": 30,
+     "text": {
+      "en": "The backup console shows that last night's backup jobs were deleted.",
+      "ar": "تُظهر وحدة إدارة النسخ الاحتياطي أنّ مهام نسخ الليلة الماضية حُذفت."
+     }
+    },
+    {
+     "at": 90,
+     "text": {
+      "en": "A leak site post claims 200 GB of customer data and starts a 72 hour countdown.",
+      "ar": "يدّعي منشور على موقع تسريبات امتلاك 200 جيجابايت من بيانات العملاء ويبدأ عداً تنازلياً مدته 72 ساعة."
+     }
+    },
+    {
+     "at": 180,
+     "text": {
+      "en": "A journalist calls the communications team asking for comment.",
+      "ar": "يتصل صحفي بفريق الاتصال المؤسسي طالباً تعليقاً."
+     }
+    }
+   ],
+   "questions": [
+    {
+     "en": "Who declares the incident, and from which moment does each notice deadline count?",
+     "ar": "من يعلن الحادثة ومن أي لحظة تُحتسب كل مهلة إبلاغ؟"
+    },
+    {
+     "en": "Which authorities in Kuwait and Saudi Arabia must hear from us, and by when?",
+     "ar": "أي الجهات في الكويت والسعودية يجب أن نبلغها ومتى؟"
+    },
+    {
+     "en": "Do we have backups the attacker could not reach, and how long would critical services take to restore?",
+     "ar": "هل لدينا نسخ احتياطية لم يصل إليها المهاجم وكم تستغرق استعادة الخدمات الحرجة؟"
+    },
+    {
+     "en": "Who approves what we say to customers and to the media?",
+     "ar": "من يعتمد ما نقوله للعملاء ولوسائل الإعلام؟"
+    }
+   ]
+  },
+  "bec": {
+   "setup": {
+    "en": "On a Thursday afternoon the finance team of a contracting company in Qatar and the UAE pays a supplier invoice that arrived with new bank details.",
+    "ar": "بعد ظهر يوم خميس يدفع فريق المالية في شركة مقاولات تعمل في قطر والإمارات فاتورة مورد وصلت ببيانات بنكية جديدة."
+   },
+   "countries": [
+    "QA",
+    "AE"
+   ],
+   "sector": "general",
+   "injects": [
+    {
+     "at": 0,
+     "text": {
+      "en": "On Sunday the real supplier calls to ask why the payment has not arrived.",
+      "ar": "يوم الأحد يتصل المورد الحقيقي ليسأل عن سبب عدم وصول الدفعة."
+     }
+    },
+    {
+     "at": 20,
+     "text": {
+      "en": "IT finds a rule in the accounts manager's mailbox that hides every message from that supplier.",
+      "ar": "يعثر فريق التقنية على قاعدة في بريد مدير الحسابات تخفي كل رسالة من ذلك المورد."
+     }
+    },
+    {
+     "at": 60,
+     "text": {
+      "en": "Sign in logs show access to the mailbox from abroad over the past 3 weeks.",
+      "ar": "تُظهر سجلات الدخول وصولاً إلى البريد من خارج الدولة طوال 3 أسابيع مضت."
+     }
+    },
+    {
+     "at": 120,
+     "text": {
+      "en": "A second supplier reports a similar email sent from the same mailbox.",
+      "ar": "يبلغ مورد ثانٍ عن رسالة مماثلة أُرسلت من البريد نفسه."
+     }
+    }
+   ],
+   "questions": [
+    {
+     "en": "Who calls the bank, and what details do they need to attempt a recall?",
+     "ar": "من يتصل بالبنك وما البيانات التي يحتاجها لمحاولة الاسترداد؟"
+    },
+    {
+     "en": "Did the attacker read personal data in that mailbox, and does that trigger notices in Qatar or the UAE?",
+     "ar": "هل اطّلع المهاجم على بيانات شخصية في ذلك البريد وهل يوجب ذلك إشعارات في قطر أو الإمارات؟"
+    },
+    {
+     "en": "How do we warn other suppliers without spreading the attacker's message further?",
+     "ar": "كيف ننبّه بقية الموردين دون أن نزيد انتشار رسالة المهاجم؟"
+    }
+   ]
+  },
+  "data-breach": {
+   "setup": {
+    "en": "A security researcher emails an online retailer in Bahrain and Oman to say that a backup of its customer database can be downloaded publicly.",
+    "ar": "يراسل باحث أمني متجراً إلكترونياً يعمل في البحرين وعُمان ليخبره بأنّ نسخة احتياطية من قاعدة بيانات عملائه متاحة للتنزيل علناً."
+   },
+   "countries": [
+    "BH",
+    "OM"
+   ],
+   "sector": "general",
+   "injects": [
+    {
+     "at": 0,
+     "text": {
+      "en": "The file is confirmed genuine and holds names, phone numbers and order histories for about 40000 customers.",
+      "ar": "يتأكد أنّ الملف حقيقي وأنه يحوي أسماء وأرقام هواتف وسجلات طلبات لنحو 40000 عميل."
+     }
+    },
+    {
+     "at": 45,
+     "text": {
+      "en": "Access logs show 3 downloads from unknown addresses during the past week.",
+      "ar": "تُظهر سجلات الوصول 3 عمليات تنزيل من عناوين مجهولة خلال الأسبوع الماضي."
+     }
+    },
+    {
+     "at": 120,
+     "text": {
+      "en": "A sample of the data is posted on a forum.",
+      "ar": "تُنشر عينة من البيانات في منتدى."
+     }
+    },
+    {
+     "at": 240,
+     "text": {
+      "en": "Customers start asking on social media whether their data leaked.",
+      "ar": "يبدأ العملاء بالسؤال على وسائل التواصل هل تسربت بياناتهم."
+     }
+    }
+   ],
+   "questions": [
+    {
+     "en": "When did we become aware, and what does that mean for the deadlines in Bahrain and Oman?",
+     "ar": "متى علمنا بالخرق وما أثر ذلك على المهل في البحرين وعُمان؟"
+    },
+    {
+     "en": "Is the risk to customers high enough that they must be told directly?",
+     "ar": "هل الخطر على العملاء كبير بما يوجب إبلاغهم مباشرة؟"
+    },
+    {
+     "en": "What do we tell customers today, before the investigation ends?",
+     "ar": "ماذا نقول للعملاء اليوم قبل أن ينتهي التحقيق؟"
+    }
+   ]
+  },
+  "cloud-key": {
+   "setup": {
+    "en": "Overnight, the cloud bill of a payments startup in Saudi Arabia rises tenfold.",
+    "ar": "خلال الليل ترتفع الفاتورة السحابية لشركة ناشئة في المدفوعات تعمل في السعودية عشرة أضعاف."
+   },
+   "countries": [
+    "SA"
+   ],
+   "sector": "payments",
+   "injects": [
+    {
+     "at": 0,
+     "text": {
+      "en": "A developer finds that an access key was pushed to a public repository 5 days ago.",
+      "ar": "يكتشف مطوّر أنّ مفتاح وصول رُفع إلى مستودع عام قبل 5 أيام."
+     }
+    },
+    {
+     "at": 30,
+     "text": {
+      "en": "Audit logs show a new administrator user created with that key.",
+      "ar": "تُظهر سجلات التدقيق مستخدماً مسؤولاً جديداً أُنشئ بذلك المفتاح."
+     }
+    },
+    {
+     "at": 60,
+     "text": {
+      "en": "The same key listed and read a storage bucket that holds customer documents.",
+      "ar": "استعرض المفتاح نفسه حاوية تخزين تحوي مستندات العملاء وقرأ محتواها."
+     }
+    },
+    {
+     "at": 120,
+     "text": {
+      "en": "A partner bank asks whether the startup has had a security incident.",
+      "ar": "يسأل بنك شريك هل تعرضت الشركة لحادثة أمنية."
+     }
+    }
+   ],
+   "questions": [
+    {
+     "en": "Is this a medium or higher incident under our classification, and what does SAMA expect from us right now?",
+     "ar": "هل هذه حادثة متوسطة فأعلى وفق تصنيفنا وماذا يتوقع منا البنك المركزي الآن؟"
+    },
+    {
+     "en": "Does reading customer documents make this a personal data breach under the Saudi law?",
+     "ar": "هل تجعل قراءة مستندات العملاء هذه الحادثة خرقاً للبيانات الشخصية وفق النظام السعودي؟"
+    },
+    {
+     "en": "What do we tell the partner bank, and who signs it off?",
+     "ar": "ماذا نقول للبنك الشريك ومن يعتمد ذلك؟"
+    }
+   ]
+  }
+ },
+ "ui": {
+  "tagline": {
+   "en": "A guide to the first hours of a cyber incident in the Gulf: who to notify, by when, and what to do.",
+   "ar": "دليل الساعات الأولى من الحادثة السيبرانية في الخليج يحدد من نبلّغ ومتى وماذا نفعل."
+  },
+  "skip": {
+   "en": "Skip to the deadlines",
+   "ar": "انتقل إلى المهل"
+  },
+  "noscript": {
+   "en": "Najjab needs JavaScript to calculate the deadlines.",
+   "ar": "يحتاج نجّاب إلى JavaScript لحساب المهل."
+  },
+  "incident": {
+   "en": "The incident",
+   "ar": "الحادثة"
+  },
+  "countries": {
+   "en": "Where you operate",
+   "ar": "الدول التي تعمل فيها"
+  },
+  "sector": {
+   "en": "Sector",
+   "ar": "القطاع"
+  },
+  "type": {
+   "en": "What happened",
+   "ar": "ما الذي حدث"
+  },
+  "severity": {
+   "en": "Severity",
+   "ar": "درجة الخطورة"
+  },
+  "severity_hint": {
+   "en": "Regulators grade severity differently, so pick the grade your own classification gives.",
+   "ar": "تختلف الجهات في تدرّج الخطورة لذا اختر الدرجة التي يعطيها تصنيفكم الداخلي."
+  },
+  "personal": {
+   "en": "Personal data was affected",
+   "ar": "مسّت الحادثة بيانات شخصية"
+  },
+  "discovered": {
+   "en": "Discovered at",
+   "ar": "وقت الاكتشاف"
+  },
+  "discovered_hint": {
+   "en": "Each deadline counts from discovery, awareness or identification, and its source says which.",
+   "ar": "تُحتسب كل مهلة من الاكتشاف أو العلم أو التحديد ويبيّن مصدرها أيّها المقصود."
+  },
+  "now": {
+   "en": "Set to now",
+   "ar": "اجعله الآن"
+  },
+  "clock": {
+   "en": "Who to notify and by when",
+   "ar": "من نبلّغ ومتى"
+  },
+  "clock_empty": {
+   "en": "Pick at least one country to see the deadlines.",
+   "ar": "اختر دولة واحدة على الأقل لتظهر المهل."
+  },
+  "clock_none": {
+   "en": "No published notification duty matches this incident in the selected countries and sector.",
+   "ar": "لا يوجد واجب إبلاغ منشور يطابق هذه الحادثة في الدول والقطاع المختارين."
+  },
+  "remaining": {
+   "en": "{t} left",
+   "ar": "متبقٍ {t}"
+  },
+  "overdue": {
+   "en": "{t} past the deadline",
+   "ar": "مضى على المهلة {t}"
+  },
+  "due_local": {
+   "en": "Due {time} your time",
+   "ar": "الموعد {time} بتوقيتك"
+  },
+  "due_country": {
+   "en": "{time} in {country}",
+   "ar": "{time} بتوقيت {country}"
+  },
+  "stage_initial": {
+   "en": "First notice",
+   "ar": "الإبلاغ الأول"
+  },
+  "stage_update": {
+   "en": "Updates",
+   "ar": "التحديثات"
+  },
+  "stage_closure": {
+   "en": "Closure report",
+   "ar": "تقرير الإغلاق"
+  },
+  "stage_report": {
+   "en": "Detailed report",
+   "ar": "التقرير المفصل"
+  },
+  "stage_data_subjects": {
+   "en": "Telling the people affected",
+   "ar": "إبلاغ أصحاب البيانات"
+  },
+  "rule_immediately": {
+   "en": "Immediately",
+   "ar": "فوراً"
+  },
+  "rule_promptly": {
+   "en": "Promptly, within the authority's timelines",
+   "ar": "دون تأخير وضمن المهل التي تحددها الجهة"
+  },
+  "rule_no_fixed": {
+   "en": "No fixed period",
+   "ar": "بلا مهلة محددة"
+  },
+  "rule_by_regulation": {
+   "en": "Upon awareness, period left to executive regulations",
+   "ar": "عند العلم والمهلة متروكة للائحة التنفيذية"
+  },
+  "rule_undue_delay": {
+   "en": "Without undue delay",
+   "ar": "دون تأخير غير مبرر"
+  },
+  "when_resolution": {
+   "en": "Once the incident is resolved",
+   "ar": "عند حل الحادثة"
+  },
+  "when_monthly": {
+   "en": "Consolidated monthly",
+   "ar": "مجمّعاً كل شهر"
+  },
+  "when_resumed": {
+   "en": "After operations resume",
+   "ar": "بعد استئناف العمليات"
+  },
+  "every_daily": {
+   "en": "Daily",
+   "ar": "يومياً"
+  },
+  "from_discovery": {
+   "en": "of discovery",
+   "ar": "من الاكتشاف"
+  },
+  "from_awareness": {
+   "en": "of awareness",
+   "ar": "من العلم"
+  },
+  "from_identification": {
+   "en": "of identification",
+   "ar": "من التحديد"
+  },
+  "cond_serious-damage": {
+   "en": "if the damage could be serious",
+   "ar": "إذا كان الضرر المحتمل جسيماً"
+  },
+  "cond_likely-rights": {
+   "en": "unless it is unlikely to affect rights",
+   "ar": "ما لم يُستبعد المساس بالحقوق"
+  },
+  "cond_threatens-rights": {
+   "en": "if it threatens the rights of the people concerned",
+   "ar": "إذا هدد حقوق أصحاب البيانات"
+  },
+  "cond_serious-harm": {
+   "en": "if the harm could be serious",
+   "ar": "إذا كان الضرر المحتمل جسيماً"
+  },
+  "note_top_tier": {
+   "en": "The authority's highest grade was applied to this critical incident.",
+   "ar": "طُبّقت على هذه الحادثة الحرجة أعلى درجة لدى الجهة."
+  },
+  "note_only": {
+   "en": "Applies to {grades} incidents only.",
+   "ar": "يخص الحوادث {grades} وحدها."
+  },
+  "note_from": {
+   "en": "Applies from {grade} severity upward.",
+   "ar": "يسري من درجة {grade} فأعلى."
+  },
+  "note_conditional": {
+   "en": "Not triggered at this severity",
+   "ar": "لا يسري عند هذه الدرجة"
+  },
+  "via_incident": {
+   "en": "Follows the incident reporting timelines",
+   "ar": "يتبع مهل الإبلاغ عن الحوادث"
+  },
+  "open_official": {
+   "en": "Official source",
+   "ar": "المصدر الرسمي"
+  },
+  "confirmed_by": {
+   "en": "Confirmed by",
+   "ar": "أكّده"
+  },
+  "applies_to": {
+   "en": "Applies to",
+   "ar": "ينطبق على"
+  },
+  "tab_playbook": {
+   "en": "Playbook",
+   "ar": "دليل الاستجابة"
+  },
+  "tab_draft": {
+   "en": "Notice draft",
+   "ar": "مسودة الإشعار"
+  },
+  "tab_tabletop": {
+   "en": "Tabletop exercise",
+   "ar": "تمرين المحاكاة"
+  },
+  "tab_register": {
+   "en": "All duties",
+   "ar": "سجل الواجبات"
+  },
+  "phase_signs": {
+   "en": "How it shows up",
+   "ar": "كيف تظهر"
+  },
+  "phase_first_hour": {
+   "en": "First hour",
+   "ar": "الساعة الأولى"
+  },
+  "phase_contain": {
+   "en": "Contain",
+   "ar": "الاحتواء"
+  },
+  "phase_eradicate": {
+   "en": "Eradicate",
+   "ar": "الاستئصال"
+  },
+  "phase_recover": {
+   "en": "Recover",
+   "ar": "التعافي"
+  },
+  "phase_evidence": {
+   "en": "Evidence to keep",
+   "ar": "الأدلة الواجب حفظها"
+  },
+  "phase_after": {
+   "en": "After the incident",
+   "ar": "ما بعد الحادثة"
+  },
+  "progress": {
+   "en": "{done} of {total} done",
+   "ar": "أُنجز {done} من {total}"
+  },
+  "f_org": {
+   "en": "Organization",
+   "ar": "الجهة"
+  },
+  "f_contact": {
+   "en": "Contact person and phone",
+   "ar": "مسؤول التواصل ورقمه"
+  },
+  "f_summary": {
+   "en": "Short description",
+   "ar": "وصف موجز"
+  },
+  "f_systems": {
+   "en": "Systems affected",
+   "ar": "الأنظمة المتأثرة"
+  },
+  "f_records": {
+   "en": "People or records affected",
+   "ar": "عدد الأشخاص أو السجلات المتأثرة"
+  },
+  "f_actions": {
+   "en": "Actions taken so far",
+   "ar": "الإجراءات المتخذة حتى الآن"
+  },
+  "f_next": {
+   "en": "Next update",
+   "ar": "التحديث القادم"
+  },
+  "draft_note": {
+   "en": "Use the authority's own form and channel where one exists, this draft only gathers the facts every notice needs.",
+   "ar": "استخدم نموذج الجهة وقناتها الرسمية إن وُجدا فهذه المسودة تجمع الحقائق التي يحتاجها كل إشعار فحسب."
+  },
+  "draft_ar": {
+   "en": "Arabic notice",
+   "ar": "الإشعار بالعربية"
+  },
+  "draft_en": {
+   "en": "English notice",
+   "ar": "الإشعار بالإنجليزية"
+  },
+  "copy": {
+   "en": "Copy",
+   "ar": "انسخ"
+  },
+  "copied": {
+   "en": "Copied",
+   "ar": "نُسخ"
+  },
+  "print": {
+   "en": "Print the incident sheet",
+   "ar": "اطبع ورقة الحادثة"
+  },
+  "tt_setup": {
+   "en": "Scenario",
+   "ar": "السيناريو"
+  },
+  "tt_start": {
+   "en": "Start the exercise",
+   "ar": "ابدأ التمرين"
+  },
+  "tt_next": {
+   "en": "Reveal the next development",
+   "ar": "اكشف التطور التالي"
+  },
+  "tt_reset": {
+   "en": "Start over",
+   "ar": "ابدأ من جديد"
+  },
+  "tt_questions": {
+   "en": "Questions for the room",
+   "ar": "أسئلة للنقاش"
+  },
+  "tt_elapsed": {
+   "en": "Elapsed",
+   "ar": "الوقت المنقضي"
+  },
+  "tt_at": {
+   "en": "Minute {m}",
+   "ar": "الدقيقة {m}"
+  },
+  "tt_done": {
+   "en": "All developments are out, so move to the questions.",
+   "ar": "كُشفت التطورات كلها فانتقلوا إلى الأسئلة."
+  },
+  "tt_load": {
+   "en": "Use this scenario's countries and sector",
+   "ar": "استخدم دول هذا السيناريو وقطاعه"
+  },
+  "reg_all": {
+   "en": "All countries",
+   "ar": "كل الدول"
+  },
+  "reg_country": {
+   "en": "Country",
+   "ar": "الدولة"
+  },
+  "reg_authority": {
+   "en": "Authority",
+   "ar": "الجهة"
+  },
+  "reg_duty": {
+   "en": "Duty",
+   "ar": "الواجب"
+  },
+  "reg_source": {
+   "en": "Source",
+   "ar": "المصدر"
+  },
+  "pending_title": {
+   "en": "Still being verified",
+   "ar": "قيد التحقق"
+  },
+  "pending_note": {
+   "en": "These authorities are not in the register yet because their rules have not been read in an official or reliable source.",
+   "ar": "لم تدخل هذه الجهات السجل بعد لأنّ قواعدها لم تُقرأ في مصدر رسمي أو موثوق."
+  },
+  "disclaimer": {
+   "en": "Najjab is a practical reference and not legal advice, so always act on the official text.",
+   "ar": "نجّاب مرجع عملي لا يغني عن الاستشارة القانونية لذا يبقى النص الرسمي هو المعتمد دائماً."
+  },
+  "updated": {
+   "en": "Data checked on {date}",
+   "ar": "رُوجعت البيانات في {date}"
+  },
+  "mcp_note": {
+   "en": "The same data answers AI assistants through the MCP server in the repository.",
+   "ar": "وتجيب البيانات نفسها مساعدي الذكاء الاصطناعي عبر خادم MCP في المستودع."
+  },
+  "built_by": {
+   "en": "Built by Ali AlEnezi",
+   "ar": "من إعداد علي العنزي"
+  },
+  "source_code": {
+   "en": "Source code",
+   "ar": "الشيفرة المصدرية"
+  },
+  "yes": {
+   "en": "Yes",
+   "ar": "نعم"
+  },
+  "no": {
+   "en": "No",
+   "ar": "لا"
+  },
+  "not_stated": {
+   "en": "Not stated yet",
+   "ar": "لم يُحدد بعد"
+  },
+  "n_subject": {
+   "en": "Cybersecurity incident notice",
+   "ar": "إشعار بحادثة أمن سيبراني"
+  },
+  "n_to": {
+   "en": "To",
+   "ar": "إلى"
+  },
+  "n_org": {
+   "en": "Organization",
+   "ar": "الجهة المبلِّغة"
+  },
+  "n_contact": {
+   "en": "Contact",
+   "ar": "مسؤول التواصل"
+  },
+  "n_time": {
+   "en": "Discovered at",
+   "ar": "وقت الاكتشاف"
+  },
+  "n_type": {
+   "en": "Type of incident",
+   "ar": "نوع الحادثة"
+  },
+  "n_severity": {
+   "en": "Severity",
+   "ar": "درجة الخطورة"
+  },
+  "n_systems": {
+   "en": "Systems affected",
+   "ar": "الأنظمة المتأثرة"
+  },
+  "n_personal": {
+   "en": "Personal data affected",
+   "ar": "تأثر البيانات الشخصية"
+  },
+  "n_records": {
+   "en": "People or records affected",
+   "ar": "عدد الأشخاص أو السجلات"
+  },
+  "n_summary": {
+   "en": "What happened",
+   "ar": "ملخص ما حدث"
+  },
+  "n_actions": {
+   "en": "Actions taken",
+   "ar": "الإجراءات المتخذة"
+  },
+  "n_next": {
+   "en": "Next update",
+   "ar": "التحديث القادم"
+  },
+  "seal_left": {
+   "en": "left",
+   "ar": "متبقٍ"
+  },
+  "seal_over": {
+   "en": "overdue",
+   "ar": "متأخر"
+  },
+  "seal_promptly": {
+   "en": "Promptly",
+   "ar": "دون تأخير"
+  },
+  "seal_open": {
+   "en": "No number yet",
+   "ar": "بلا رقم بعد"
+  },
+  "seal_none": {
+   "en": "No period",
+   "ar": "بلا مهلة"
+  },
+  "seal_off": {
+   "en": "Not at this grade",
+   "ar": "لا يسري"
+  },
+  "brief": {
+   "en": "Incident sheet",
+   "ar": "ورقة الحادثة"
+  },
+  "count_fmt": {
+   "en": "{n} duties",
+   "ar": "عدد الواجبات {n}"
+  },
+  "personal_locked": {
+   "en": "A data breach always involves personal data here.",
+   "ar": "يُعدّ تسرّب البيانات هنا ماساً بالبيانات الشخصية دائماً."
+  },
+  "lang_name": {
+   "en": "English",
+   "ar": "العربية"
+  }
+ }
+}

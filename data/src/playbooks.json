@@ -1,0 +1,160 @@
+{
+  "phases": ["signs", "first_hour", "contain", "eradicate", "recover", "evidence", "after"],
+  "playbooks": {
+    "ransomware": {
+      "signs": [
+        {"en": "Files suddenly carry a new extension and ransom notes appear in folders and on desktops.", "ar": "تحمل الملفات فجأة امتداداً جديداً وتظهر رسائل الفدية في المجلدات وعلى سطح المكتب."},
+        {"en": "File servers show mass renames and writes within minutes.", "ar": "تُظهر خوادم الملفات عمليات إعادة تسمية وكتابة جماعية في دقائق."},
+        {"en": "Security tools are switched off and backup jobs disappear or fail.", "ar": "تتعطل أدوات الحماية وتختفي مهام النسخ الاحتياطي أو تفشل."},
+        {"en": "Administrator accounts sign in at odd hours or from unusual machines.", "ar": "تدخل حسابات المسؤولين في أوقات غريبة أو من أجهزة غير معتادة."}
+      ],
+      "first_hour": [
+        {"en": "Isolate affected machines from the network but leave them powered on so memory evidence survives.", "ar": "اعزل الأجهزة المصابة عن الشبكة واتركها تعمل كي تبقى الأدلة في الذاكرة."},
+        {"en": "Take backups offline and confirm they are intact before anything else touches them.", "ar": "افصل النسخ الاحتياطية عن الشبكة وتحقق من سلامتها قبل أن يصل إليها أي شيء."},
+        {"en": "Disable the accounts the attacker used and reset privileged passwords, starting with domain and service accounts.", "ar": "عطّل الحسابات التي استخدمها المهاجم ثمّ غيّر كلمات مرور الحسابات ذات الصلاحيات بدءاً بحسابات النطاق والخدمات."},
+        {"en": "Open an incident log that starts with the time of discovery, because every notice deadline counts from a moment you must be able to prove.", "ar": "افتح سجلاً للحادثة يبدأ بوقت الاكتشاف لأنّ كل مهلة إبلاغ تُحتسب من لحظة عليك أن تثبتها."},
+        {"en": "Do not contact the attackers or pay without a decision by senior management and legal counsel.", "ar": "لا تتواصل مع المهاجمين ولا تدفع قبل قرار من الإدارة العليا والمستشار القانوني."},
+        {"en": "Establish whether personal data was copied or encrypted, since that adds data protection notices.", "ar": "تحقق هل نُسخت بيانات شخصية أو شُفّرت لأنّ ذلك يضيف إشعارات حماية البيانات."}
+      ],
+      "contain": [
+        {"en": "Block the attacker's addresses, domains and command servers at the firewall, the proxy and DNS.", "ar": "احجب عناوين المهاجم ونطاقاته وخوادم التحكم في جدار الحماية والوكيل وخادم DNS."},
+        {"en": "Close the remote access paths that were used, such as exposed RDP or VPN accounts without MFA.", "ar": "أغلق مسارات الوصول عن بُعد التي استُخدمت مثل RDP المكشوف أو حسابات VPN التي لا تحميها MFA."},
+        {"en": "Use EDR to isolate every host that shows the same indicators.", "ar": "استخدم EDR لعزل كل جهاز تظهر عليه المؤشرات نفسها."},
+        {"en": "Remove the scheduled tasks, group policies and services the attacker created to spread.", "ar": "أزل المهام المجدولة وسياسات المجموعة والخدمات التي أنشأها المهاجم للانتشار."}
+      ],
+      "eradicate": [
+        {"en": "Remove every persistence mechanism, including new accounts, tasks and services.", "ar": "أزل كل وسائل البقاء التي زرعها المهاجم ومنها الحسابات والمهام والخدمات الجديدة."},
+        {"en": "Patch or close the weakness that let the attacker in.", "ar": "عالج الثغرة التي دخل منها المهاجم أو أغلقها."},
+        {"en": "Rebuild affected systems from known good images rather than cleaning them in place.", "ar": "أعد بناء الأنظمة المصابة من صور سليمة موثوقة بدلاً من تنظيفها في مكانها."},
+        {"en": "Reset every credential in the domain, including the Kerberos service account twice.", "ar": "أعد تعيين كل بيانات الدخول في النطاق ومنها حساب خدمة Kerberos مرتين."}
+      ],
+      "recover": [
+        {"en": "Restore from clean backups in the order of your most critical services.", "ar": "استعد البيانات من نسخ سليمة بحسب أولوية الخدمات الأكثر أهمية."},
+        {"en": "Check data integrity before restored systems go back to users.", "ar": "تحقق من سلامة البيانات قبل أن تعود الأنظمة المستعادة إلى المستخدمين."},
+        {"en": "Watch restored systems closely for at least two weeks.", "ar": "راقب الأنظمة المستعادة عن كثب مدة أسبوعين على الأقل."}
+      ],
+      "evidence": [
+        {"en": "Memory and disk images of the first infected machine.", "ar": "صور الذاكرة والقرص من أول جهاز أصيب."},
+        {"en": "EDR, firewall, VPN, directory and backup logs from before the first sign.", "ar": "سجلات EDR وجدار الحماية وشبكة VPN والدليل النشط والنسخ الاحتياطي منذ ما قبل أول علامة."},
+        {"en": "The ransom note and samples of encrypted files.", "ar": "رسالة الفدية وعينات من الملفات المشفرة."}
+      ],
+      "after": [
+        {"en": "Hold a lessons learned review within two weeks and update this playbook.", "ar": "اعقد مراجعة للدروس المستفادة خلال أسبوعين ثمّ حدّث هذا الدليل."},
+        {"en": "Send the closure reports your regulators require.", "ar": "أرسل تقارير الإغلاق التي تطلبها الجهات الرقابية."},
+        {"en": "Test restores from offline backups on a schedule.", "ar": "اختبر الاستعادة من النسخ الاحتياطية المعزولة بانتظام."}
+      ]
+    },
+    "bec": {
+      "signs": [
+        {"en": "A supplier or an executive asks by email to change bank details or to rush a payment.", "ar": "يطلب مورد أو مسؤول كبير بالبريد تغيير بيانات الحساب البنكي أو تعجيل دفعة."},
+        {"en": "Mailbox rules forward or delete messages without the owner knowing.", "ar": "تحوّل قواعد صندوق البريد الرسائل أو تحذفها دون علم صاحبه."},
+        {"en": "Sign ins come from countries or devices the user has never used.", "ar": "تأتي عمليات الدخول من دول أو أجهزة لم يستخدمها صاحب الحساب قط."},
+        {"en": "Replies arrive from a lookalike domain that differs by a single letter.", "ar": "تصل الردود من نطاق مشابه يختلف بحرف واحد."}
+      ],
+      "first_hour": [
+        {"en": "Call your bank at once to stop or recall the payment, because hours decide whether the money comes back.", "ar": "اتصل بالبنك فوراً لإيقاف الدفعة أو استردادها لأنّ الساعات تحدد هل يعود المال."},
+        {"en": "Reset the compromised account password and revoke all of its sessions and tokens.", "ar": "غيّر كلمة مرور الحساب المخترق وألغِ كل جلساته ورموز دخوله."},
+        {"en": "Remove the forwarding and inbox rules the attacker created.", "ar": "أزل قواعد التحويل وقواعد صندوق الوارد التي أنشأها المهاجم."},
+        {"en": "Enforce MFA on the account and confirm that it holds.", "ar": "فعّل MFA على الحساب وتأكد من سريانها."},
+        {"en": "Warn the finance team and the affected counterparties through phone numbers you already know.", "ar": "نبّه فريق المالية والأطراف المتأثرة عبر أرقام هواتف معروفة لديكم مسبقاً."},
+        {"en": "Export the mailbox audit and sign in logs before retention removes them.", "ar": "صدّر سجلات تدقيق البريد وسجلات الدخول قبل أن تحذفها مدة الاحتفاظ."}
+      ],
+      "contain": [
+        {"en": "Search the whole mail environment for the same phishing messages and remove them.", "ar": "ابحث في بيئة البريد كلها عن رسائل التصيد نفسها واحذفها."},
+        {"en": "Block the attacker's lookalike domains and sending addresses.", "ar": "احجب النطاقات المشابهة وعناوين الإرسال التي استخدمها المهاجم."},
+        {"en": "Review OAuth app consents and revoke any the attacker granted.", "ar": "راجع أذونات تطبيقات OAuth وألغِ ما منحه المهاجم منها."},
+        {"en": "Check other accounts for the same indicators.", "ar": "افحص الحسابات الأخرى بحثاً عن المؤشرات نفسها."}
+      ],
+      "eradicate": [
+        {"en": "Disable legacy authentication that bypasses MFA.", "ar": "عطّل أساليب المصادقة القديمة التي تتجاوز MFA."},
+        {"en": "Apply conditional access to finance and executive accounts.", "ar": "طبّق الوصول المشروط على حسابات المالية والإدارة العليا."}
+      ],
+      "recover": [
+        {"en": "Confirm every changed bank detail with the supplier by a verified phone call.", "ar": "أكّد كل تغيير في البيانات البنكية مع المورد باتصال هاتفي موثّق."},
+        {"en": "Resume payments only with approval from two people.", "ar": "استأنف الدفعات بموافقة شخصين فقط."}
+      ],
+      "evidence": [
+        {"en": "Full message headers of the fraudulent emails.", "ar": "الترويسات الكاملة للرسائل الاحتيالية."},
+        {"en": "The unified audit log, the sign in logs and the mailbox rules.", "ar": "سجل التدقيق الموحد وسجلات الدخول وقواعد صندوق البريد."},
+        {"en": "Payment records and the bank's reference numbers.", "ar": "سجلات الدفع والأرقام المرجعية لدى البنك."}
+      ],
+      "after": [
+        {"en": "Make a callback to a known number mandatory for any change of bank details.", "ar": "اجعل الاتصال برقم معروف شرطاً لأي تغيير في البيانات البنكية."},
+        {"en": "Move your domains to a DMARC reject policy.", "ar": "انقل نطاقاتكم إلى سياسة DMARC بالرفض."},
+        {"en": "Train the finance team on the exact pattern that was used.", "ar": "درّب فريق المالية على النمط نفسه الذي استُخدم."}
+      ]
+    },
+    "data-breach": {
+      "signs": [
+        {"en": "Your data appears on a leak site, a forum or a messaging channel.", "ar": "تظهر بياناتكم على موقع تسريبات أو منتدى أو قناة مراسلة."},
+        {"en": "Large or unusual transfers leave the network or a cloud store.", "ar": "تخرج تحويلات كبيرة أو غير معتادة من الشبكة أو من مخزن سحابي."},
+        {"en": "Customers or a researcher report that your data is exposed.", "ar": "يبلغكم عملاء أو باحث بأنّ بياناتكم مكشوفة."},
+        {"en": "An extortion email claims to hold your data.", "ar": "تصلكم رسالة ابتزاز تدّعي امتلاك بياناتكم."}
+      ],
+      "first_hour": [
+        {"en": "Confirm whether the data is genuine and where it came from while touching as little of it as possible.", "ar": "تحقق هل البيانات حقيقية ومن أين خرجت مع أقل اطلاع ممكن عليها."},
+        {"en": "Stop the exposure by closing the open store or revoking the access that leaked it.", "ar": "أوقف الانكشاف بإغلاق المخزن المفتوح أو بإلغاء الوصول الذي سرّبها."},
+        {"en": "Work out which types of data and how many people are involved, since that decides who must be told.", "ar": "حدّد أنواع البيانات وعدد الأشخاص المعنيين لأنّ ذلك يحدد من يجب إبلاغه."},
+        {"en": "Bring in the data protection officer and legal counsel and start the notice clock.", "ar": "أشرك مسؤول حماية البيانات والمستشار القانوني وابدأ عدّاد مهل الإبلاغ."},
+        {"en": "Preserve the access logs before they rotate.", "ar": "احفظ سجلات الوصول قبل أن تُستبدل."}
+      ],
+      "contain": [
+        {"en": "Lock down exposed buckets, shares and databases.", "ar": "أغلق الحاويات والمجلدات المشتركة وقواعد البيانات المكشوفة."},
+        {"en": "Revoke the credentials and API keys that could reach the data.", "ar": "ألغِ بيانات الدخول ومفاتيح API التي قد تصل إلى البيانات."},
+        {"en": "Ask the hosting platforms to take down published copies where possible.", "ar": "اطلب من المنصات المستضيفة حذف النسخ المنشورة متى أمكن."},
+        {"en": "Monitor for any further publication of the same data.", "ar": "راقب أي نشر جديد للبيانات نفسها."}
+      ],
+      "eradicate": [
+        {"en": "Fix the root cause, whether a misconfiguration, a vulnerability or excessive access.", "ar": "عالج السبب الجذري سواء كان خطأ في الإعدادات أو ثغرة أو صلاحيات زائدة."}
+      ],
+      "recover": [
+        {"en": "Notify the people affected as the law requires and tell them what they should do.", "ar": "أبلغ المتأثرين كما يوجب القانون وأخبرهم بما ينبغي أن يفعلوه."},
+        {"en": "Reset passwords and watch for fraud against the affected accounts.", "ar": "أعد تعيين كلمات المرور وراقب محاولات الاحتيال على الحسابات المتأثرة."}
+      ],
+      "evidence": [
+        {"en": "Access logs for the store that leaked.", "ar": "سجلات الوصول إلى المخزن الذي حصل منه التسريب."},
+        {"en": "A secured copy of the published sample and where it was found.", "ar": "نسخة محفوظة بأمان من العينة المنشورة ومكان العثور عليها."},
+        {"en": "A timeline of the exposure, the discovery and the closure.", "ar": "تسلسل زمني للانكشاف والاكتشاف والإغلاق."}
+      ],
+      "after": [
+        {"en": "Delete the data you do not need to keep.", "ar": "احذف البيانات التي لا تحتاج إلى الاحتفاظ بها."},
+        {"en": "Review who can reach sensitive data and add leak detection.", "ar": "راجع من يصل إلى البيانات الحساسة وأضف رصداً للتسريب."}
+      ]
+    },
+    "cloud-key": {
+      "signs": [
+        {"en": "A secret scanner flags a key in a public repository or in a log.", "ar": "يرصد ماسح الأسرار مفتاحاً في مستودع عام أو في سجل."},
+        {"en": "The cloud bill or API usage jumps without explanation.", "ar": "ترتفع الفاتورة السحابية أو استخدام API دون تفسير."},
+        {"en": "New users, keys or machines appear in regions you never use.", "ar": "يظهر مستخدمون جدد أو مفاتيح أو أجهزة في مناطق لا تستخدمونها."}
+      ],
+      "first_hour": [
+        {"en": "Deactivate the exposed key at once and then replace it in the applications that need it.", "ar": "عطّل المفتاح المكشوف فوراً ثمّ استبدله في التطبيقات التي تحتاجه."},
+        {"en": "Read the cloud audit logs for every action the key took since it was exposed.", "ar": "اقرأ سجلات التدقيق السحابية لكل إجراء نفّذه المفتاح منذ انكشافه."},
+        {"en": "Look for identities, keys or roles the attacker created to stay in.", "ar": "ابحث عن هويات أو مفاتيح أو أدوار أنشأها المهاجم ليبقى في البيئة."},
+        {"en": "Stop resources you did not create, such as mining machines.", "ar": "أوقف الموارد التي لم تنشئوها مثل أجهزة التعدين."},
+        {"en": "Check whether the key could read storage that holds personal data.", "ar": "تحقق هل كان المفتاح قادراً على قراءة مخازن تحوي بيانات شخصية."}
+      ],
+      "contain": [
+        {"en": "Apply deny policies at the account or organization level while you investigate.", "ar": "طبّق سياسات منع على مستوى الحساب أو المؤسسة طوال التحقيق."},
+        {"en": "Quarantine the workloads that ran with the exposed key.", "ar": "اعزل أحمال العمل التي عملت بالمفتاح المكشوف."},
+        {"en": "Remove the secret from the repository history and invalidate cached copies.", "ar": "احذف السر من تاريخ المستودع وأبطل النسخ المخزنة مؤقتاً."}
+      ],
+      "eradicate": [
+        {"en": "Delete every identity and resource the attacker created.", "ar": "احذف كل هوية ومورد أنشأه المهاجم."},
+        {"en": "Cut permissions back to what each workload needs.", "ar": "قلّص الصلاحيات إلى ما يحتاجه كل حمل عمل."}
+      ],
+      "recover": [
+        {"en": "Redeploy with secrets held in a secrets manager.", "ar": "أعد النشر مع حفظ الأسرار في مدير أسرار."},
+        {"en": "Confirm the bill has returned to normal.", "ar": "تأكد من عودة الفاتورة إلى معدلها الطبيعي."}
+      ],
+      "evidence": [
+        {"en": "Cloud audit logs from the moment of exposure.", "ar": "سجلات التدقيق السحابية منذ لحظة الانكشاف."},
+        {"en": "The commit or file where the key was exposed and when it happened.", "ar": "الإيداع أو الملف الذي انكشف فيه المفتاح وتوقيت ذلك."}
+      ],
+      "after": [
+        {"en": "Block secrets at commit time with secret scanning and push protection.", "ar": "امنع الأسرار عند الإيداع بفحص الأسرار وحماية الدفع."},
+        {"en": "Replace long lived keys with short lived credentials.", "ar": "استبدل المفاتيح طويلة الأمد ببيانات دخول قصيرة الأمد."}
+      ]
+    }
+  }
+}

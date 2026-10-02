@@ -1,0 +1,340 @@
+{
+  "countries": {
+    "KW": {"en": "Kuwait", "ar": "الكويت", "tz": "Asia/Kuwait"},
+    "SA": {"en": "Saudi Arabia", "ar": "السعودية", "tz": "Asia/Riyadh"},
+    "AE": {"en": "UAE", "ar": "الإمارات", "tz": "Asia/Dubai"},
+    "QA": {"en": "Qatar", "ar": "قطر", "tz": "Asia/Qatar"},
+    "BH": {"en": "Bahrain", "ar": "البحرين", "tz": "Asia/Bahrain"},
+    "OM": {"en": "Oman", "ar": "عُمان", "tz": "Asia/Muscat"}
+  },
+  "sectors": {
+    "general": {"en": "Any organization", "ar": "أي جهة"},
+    "banking": {"en": "Banking and finance", "ar": "البنوك والتمويل"},
+    "insurance": {"en": "Insurance", "ar": "التأمين"},
+    "payments": {"en": "Payment services", "ar": "خدمات المدفوعات"},
+    "telecom": {"en": "Telecom and ICT", "ar": "الاتصالات وتقنية المعلومات"},
+    "government": {"en": "Government", "ar": "الجهات الحكومية"},
+    "critical": {"en": "Critical infrastructure", "ar": "البنى التحتية الحساسة"}
+  },
+  "severities": {
+    "critical": {"en": "Critical", "ar": "حرجة"},
+    "high": {"en": "High", "ar": "عالية"},
+    "medium": {"en": "Medium", "ar": "متوسطة"},
+    "low": {"en": "Low", "ar": "منخفضة"}
+  },
+  "triggers": {
+    "cyber-incident": {"en": "Cybersecurity incident", "ar": "حادثة أمن سيبراني"},
+    "personal-data-breach": {"en": "Personal data breach", "ar": "خرق البيانات الشخصية"}
+  },
+  "incident_types": {
+    "ransomware": {
+      "en": "Ransomware", "ar": "برمجيات الفدية",
+      "triggers": ["cyber-incident"],
+      "personal_hint": {"en": "Personal data was encrypted, copied or exposed", "ar": "شُفّرت بيانات شخصية أو نُسخت أو انكشفت"}
+    },
+    "bec": {
+      "en": "Business email compromise", "ar": "اختراق البريد الإلكتروني للأعمال",
+      "triggers": ["cyber-incident"],
+      "personal_hint": {"en": "Mailboxes holding personal data were accessed", "ar": "جرى الوصول إلى صناديق بريد تحوي بيانات شخصية"}
+    },
+    "data-breach": {
+      "en": "Data breach", "ar": "تسرّب البيانات",
+      "triggers": ["cyber-incident", "personal-data-breach"],
+      "personal_hint": {"en": "Personal data leaked", "ar": "تسرّبت بيانات شخصية"}
+    },
+    "cloud-key": {
+      "en": "Exposed cloud access keys", "ar": "انكشاف مفاتيح الوصول السحابية",
+      "triggers": ["cyber-incident"],
+      "personal_hint": {"en": "The keys could reach stores holding personal data", "ar": "كانت المفاتيح تصل إلى مخازن تحوي بيانات شخصية"}
+    }
+  },
+  "verification_levels": {
+    "official": {
+      "en": "Official text", "ar": "النص الرسمي",
+      "about": {"en": "Read in the official text published by the issuing authority.", "ar": "قُرئ في النص الرسمي المنشور لدى الجهة المصدرة."}
+    },
+    "secondary": {
+      "en": "Secondary source", "ar": "مصدر ثانوي",
+      "about": {"en": "Confirmed by reputable secondary sources because the official text could not be retrieved automatically.", "ar": "أكّدته مصادر ثانوية موثوقة لتعذّر الوصول الآلي إلى النص الرسمي."}
+    }
+  },
+  "authorities": {
+    "cbk": {"country": "KW", "en": "Central Bank of Kuwait", "ar": "بنك الكويت المركزي", "url": "https://www.cbk.gov.kw/"},
+    "kw-ncsc": {"country": "KW", "en": "National Cyber Security Center", "ar": "المركز الوطني للأمن السيبراني"},
+    "citra": {"country": "KW", "en": "Communication and Information Technology Regulatory Authority", "ar": "الهيئة العامة للاتصالات وتقنية المعلومات"},
+    "sama": {"country": "SA", "en": "Saudi Central Bank", "ar": "البنك المركزي السعودي", "url": "https://www.sama.gov.sa/"},
+    "nca": {"country": "SA", "en": "National Cybersecurity Authority", "ar": "الهيئة الوطنية للأمن السيبراني", "url": "https://nca.gov.sa/"},
+    "sdaia": {"country": "SA", "en": "Saudi Data and AI Authority", "ar": "الهيئة السعودية للبيانات والذكاء الاصطناعي", "url": "https://sdaia.gov.sa/"},
+    "uae-data-office": {"country": "AE", "en": "UAE Data Office", "ar": "مكتب الإمارات للبيانات"},
+    "ncsa": {"country": "QA", "en": "National Cyber Security Agency", "ar": "الوكالة الوطنية للأمن السيبراني", "url": "https://ncsa.gov.qa/"},
+    "bh-pdpa": {"country": "BH", "en": "Personal Data Protection Authority", "ar": "هيئة حماية البيانات الشخصية"},
+    "om-mtcit": {"country": "OM", "en": "Ministry of Transport, Communications and Information Technology", "ar": "وزارة النقل والاتصالات وتقنية المعلومات"}
+  },
+  "pending": [
+    {"country": "AE", "en": "Central Bank of the UAE", "ar": "مصرف الإمارات العربية المتحدة المركزي"},
+    {"country": "QA", "en": "Qatar Central Bank", "ar": "مصرف قطر المركزي"},
+    {"country": "BH", "en": "Central Bank of Bahrain", "ar": "مصرف البحرين المركزي"},
+    {"country": "OM", "en": "Central Bank of Oman", "ar": "البنك المركزي العُماني"},
+    {"country": "AE", "en": "UAE Cyber Security Council", "ar": "مجلس الأمن السيبراني لدولة الإمارات"},
+    {"country": "BH", "en": "National Cyber Security Center of Bahrain", "ar": "المركز الوطني للأمن السيبراني في البحرين"},
+    {"country": "OM", "en": "Oman Cyber Defense Center", "ar": "مركز الدفاع الإلكتروني في عُمان"}
+  ],
+  "obligations": [
+    {
+      "id": "kw-cbk-incident", "country": "KW", "authority": "cbk", "trigger": "cyber-incident", "sectors": ["banking"],
+      "applies_to": {"en": "Entities regulated by the Central Bank of Kuwait", "ar": "الجهات الخاضعة لرقابة بنك الكويت المركزي"},
+      "deadlines": [
+        {"stage": "initial", "severity": "high", "hours": 1, "from": "discovery"},
+        {"stage": "initial", "severity": "medium", "hours": 4, "from": "discovery"},
+        {"stage": "update", "severity": "high", "every_hours": 4},
+        {"stage": "update", "severity": "medium", "every": "daily"},
+        {"stage": "closure", "severity": "high", "when": "resolution"},
+        {"stage": "closure", "severity": "medium", "when": "resolution"},
+        {"stage": "closure", "severity": "low", "when": "monthly"}
+      ],
+      "summary": {
+        "en": "Report high severity incidents within one hour of discovery and medium ones within four hours, send updates every four hours or daily, estimate the financial loss in the first situation report and confirm it in the closure report.",
+        "ar": "يُبلَّغ البنك بالحادثة عالية الخطورة خلال ساعة من اكتشافها وبالمتوسطة خلال أربع ساعات ثمّ تُرسل التحديثات كل أربع ساعات للعالية ويومياً للمتوسطة وتُقدَّر الخسارة المالية في أول تقرير للحالة ثمّ تُثبَّت في تقرير الإغلاق."
+      },
+      "source": {
+        "title": {"en": "CBK Cyber and Operational Resilience Framework v1.0, Operational Resilience Baselines", "ar": "إطار المرونة السيبرانية والتشغيلية الصادر عن بنك الكويت المركزي الإصدار 1.0 والضوابط الأساسية للمرونة التشغيلية"},
+        "ref": {"en": "Control area 8.2.2", "ar": "مجال الضوابط 8.2.2"},
+        "issued": "2025-12-03",
+        "url": "https://www.cbk.gov.kw/en/images/corf-170113_v10_tcm10-170113.pdf"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "kw-cbk-pdb", "country": "KW", "authority": "cbk", "trigger": "personal-data-breach", "sectors": ["banking"],
+      "applies_to": {"en": "Entities regulated by the Central Bank of Kuwait", "ar": "الجهات الخاضعة لرقابة بنك الكويت المركزي"},
+      "deadlines": [
+        {"stage": "initial", "rule": "as-incident", "ref_obligation": "kw-cbk-incident"}
+      ],
+      "summary": {
+        "en": "Notify the Central Bank promptly when a personal data breach is discovered, on the incident reporting timelines.",
+        "ar": "يُخطَر البنك المركزي فور اكتشاف خرق البيانات الشخصية وفق مهل الإبلاغ عن الحوادث."
+      },
+      "source": {
+        "title": {"en": "CBK Cyber and Operational Resilience Framework v1.0, Cyber Resilience Baselines", "ar": "إطار المرونة السيبرانية والتشغيلية الصادر عن بنك الكويت المركزي الإصدار 1.0 والضوابط الأساسية للمرونة السيبرانية"},
+        "ref": {"en": "Control 5.11.2.4", "ar": "الضابط 5.11.2.4"},
+        "issued": "2025-12-03",
+        "url": "https://www.cbk.gov.kw/en/images/corf-170113_v10_tcm10-170113.pdf"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "kw-ncsc-rs1", "country": "KW", "authority": "kw-ncsc", "trigger": "cyber-incident", "sectors": ["all"],
+      "applies_to": {"en": "Entities bound by the National Basic Cybersecurity Controls", "ar": "الجهات الملزمة بالضوابط الوطنية الأساسية للأمن السيبراني"},
+      "deadlines": [
+        {"stage": "initial", "rule": "promptly"}
+      ],
+      "summary": {
+        "en": "Notify the Center promptly through its official channels within the timelines its guidance sets, use out of band channels when normal ones are affected, and send follow up updates.",
+        "ar": "يُخطَر المركز فوراً عبر قنواته الرسمية وضمن المهل التي تحددها إرشاداته وتُستخدم قنوات بديلة إذا تأثرت القنوات المعتادة ثمّ تُرسل التحديثات اللاحقة."
+      },
+      "source": {
+        "title": {"en": "NCSC Decision No. 2 of 2026, Annex 1, National Basic Cybersecurity Controls", "ar": "قرار المركز الوطني للأمن السيبراني رقم 2 لسنة 2026 والملحق 1 للضوابط الوطنية الأساسية للأمن السيبراني"},
+        "ref": {"en": "Control RS-1", "ar": "الضابط RS-1"},
+        "gazette": {"en": "Kuwait Al Youm, issue 1785, year 72", "ar": "جريدة الكويت اليوم العدد 1785 السنة 72"}
+      },
+      "verification": "official"
+    },
+    {
+      "id": "kw-citra-pdb", "country": "KW", "authority": "citra", "trigger": "personal-data-breach", "sectors": ["telecom"],
+      "applies_to": {"en": "Service providers licensed by CITRA", "ar": "مزودو الخدمة المرخصون من الهيئة العامة للاتصالات وتقنية المعلومات"},
+      "deadlines": [
+        {"stage": "initial", "hours": 24, "from": "awareness"}
+      ],
+      "summary": {
+        "en": "Notify CITRA within 24 hours of becoming aware of a personal data breach.",
+        "ar": "تُخطَر الهيئة خلال 24 ساعة من العلم بخرق البيانات الشخصية."
+      },
+      "source": {
+        "title": {"en": "CITRA Resolution No. 26 of 2024 on the Data Privacy Protection Regulation", "ar": "قرار الهيئة العامة للاتصالات وتقنية المعلومات رقم 26 لسنة 2024 بشأن لائحة حماية خصوصية البيانات"},
+        "ref": {"en": "Breach notification provision", "ar": "حكم الإخطار بالخرق"},
+        "issued": "2024-02-18"
+      },
+      "secondary": ["https://www.tamimi.com/news/communications-and-information-technology-regulatory-authority-has-issued-new-data-privacy-regulations/"],
+      "verification": "secondary"
+    },
+    {
+      "id": "sa-sdaia-pdb", "country": "SA", "authority": "sdaia", "trigger": "personal-data-breach", "sectors": ["all"],
+      "applies_to": {"en": "Controllers processing personal data in Saudi Arabia", "ar": "جهات التحكم التي تعالج البيانات الشخصية في المملكة"},
+      "deadlines": [
+        {"stage": "initial", "hours": 72, "from": "awareness"},
+        {"stage": "data_subjects", "rule": "without-undue-delay"}
+      ],
+      "summary": {
+        "en": "Notify SDAIA within 72 hours of becoming aware when the breach may harm the data or the people, supply missing details as soon as possible with reasons for the delay, and tell the people affected without undue delay.",
+        "ar": "تُخطَر سدايا خلال 72 ساعة من العلم إذا كان الخرق قد يضر بالبيانات أو بأصحابها وتُستكمل المعلومات الناقصة في أقرب وقت مع مسوغات التأخير ويُبلَّغ المتأثرون دون تأخير غير مبرر."
+      },
+      "source": {
+        "title": {"en": "Implementing Regulation of the Personal Data Protection Law", "ar": "اللائحة التنفيذية لنظام حماية البيانات الشخصية"},
+        "ref": {"en": "Article 24", "ar": "المادة 24"},
+        "url": "https://sdaia.gov.sa/en/SDAIA/about/Pages/PersonalDataProtection.aspx"
+      },
+      "secondary": ["https://www.clydeco.com/en/insights/2023/09/saudi-arabia-issues-implementing-regulations"],
+      "verification": "secondary"
+    },
+    {
+      "id": "sa-sama-csf", "country": "SA", "authority": "sama", "trigger": "cyber-incident", "sectors": ["banking", "insurance"],
+      "applies_to": {"en": "Organizations regulated by SAMA", "ar": "الجهات الخاضعة لإشراف البنك المركزي السعودي"},
+      "deadlines": [
+        {"stage": "initial", "min_severity": "medium", "rule": "immediately"},
+        {"stage": "closure", "min_severity": "medium", "when": "resumed"}
+      ],
+      "summary": {
+        "en": "Inform SAMA immediately of medium and high incidents, obtain its no objection before any media contact, and submit a formal report after operations resume.",
+        "ar": "يُبلَّغ البنك المركزي فوراً بالحوادث المتوسطة والعالية ويُستأذن قبل أي تواصل إعلامي ثمّ يُرفع إليه تقرير رسمي بعد استئناف العمليات."
+      },
+      "source": {
+        "title": {"en": "SAMA Cyber Security Framework", "ar": "إطار الأمن السيبراني الصادر عن البنك المركزي السعودي"},
+        "ref": {"en": "Section 3.3.15", "ar": "البند 3.3.15"},
+        "url": "https://rulebook.sama.gov.sa/node/3956"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "sa-sama-itgf", "country": "SA", "authority": "sama", "trigger": "cyber-incident", "sectors": ["banking", "insurance"],
+      "applies_to": {"en": "Organizations regulated by SAMA, for incidents that affect customers", "ar": "الجهات الخاضعة لإشراف البنك المركزي السعودي في الحوادث التي تمس العملاء"},
+      "deadlines": [
+        {"stage": "initial", "min_severity": "medium", "rule": "immediately"},
+        {"stage": "report", "min_severity": "medium", "days": 5}
+      ],
+      "summary": {
+        "en": "Inform SAMA immediately of medium or higher incidents that affect customers and submit a detailed report within five days.",
+        "ar": "يُبلَّغ البنك المركزي فوراً بالحوادث المتوسطة فأعلى التي تمس العملاء ثمّ يُرفع إليه تقرير مفصل خلال خمسة أيام."
+      },
+      "source": {
+        "title": {"en": "SAMA Information Technology Governance Framework", "ar": "إطار حوكمة تقنية المعلومات الصادر عن البنك المركزي السعودي"},
+        "ref": {"en": "Section 3.3.8", "ar": "البند 3.3.8"},
+        "url": "https://www.rulebook.sama.gov.sa/en/node/4199"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "sa-sama-payments", "country": "SA", "authority": "sama", "trigger": "cyber-incident", "sectors": ["payments"],
+      "applies_to": {"en": "Payment service providers licensed by SAMA", "ar": "مقدمو خدمات المدفوعات المرخصون من البنك المركزي السعودي"},
+      "deadlines": [
+        {"stage": "initial", "min_severity": "medium", "rule": "immediately"}
+      ],
+      "summary": {
+        "en": "Notify SAMA immediately when a medium or higher cyber incident is identified.",
+        "ar": "يُخطَر البنك المركزي فور اكتشاف حادثة سيبرانية متوسطة فأعلى."
+      },
+      "source": {
+        "title": {"en": "Implementing Regulations of the Law of Payments and Payment Services", "ar": "اللائحة التنفيذية لنظام المدفوعات وخدماتها"},
+        "ref": {"en": "Article 121(2)", "ar": "المادة 121 الفقرة 2"},
+        "url": "https://rulebook.sama.gov.sa/en/node/1574"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "sa-nca-ecc", "country": "SA", "authority": "nca", "trigger": "cyber-incident", "sectors": ["government", "critical"],
+      "applies_to": {"en": "Government entities and operators of critical national infrastructure", "ar": "الجهات الحكومية ومشغلو البنى التحتية الوطنية الحساسة"},
+      "deadlines": [
+        {"stage": "initial", "rule": "no-fixed-period"}
+      ],
+      "summary": {
+        "en": "Report cybersecurity incidents to NCA and share incident notifications, threat intelligence, indicators and incident reports with it, the controls set no fixed period.",
+        "ar": "تُبلَّغ الهيئة بحوادث الأمن السيبراني وتُشارَك معها إشعارات الحوادث ومعلومات التهديدات ومؤشرات الاختراق وتقارير الحوادث ولا تحدد الضوابط مهلة بعينها."
+      },
+      "source": {
+        "title": {"en": "NCA Essential Cybersecurity Controls ECC-2:2024", "ar": "الضوابط الأساسية للأمن السيبراني الصادرة عن الهيئة الوطنية للأمن السيبراني الإصدار 2 لعام 2024"},
+        "ref": {"en": "Control 2-13-3, items 3 and 4", "ar": "الضابط 2-13-3 البندان 3 و4"},
+        "url": "https://cdn.nca.gov.sa/api/files/public/upload/86e09090-44e4-481f-bc28-355673607654_ECC--2024-EN.pdf"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "ae-pdpl", "country": "AE", "authority": "uae-data-office", "trigger": "personal-data-breach", "sectors": ["all"],
+      "applies_to": {"en": "Controllers under the federal law, outside the financial free zones", "ar": "جهات التحكم الخاضعة للقانون الاتحادي خارج المناطق الحرة المالية"},
+      "deadlines": [
+        {"stage": "initial", "rule": "by-regulation"}
+      ],
+      "summary": {
+        "en": "Notify the UAE Data Office upon becoming aware of a breach that prejudices privacy, confidentiality or security, the law leaves the period to Executive Regulations whose status is unsettled in public sources.",
+        "ar": "يُخطَر مكتب الإمارات للبيانات عند العلم بخرق يمس الخصوصية أو السرية أو الأمن ويترك القانون المهلة للائحة التنفيذية التي لم يُحسم وضعها في المصادر العامة."
+      },
+      "source": {
+        "title": {"en": "Federal Decree by Law No. 45 of 2021 on the Protection of Personal Data", "ar": "المرسوم بقانون اتحادي رقم 45 لسنة 2021 بشأن حماية البيانات الشخصية"},
+        "ref": {"en": "Article 9", "ar": "المادة 9"},
+        "url": "https://uaelegislation.gov.ae/en/legislations/1972"
+      },
+      "secondary": ["https://docs.modulos.ai/frameworks/uae-pdpl/security-breaches-dpia-and-cross-border-transfers"],
+      "verification": "secondary"
+    },
+    {
+      "id": "qa-ncsa-nia", "country": "QA", "authority": "ncsa", "trigger": "cyber-incident", "sectors": ["all"],
+      "applies_to": {"en": "All organizations in Qatar", "ar": "جميع الجهات في دولة قطر"},
+      "deadlines": [
+        {"stage": "initial", "severity": "critical", "hours": 2, "from": "identification"}
+      ],
+      "summary": {
+        "en": "Report every critical incident to NCSA within two hours of identifying it.",
+        "ar": "تُبلَّغ الوكالة بكل حادثة حرجة خلال ساعتين من تحديدها."
+      },
+      "source": {
+        "title": {"en": "National Information Assurance Standard v2.1, NCSA, May 2023", "ar": "معيار تأمين المعلومات الوطنية الإصدار 2.1 الصادر عن الوكالة الوطنية للأمن السيبراني في مايو 2023"},
+        "ref": {"en": "Control IM 8", "ar": "الضابط IM 8"},
+        "url": "https://ncsa.gov.qa/shared/document_library/94787172324409/33000/1928/1.0~eeb6a930-9a7f-4f8f-9843-e4e45404668e?mimetype=application/pdf&filename=NCSA_CSGA_%20National_Information_Assurance_Standard_En_V2.1%20(2).pdf"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "qa-pdppl", "country": "QA", "authority": "ncsa", "trigger": "personal-data-breach", "sectors": ["all"],
+      "applies_to": {"en": "Controllers under Law No. 13 of 2016", "ar": "جهات التحكم الخاضعة للقانون رقم 13 لسنة 2016"},
+      "deadlines": [
+        {"stage": "initial", "hours": 72, "from": "awareness"},
+        {"stage": "data_subjects", "hours": 72, "from": "awareness", "condition": "serious-damage"}
+      ],
+      "summary": {
+        "en": "Report to the competent department at NCSA without delay and within 72 hours when the breach could cause damage, and tell the individuals within the same period when the damage could be serious.",
+        "ar": "تُبلَّغ الإدارة المختصة في الوكالة بلا تأخير وخلال 72 ساعة إذا كان الخرق قد يسبب ضرراً ويُبلَّغ الأفراد في المهلة نفسها إذا كان الضرر المحتمل جسيماً."
+      },
+      "source": {
+        "title": {"en": "Personal Data Breach Notifications, Guidelines for Regulated Entities, v2.0, September 2022", "ar": "إرشادات الإخطار بخروقات البيانات الشخصية للجهات الخاضعة للتنظيم الإصدار 2.0 سبتمبر 2022"},
+        "ref": {"en": "Breach notification summary", "ar": "ملخص أحكام الإخطار بالخرق"},
+        "code": "PDPPL-02050217E",
+        "url": "https://ncsa.gov.qa/shared/document_library/94787172324409/33000/8870/1.0~740b1248-e3a9-40e1-b66e-589091cc182a?mimetype=application%2Fpdf&filename=Personal+Data+Breach+Notifications+-+Guideline+for+Regulated+Entities+%284%29.pdf"
+      },
+      "verification": "official"
+    },
+    {
+      "id": "bh-pdpa", "country": "BH", "authority": "bh-pdpa", "trigger": "personal-data-breach", "sectors": ["all"],
+      "applies_to": {"en": "Data managers under Law No. 30 of 2018", "ar": "مديرو البيانات الخاضعون للقانون رقم 30 لسنة 2018"},
+      "deadlines": [
+        {"stage": "initial", "hours": 72, "from": "discovery", "condition": "likely-rights"}
+      ],
+      "summary": {
+        "en": "Notify the Authority within 72 hours of discovering the breach unless it is unlikely to affect the rights of the people concerned, and justify any delay.",
+        "ar": "تُخطَر الهيئة خلال 72 ساعة من اكتشاف الخرق ما لم يُستبعد مساسه بحقوق أصحاب البيانات ويُسوَّغ أي تأخير."
+      },
+      "source": {
+        "title": {"en": "PDPA Resolution No. 43 of 2022", "ar": "قرار هيئة حماية البيانات الشخصية رقم 43 لسنة 2022"},
+        "ref": {"en": "Article 4(2)", "ar": "المادة 4 الفقرة 2"}
+      },
+      "secondary": ["https://www.trowers.com/insights/2022/may/bahrain-enhances-its-data-protection-regime", "https://www.lexmundi.com/guides/data-privacy-guide/jurisdictions/middle-east/bahrain/"],
+      "verification": "secondary"
+    },
+    {
+      "id": "om-pdpl", "country": "OM", "authority": "om-mtcit", "trigger": "personal-data-breach", "sectors": ["all"],
+      "applies_to": {"en": "Controllers under Royal Decree 6/2022", "ar": "جهات التحكم الخاضعة للمرسوم السلطاني 6/2022"},
+      "deadlines": [
+        {"stage": "initial", "hours": 72, "from": "awareness", "condition": "threatens-rights"},
+        {"stage": "data_subjects", "hours": 72, "from": "awareness", "condition": "serious-harm"}
+      ],
+      "summary": {
+        "en": "Notify the Ministry within 72 hours of learning of a breach that threatens the rights of the people concerned, and tell them within the same period when the harm could be serious.",
+        "ar": "تُخطَر الوزارة خلال 72 ساعة من العلم بخرق يهدد حقوق أصحاب البيانات ويُبلَّغون في المهلة نفسها إذا كان الضرر المحتمل جسيماً."
+      },
+      "source": {
+        "title": {"en": "Executive Regulation of the Personal Data Protection Law, Ministerial Decision No. 34 of 2024", "ar": "اللائحة التنفيذية لقانون حماية البيانات الشخصية الصادرة بالقرار الوزاري رقم 34 لسنة 2024"},
+        "ref": {"en": "Articles 30 and 32", "ar": "المادتان 30 و32"},
+        "enforceable": "2026-02-05"
+      },
+      "secondary": ["https://www.trowers.com/insights/2024/february/omans-data-protection-law---new-regulations", "https://cms.law/en/omn/legal-updates/oman-personal-data-protection-law-entering-the-enforcement-phase"],
+      "verification": "secondary"
+    }
+  ]
+}

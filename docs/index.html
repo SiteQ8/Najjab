@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>نجّاب | من نبلّغ ومتى</title>
+<meta name="description" content="دليل الساعات الأولى من الحادثة السيبرانية في الخليج يحدد من نبلّغ ومتى وماذا نفعل. A guide to the first hours of a cyber incident in the Gulf: who to notify, by when, and what to do.">
+<link rel="canonical" href="https://najjab.3li.info/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="نجّاب | Najjab">
+<meta property="og:description" content="من نبلّغ ومتى في الساعات الأولى من الحادثة السيبرانية في الخليج. Who to notify and by when in the first hours of a cyber incident in the Gulf.">
+<meta property="og:url" content="https://najjab.3li.info/">
+<meta property="og:image" content="https://najjab.3li.info/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E1B2E">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/styles.css">
+<script type="module" src="assets/app.js"></script>
+</head>
+<body>
+<a class="skip" id="skip" href="#clock">انتقل إلى المهل</a>
+<header class="masthead">
+  <div class="brand">
+    <h1 class="wordmark" id="wordmark">نجّاب</h1>
+    <div class="route" aria-hidden="true"></div>
+    <p class="tagline" id="tagline">دليل الساعات الأولى من الحادثة السيبرانية في الخليج يحدد من نبلّغ ومتى وماذا نفعل.</p>
+  </div>
+  <button class="lang" id="lang" type="button" lang="en">English</button>
+</header>
+<main class="desk">
+  <section class="incident" aria-labelledby="incident-title">
+    <h2 id="incident-title">الحادثة</h2>
+    <div class="form" id="form"></div>
+  </section>
+  <section class="clock" id="clock" aria-labelledby="clock-title" tabindex="-1">
+    <div class="clock-head">
+      <h2 id="clock-title">من نبلّغ ومتى</h2>
+      <button class="btn" id="print" type="button">اطبع ورقة الحادثة</button>
+    </div>
+    <dl class="brief print-only" id="brief"></dl>
+    <p class="count-line" id="count" aria-live="polite"></p>
+    <div id="slips"></div>
+  </section>
+  <section class="work" aria-labelledby="tab-playbook">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div id="panels"></div>
+  </section>
+</main>
+<footer class="foot" id="foot"></footer>
+<noscript><p class="noscript">يحتاج نجّاب إلى JavaScript لحساب المهل. Najjab needs JavaScript to calculate the deadlines.</p></noscript>
+</body>
+</html>

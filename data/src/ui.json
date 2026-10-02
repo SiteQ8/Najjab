@@ -1,0 +1,486 @@
+{
+  "tagline": {
+    "en": "A guide to the first hours of a cyber incident in the Gulf: who to notify, by when, and what to do.",
+    "ar": "دليل الساعات الأولى من الحادثة السيبرانية في الخليج يحدد من نبلّغ ومتى وماذا نفعل."
+  },
+  "skip": {
+    "en": "Skip to the deadlines",
+    "ar": "انتقل إلى المهل"
+  },
+  "noscript": {
+    "en": "Najjab needs JavaScript to calculate the deadlines.",
+    "ar": "يحتاج نجّاب إلى JavaScript لحساب المهل."
+  },
+  "incident": {
+    "en": "The incident",
+    "ar": "الحادثة"
+  },
+  "countries": {
+    "en": "Where you operate",
+    "ar": "الدول التي تعمل فيها"
+  },
+  "sector": {
+    "en": "Sector",
+    "ar": "القطاع"
+  },
+  "type": {
+    "en": "What happened",
+    "ar": "ما الذي حدث"
+  },
+  "severity": {
+    "en": "Severity",
+    "ar": "درجة الخطورة"
+  },
+  "severity_hint": {
+    "en": "Regulators grade severity differently, so pick the grade your own classification gives.",
+    "ar": "تختلف الجهات في تدرّج الخطورة لذا اختر الدرجة التي يعطيها تصنيفكم الداخلي."
+  },
+  "personal": {
+    "en": "Personal data was affected",
+    "ar": "مسّت الحادثة بيانات شخصية"
+  },
+  "discovered": {
+    "en": "Discovered at",
+    "ar": "وقت الاكتشاف"
+  },
+  "discovered_hint": {
+    "en": "Each deadline counts from discovery, awareness or identification, and its source says which.",
+    "ar": "تُحتسب كل مهلة من الاكتشاف أو العلم أو التحديد ويبيّن مصدرها أيّها المقصود."
+  },
+  "now": {
+    "en": "Set to now",
+    "ar": "اجعله الآن"
+  },
+  "clock": {
+    "en": "Who to notify and by when",
+    "ar": "من نبلّغ ومتى"
+  },
+  "clock_empty": {
+    "en": "Pick at least one country to see the deadlines.",
+    "ar": "اختر دولة واحدة على الأقل لتظهر المهل."
+  },
+  "clock_none": {
+    "en": "No published notification duty matches this incident in the selected countries and sector.",
+    "ar": "لا يوجد واجب إبلاغ منشور يطابق هذه الحادثة في الدول والقطاع المختارين."
+  },
+  "remaining": {
+    "en": "{t} left",
+    "ar": "متبقٍ {t}"
+  },
+  "overdue": {
+    "en": "{t} past the deadline",
+    "ar": "مضى على المهلة {t}"
+  },
+  "due_local": {
+    "en": "Due {time} your time",
+    "ar": "الموعد {time} بتوقيتك"
+  },
+  "due_country": {
+    "en": "{time} in {country}",
+    "ar": "{time} بتوقيت {country}"
+  },
+  "stage_initial": {
+    "en": "First notice",
+    "ar": "الإبلاغ الأول"
+  },
+  "stage_update": {
+    "en": "Updates",
+    "ar": "التحديثات"
+  },
+  "stage_closure": {
+    "en": "Closure report",
+    "ar": "تقرير الإغلاق"
+  },
+  "stage_report": {
+    "en": "Detailed report",
+    "ar": "التقرير المفصل"
+  },
+  "stage_data_subjects": {
+    "en": "Telling the people affected",
+    "ar": "إبلاغ أصحاب البيانات"
+  },
+  "rule_immediately": {
+    "en": "Immediately",
+    "ar": "فوراً"
+  },
+  "rule_promptly": {
+    "en": "Promptly, within the authority's timelines",
+    "ar": "دون تأخير وضمن المهل التي تحددها الجهة"
+  },
+  "rule_no_fixed": {
+    "en": "No fixed period",
+    "ar": "بلا مهلة محددة"
+  },
+  "rule_by_regulation": {
+    "en": "Upon awareness, period left to executive regulations",
+    "ar": "عند العلم والمهلة متروكة للائحة التنفيذية"
+  },
+  "rule_undue_delay": {
+    "en": "Without undue delay",
+    "ar": "دون تأخير غير مبرر"
+  },
+  "when_resolution": {
+    "en": "Once the incident is resolved",
+    "ar": "عند حل الحادثة"
+  },
+  "when_monthly": {
+    "en": "Consolidated monthly",
+    "ar": "مجمّعاً كل شهر"
+  },
+  "when_resumed": {
+    "en": "After operations resume",
+    "ar": "بعد استئناف العمليات"
+  },
+  "every_daily": {
+    "en": "Daily",
+    "ar": "يومياً"
+  },
+  "from_discovery": {
+    "en": "of discovery",
+    "ar": "من الاكتشاف"
+  },
+  "from_awareness": {
+    "en": "of awareness",
+    "ar": "من العلم"
+  },
+  "from_identification": {
+    "en": "of identification",
+    "ar": "من التحديد"
+  },
+  "cond_serious-damage": {
+    "en": "if the damage could be serious",
+    "ar": "إذا كان الضرر المحتمل جسيماً"
+  },
+  "cond_likely-rights": {
+    "en": "unless it is unlikely to affect rights",
+    "ar": "ما لم يُستبعد المساس بالحقوق"
+  },
+  "cond_threatens-rights": {
+    "en": "if it threatens the rights of the people concerned",
+    "ar": "إذا هدد حقوق أصحاب البيانات"
+  },
+  "cond_serious-harm": {
+    "en": "if the harm could be serious",
+    "ar": "إذا كان الضرر المحتمل جسيماً"
+  },
+  "note_top_tier": {
+    "en": "The authority's highest grade was applied to this critical incident.",
+    "ar": "طُبّقت على هذه الحادثة الحرجة أعلى درجة لدى الجهة."
+  },
+  "note_only": {
+    "en": "Applies to {grades} incidents only.",
+    "ar": "يخص الحوادث {grades} وحدها."
+  },
+  "note_from": {
+    "en": "Applies from {grade} severity upward.",
+    "ar": "يسري من درجة {grade} فأعلى."
+  },
+  "note_conditional": {
+    "en": "Not triggered at this severity",
+    "ar": "لا يسري عند هذه الدرجة"
+  },
+  "via_incident": {
+    "en": "Follows the incident reporting timelines",
+    "ar": "يتبع مهل الإبلاغ عن الحوادث"
+  },
+  "open_official": {
+    "en": "Official source",
+    "ar": "المصدر الرسمي"
+  },
+  "confirmed_by": {
+    "en": "Confirmed by",
+    "ar": "أكّده"
+  },
+  "applies_to": {
+    "en": "Applies to",
+    "ar": "ينطبق على"
+  },
+  "tab_playbook": {
+    "en": "Playbook",
+    "ar": "دليل الاستجابة"
+  },
+  "tab_draft": {
+    "en": "Notice draft",
+    "ar": "مسودة الإشعار"
+  },
+  "tab_tabletop": {
+    "en": "Tabletop exercise",
+    "ar": "تمرين المحاكاة"
+  },
+  "tab_register": {
+    "en": "All duties",
+    "ar": "سجل الواجبات"
+  },
+  "phase_signs": {
+    "en": "How it shows up",
+    "ar": "كيف تظهر"
+  },
+  "phase_first_hour": {
+    "en": "First hour",
+    "ar": "الساعة الأولى"
+  },
+  "phase_contain": {
+    "en": "Contain",
+    "ar": "الاحتواء"
+  },
+  "phase_eradicate": {
+    "en": "Eradicate",
+    "ar": "الاستئصال"
+  },
+  "phase_recover": {
+    "en": "Recover",
+    "ar": "التعافي"
+  },
+  "phase_evidence": {
+    "en": "Evidence to keep",
+    "ar": "الأدلة الواجب حفظها"
+  },
+  "phase_after": {
+    "en": "After the incident",
+    "ar": "ما بعد الحادثة"
+  },
+  "progress": {
+    "en": "{done} of {total} done",
+    "ar": "أُنجز {done} من {total}"
+  },
+  "f_org": {
+    "en": "Organization",
+    "ar": "الجهة"
+  },
+  "f_contact": {
+    "en": "Contact person and phone",
+    "ar": "مسؤول التواصل ورقمه"
+  },
+  "f_summary": {
+    "en": "Short description",
+    "ar": "وصف موجز"
+  },
+  "f_systems": {
+    "en": "Systems affected",
+    "ar": "الأنظمة المتأثرة"
+  },
+  "f_records": {
+    "en": "People or records affected",
+    "ar": "عدد الأشخاص أو السجلات المتأثرة"
+  },
+  "f_actions": {
+    "en": "Actions taken so far",
+    "ar": "الإجراءات المتخذة حتى الآن"
+  },
+  "f_next": {
+    "en": "Next update",
+    "ar": "التحديث القادم"
+  },
+  "draft_note": {
+    "en": "Use the authority's own form and channel where one exists, this draft only gathers the facts every notice needs.",
+    "ar": "استخدم نموذج الجهة وقناتها الرسمية إن وُجدا فهذه المسودة تجمع الحقائق التي يحتاجها كل إشعار فحسب."
+  },
+  "draft_ar": {
+    "en": "Arabic notice",
+    "ar": "الإشعار بالعربية"
+  },
+  "draft_en": {
+    "en": "English notice",
+    "ar": "الإشعار بالإنجليزية"
+  },
+  "copy": {
+    "en": "Copy",
+    "ar": "انسخ"
+  },
+  "copied": {
+    "en": "Copied",
+    "ar": "نُسخ"
+  },
+  "print": {
+    "en": "Print the incident sheet",
+    "ar": "اطبع ورقة الحادثة"
+  },
+  "tt_setup": {
+    "en": "Scenario",
+    "ar": "السيناريو"
+  },
+  "tt_start": {
+    "en": "Start the exercise",
+    "ar": "ابدأ التمرين"
+  },
+  "tt_next": {
+    "en": "Reveal the next development",
+    "ar": "اكشف التطور التالي"
+  },
+  "tt_reset": {
+    "en": "Start over",
+    "ar": "ابدأ من جديد"
+  },
+  "tt_questions": {
+    "en": "Questions for the room",
+    "ar": "أسئلة للنقاش"
+  },
+  "tt_elapsed": {
+    "en": "Elapsed",
+    "ar": "الوقت المنقضي"
+  },
+  "tt_at": {
+    "en": "Minute {m}",
+    "ar": "الدقيقة {m}"
+  },
+  "tt_done": {
+    "en": "All developments are out, so move to the questions.",
+    "ar": "كُشفت التطورات كلها فانتقلوا إلى الأسئلة."
+  },
+  "tt_load": {
+    "en": "Use this scenario's countries and sector",
+    "ar": "استخدم دول هذا السيناريو وقطاعه"
+  },
+  "reg_all": {
+    "en": "All countries",
+    "ar": "كل الدول"
+  },
+  "reg_country": {
+    "en": "Country",
+    "ar": "الدولة"
+  },
+  "reg_authority": {
+    "en": "Authority",
+    "ar": "الجهة"
+  },
+  "reg_duty": {
+    "en": "Duty",
+    "ar": "الواجب"
+  },
+  "reg_source": {
+    "en": "Source",
+    "ar": "المصدر"
+  },
+  "pending_title": {
+    "en": "Still being verified",
+    "ar": "قيد التحقق"
+  },
+  "pending_note": {
+    "en": "These authorities are not in the register yet because their rules have not been read in an official or reliable source.",
+    "ar": "لم تدخل هذه الجهات السجل بعد لأنّ قواعدها لم تُقرأ في مصدر رسمي أو موثوق."
+  },
+  "disclaimer": {
+    "en": "Najjab is a practical reference and not legal advice, so always act on the official text.",
+    "ar": "نجّاب مرجع عملي لا يغني عن الاستشارة القانونية لذا يبقى النص الرسمي هو المعتمد دائماً."
+  },
+  "updated": {
+    "en": "Data checked on {date}",
+    "ar": "رُوجعت البيانات في {date}"
+  },
+  "mcp_note": {
+    "en": "The same data answers AI assistants through the MCP server in the repository.",
+    "ar": "وتجيب البيانات نفسها مساعدي الذكاء الاصطناعي عبر خادم MCP في المستودع."
+  },
+  "built_by": {
+    "en": "Built by Ali AlEnezi",
+    "ar": "من إعداد علي العنزي"
+  },
+  "source_code": {
+    "en": "Source code",
+    "ar": "الشيفرة المصدرية"
+  },
+  "yes": {
+    "en": "Yes",
+    "ar": "نعم"
+  },
+  "no": {
+    "en": "No",
+    "ar": "لا"
+  },
+  "not_stated": {
+    "en": "Not stated yet",
+    "ar": "لم يُحدد بعد"
+  },
+  "n_subject": {
+    "en": "Cybersecurity incident notice",
+    "ar": "إشعار بحادثة أمن سيبراني"
+  },
+  "n_to": {
+    "en": "To",
+    "ar": "إلى"
+  },
+  "n_org": {
+    "en": "Organization",
+    "ar": "الجهة المبلِّغة"
+  },
+  "n_contact": {
+    "en": "Contact",
+    "ar": "مسؤول التواصل"
+  },
+  "n_time": {
+    "en": "Discovered at",
+    "ar": "وقت الاكتشاف"
+  },
+  "n_type": {
+    "en": "Type of incident",
+    "ar": "نوع الحادثة"
+  },
+  "n_severity": {
+    "en": "Severity",
+    "ar": "درجة الخطورة"
+  },
+  "n_systems": {
+    "en": "Systems affected",
+    "ar": "الأنظمة المتأثرة"
+  },
+  "n_personal": {
+    "en": "Personal data affected",
+    "ar": "تأثر البيانات الشخصية"
+  },
+  "n_records": {
+    "en": "People or records affected",
+    "ar": "عدد الأشخاص أو السجلات"
+  },
+  "n_summary": {
+    "en": "What happened",
+    "ar": "ملخص ما حدث"
+  },
+  "n_actions": {
+    "en": "Actions taken",
+    "ar": "الإجراءات المتخذة"
+  },
+  "n_next": {
+    "en": "Next update",
+    "ar": "التحديث القادم"
+  },
+  "seal_left": {
+    "en": "left",
+    "ar": "متبقٍ"
+  },
+  "seal_over": {
+    "en": "overdue",
+    "ar": "متأخر"
+  },
+  "seal_promptly": {
+    "en": "Promptly",
+    "ar": "دون تأخير"
+  },
+  "seal_open": {
+    "en": "No number yet",
+    "ar": "بلا رقم بعد"
+  },
+  "seal_none": {
+    "en": "No period",
+    "ar": "بلا مهلة"
+  },
+  "seal_off": {
+    "en": "Not at this grade",
+    "ar": "لا يسري"
+  },
+  "brief": {
+    "en": "Incident sheet",
+    "ar": "ورقة الحادثة"
+  },
+  "count_fmt": {
+    "en": "{n} duties",
+    "ar": "عدد الواجبات {n}"
+  },
+  "personal_locked": {
+    "en": "A data breach always involves personal data here.",
+    "ar": "يُعدّ تسرّب البيانات هنا ماساً بالبيانات الشخصية دائماً."
+  },
+  "lang_name": {
+    "en": "English",
+    "ar": "العربية"
+  }
+}
