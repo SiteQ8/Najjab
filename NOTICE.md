@@ -41,5 +41,6 @@ Names of authorities and frameworks belong to their owners and are used only to 
 | bh-ncsc-irp | https://www.ncsc.gov.bh/en/services/incident-response-plan.html |
 | bh-pdpa | PDPA Resolution No. 43 of 2022, confirmed by Trowers and Hamlins and Lex Mundi |
 | om-pdpl | Ministerial Decision No. 34 of 2024, confirmed by Trowers and Hamlins and CMS |
+| om-cdc | Royal Decree 64/2020, recorded by the National Cyber Security Index of the e-Governance Academy |
 
 Fonts: IBM Plex Sans Arabic and Reem Kufi, under the SIL Open Font License 1.1 (`docs/fonts/OFL.txt`).

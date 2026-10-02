@@ -14,8 +14,8 @@ test('every text exists in both languages and follows the Arabic writing rules',
   }
 });
 
-test('the register holds 18 duties across all six countries', () => {
-  assert.equal(b.obligations.length, 18);
+test('the register holds 19 duties across all six countries', () => {
+  assert.equal(b.obligations.length, 19);
   assert.deepEqual(Object.keys(b.countries), ['KW', 'SA', 'AE', 'QA', 'BH', 'OM']);
   for (const c of Object.keys(b.countries)) assert.ok(b.obligations.some((o) => o.country === c), `${c} has at least one duty`);
   assert.equal(new Set(b.obligations.map((o) => o.id)).size, b.obligations.length, 'ids are unique');
@@ -41,7 +41,7 @@ test('verification is honest: official duties link the text, secondary ones name
     for (const u of [o.source.url, ...(o.secondary || [])].filter(Boolean)) assert.match(u, /^https:\/\//, `${o.id}: https link`);
   }
   assert.equal(b.obligations.filter((o) => o.verification === 'official').length, 13);
-  assert.equal(b.obligations.filter((o) => o.verification === 'secondary').length, 5);
+  assert.equal(b.obligations.filter((o) => o.verification === 'secondary').length, 6);
 });
 
 test('the deadlines encode what the sources say', () => {
@@ -64,6 +64,7 @@ test('the deadlines encode what the sources say', () => {
   assert.equal(ob('ae-cbuae-oprisk').deadlines.find((d) => d.stage === 'high_risk').hours, 72);
   assert.equal(first('qa-qcb-data').rule, 'promptly');
   assert.equal(first('bh-ncsc-irp').rule, 'no-fixed-period');
+  assert.equal(first('om-cdc').rule, 'no-fixed-period');
 });
 
 test('every incident type has a full playbook and a tabletop exercise', () => {

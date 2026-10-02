@@ -1,6 +1,6 @@
 {
   "name": "najjab",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Najjab: the first hours of a cyber incident in the Gulf. Who to notify, by when, with the official source of every deadline, plus playbooks, a notice draft, a tabletop exercise and an MCP server",
   "type": "module",
   "bin": {

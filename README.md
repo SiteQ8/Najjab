@@ -46,8 +46,9 @@
 | البحرين | المركز الوطني للأمن السيبراني | حوادث الجهات الحكومية والبنى التحتية الحساسة | بلا مهلة محددة في الخطة الوطنية للاستجابة | النص الرسمي |
 | البحرين | هيئة حماية البيانات الشخصية | خرق البيانات الشخصية | خلال 72 ساعة من الاكتشاف | مصدر ثانوي |
 | عُمان | وزارة النقل والاتصالات وتقنية المعلومات | خرق البيانات الشخصية | خلال 72 ساعة من العلم | مصدر ثانوي |
+| عُمان | مركز الدفاع الإلكتروني | حوادث الجهات الحكومية والبنى التحتية الحساسة | بلا مهلة منشورة | مصدر ثانوي |
 
-وما زالت مهلة الإبلاغ عن الحوادث السيبرانية لدى مصرف قطر المركزي وقواعد البنك المركزي العُماني ومجلس الأمن السيبراني لدولة الإمارات ومركز الدفاع الإلكتروني في عُمان قيد التحقق ولن تدخل السجل قبل قراءتها في مصدر رسمي أو موثوق.
+وما زالت مهلة الإبلاغ عن الحوادث السيبرانية لدى مصرف قطر المركزي وقواعد البنك المركزي العُماني ومجلس الأمن السيبراني لدولة الإمارات قيد التحقق ولن تدخل السجل قبل قراءتها في مصدر رسمي أو موثوق.
 
 ### سياسة التحقق
 
@@ -111,8 +112,9 @@ In the first hour of an incident everyone asks the same question: who do we noti
 | Bahrain | National Cyber Security Center | Incidents at government entities and critical national infrastructure (National Cybersecurity Incident Response Plan) | No fixed period | Official text |
 | Bahrain | Personal Data Protection Authority | Personal data breach (Resolution 43 of 2022, Article 4(2)) | Within 72 hours of discovery | Secondary source |
 | Oman | Ministry of Transport, Communications and IT | Personal data breach (Ministerial Decision 34 of 2024, Articles 30 and 32) | Within 72 hours of awareness | Secondary source |
+| Oman | Cyber Defense Centre | Incidents at government entities and critical infrastructure (Royal Decree 64/2020) | No published period | Secondary source |
 
-Still being verified, and kept out of the register until their rules are read in an official or reliable source: the cyber incident timeline of Qatar Central Bank, the Central Bank of Oman, the UAE Cyber Security Council and the Oman Cyber Defense Center.
+Still being verified, and kept out of the register until their rules are read in an official or reliable source: the cyber incident timeline of Qatar Central Bank, the Central Bank of Oman and the UAE Cyber Security Council.
 
 ### Verification policy
 

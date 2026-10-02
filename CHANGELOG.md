@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1 (2026-10-02)
+
+- Oman Cyber Defense Centre: the duty of government entities and critical infrastructure operators to report cyber incidents, recorded by the National Cyber Security Index, with no published period.
+- The register now holds 19 duties. Three authorities remain under verification.
+
 ## 0.3.0 (2026-10-02)
 
 - Calendar file: every deadline with a fixed time as an iCalendar event with a reminder 15 minutes before it, from the site and from the new `najjab_calendar` MCP tool.

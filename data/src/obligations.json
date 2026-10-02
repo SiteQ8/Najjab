@@ -233,6 +233,12 @@
       "country": "OM",
       "en": "Ministry of Transport, Communications and Information Technology",
       "ar": "وزارة النقل والاتصالات وتقنية المعلومات"
+    },
+    "om-cdc": {
+      "country": "OM",
+      "en": "Cyber Defense Centre",
+      "ar": "مركز الدفاع الإلكتروني",
+      "url": "https://cdc.gov.om/"
     }
   },
   "pending": [
@@ -250,11 +256,6 @@
       "country": "AE",
       "en": "UAE Cyber Security Council",
       "ar": "مجلس الأمن السيبراني لدولة الإمارات"
-    },
-    {
-      "country": "OM",
-      "en": "Oman Cyber Defense Center",
-      "ar": "مركز الدفاع الإلكتروني في عُمان"
     }
   ],
   "obligations": [
@@ -1016,6 +1017,44 @@
       "secondary": [
         "https://www.trowers.com/insights/2024/february/omans-data-protection-law---new-regulations",
         "https://cms.law/en/omn/legal-updates/oman-personal-data-protection-law-entering-the-enforcement-phase"
+      ],
+      "verification": "secondary"
+    },
+    {
+      "id": "om-cdc",
+      "country": "OM",
+      "authority": "om-cdc",
+      "trigger": "cyber-incident",
+      "sectors": [
+        "government",
+        "critical"
+      ],
+      "applies_to": {
+        "en": "Government entities and critical infrastructure operators in Oman",
+        "ar": "الجهات الحكومية ومشغلو البنى التحتية الحساسة في عُمان"
+      },
+      "deadlines": [
+        {
+          "stage": "initial",
+          "rule": "no-fixed-period"
+        }
+      ],
+      "summary": {
+        "en": "The National Cyber Security Index records an obligation to notify the Cyber Defense Centre of cyber incidents, based on Royal Decree 64/2020 that established the Centre and on the Centre's own guidance, no period is published.",
+        "ar": "يرصد المؤشر الوطني للأمن السيبراني التزاماً بإبلاغ مركز الدفاع الإلكتروني بالحوادث السيبرانية استناداً إلى المرسوم السلطاني 64/2020 الذي أنشأ المركز وإلى إرشادات المركز نفسه ولا توجد مهلة منشورة."
+      },
+      "source": {
+        "title": {
+          "en": "Royal Decree 64/2020 establishing the Cyber Defense Centre and issuing its regulations",
+          "ar": "المرسوم السلطاني 64/2020 بإنشاء مركز الدفاع الإلكتروني وإصدار نظامه"
+        },
+        "ref": {
+          "en": "Cyber Defense Centre guidance on reporting incidents",
+          "ar": "إرشادات مركز الدفاع الإلكتروني بشأن الإبلاغ عن الحوادث"
+        }
+      },
+      "secondary": [
+        "https://ncsi.ega.ee/country/om/"
       ],
       "verification": "secondary"
     }

@@ -218,7 +218,7 @@ if (process.argv.includes('--selftest')) {
   try {
     ok(tools.length === 8, 'eight tools');
     const ov = call('najjab_overview').structuredContent;
-    ok(ov.duties === 18 && ov.countries.length === 6 && ov.pending.length === 4, 'overview counts 18 duties, 6 countries, 4 pending');
+    ok(ov.duties === 19 && ov.countries.length === 6 && ov.pending.length === 3, 'overview counts 19 duties, 6 countries, 3 pending');
     ok(call('najjab_list_obligations', { country: 'SA' }).structuredContent.total === 5, 'five Saudi duties');
     ok(call('najjab_list_obligations', { trigger: 'personal-data-breach' }).structuredContent.total === 8, 'eight personal data duties');
     const gcc = call('najjab_deadlines', { countries: ['BH', 'AE'], sector: 'banking', incident_type: 'ransomware', severity: 'high', discovered_at: at }).structuredContent;
