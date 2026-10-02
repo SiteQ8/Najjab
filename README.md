@@ -164,6 +164,7 @@ npm run build      # validate data/src and write docs/data/bundle.json
 npm test           # data, engine, MCP and site tests
 npm run preflight  # build, guards, MCP selftest and tests together
 npm run test:ui    # browser check with Playwright, when it is installed
+npm run links      # every source and document link, 404 fails
 ```
 
 The data lives in `data/src`: `obligations.json` for the duties, `playbooks.json`, `tabletop.json` and `ui.json`. The tests hold every Arabic text to the house rules: a sentence ends with a single period, clauses join with connectives rather than commas, and every number survives translation.

@@ -28,7 +28,7 @@ const RO = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, o
 
 const tools = [
   { name: 'najjab_overview', title: 'Coverage overview', description: 'What Najjab covers: the six Gulf countries, the authorities and duties in the register, how each duty was verified, and the authorities still being verified. Start here.', inputSchema: { type: 'object', properties: { lang: LANG, response_format: FORMAT }, additionalProperties: false }, annotations: RO },
-  { name: 'najjab_list_obligations', title: 'List notification duties', description: 'Notification duties in the register with authority, who they apply to, the deadline in words, the official source and the verification level. Filter by country, trigger (cyber-incident or personal-data-breach) or sector. Paged.', inputSchema: { type: 'object', properties: { country: COUNTRY, trigger: { type: 'string', enum: Object.keys(bundle.triggers) }, sector: SECTOR, limit: LIMIT, offset: OFFSET, lang: LANG, response_format: FORMAT }, additionalProperties: false }, annotations: RO },
+  { name: 'najjab_list_obligations', title: 'List notification duties', description: 'Notification duties in the register with authority, who they apply to, the deadline in words, the official source and the verification level. Filter by country, financial free zone, trigger (cyber-incident or personal-data-breach) or sector. Paged.', inputSchema: { type: 'object', properties: { country: COUNTRY, zone: { type: 'string', enum: Object.keys(bundle.zones), description: 'difc, adgm or qfc.' }, trigger: { type: 'string', enum: Object.keys(bundle.triggers) }, sector: SECTOR, limit: LIMIT, offset: OFFSET, lang: LANG, response_format: FORMAT }, additionalProperties: false }, annotations: RO },
   { name: 'najjab_get_obligation', title: 'Get one duty', description: 'One duty by id (for example "kw-cbk-incident" or "sa-sdaia-pdb") with every deadline row, the summary, the official source with its reference and link, and the secondary sources when the official text could not be read automatically.', inputSchema: { type: 'object', properties: { id: { type: 'string', description: 'Duty id such as "qa-ncsa-nia".' }, lang: LANG, response_format: FORMAT }, required: ['id'], additionalProperties: false }, annotations: RO },
   { name: 'najjab_deadlines', title: 'Deadlines for an incident', description: 'Every notification duty an incident triggers across the given countries, soonest first, with the due time computed from the discovery time, follow up updates and closure reports, and notes when the severity grade changes the answer.', inputSchema: { type: 'object', properties: { ...INCIDENT, lang: LANG, response_format: FORMAT }, required: ['countries', 'incident_type', 'discovered_at'], additionalProperties: false }, annotations: RO },
   { name: 'najjab_playbook', title: 'Response playbook', description: 'The playbook for an incident type: how it shows up, the first hour, containment, eradication, recovery, the evidence to keep and what to do after.', inputSchema: { type: 'object', properties: { incident_type: TYPE, lang: LANG, response_format: FORMAT }, required: ['incident_type'], additionalProperties: false }, annotations: RO },
@@ -86,11 +86,13 @@ const handlers = {
     const countries = COUNTRIES.map((c) => ({ code: c, name: tr(bundle.countries[c], lang), duties: bundle.obligations.filter((o) => o.country === c).length }));
     const levels = Object.entries(bundle.verification_levels).map(([id, v]) => ({ id, name: tr(v, lang), meaning: tr(v.about, lang), duties: bundle.obligations.filter((o) => o.verification === id).length }));
     const pending = bundle.pending.map((p) => ({ country: p.country, name: tr(p, lang) }));
-    const out = { name: tr({ en: bundle.project.name_en, ar: bundle.project.name_ar }, lang), about: tr(bundle.project.about, lang), updated: bundle.project.updated, duties: bundle.obligations.length, authorities: Object.keys(bundle.authorities).length, countries, verification: levels, pending, incident_types: TYPES.map((t) => ({ id: t, name: tr(bundle.incident_types[t], lang) })), disclaimer: core.ui(bundle, 'disclaimer', lang) };
+    const zones = Object.entries(bundle.zones).map(([id, z]) => ({ id, country: z.country, name: tr(z, lang), duties: bundle.obligations.filter((o) => o.zone === id).length }));
+    const out = { name: tr({ en: bundle.project.name_en, ar: bundle.project.name_ar }, lang), about: tr(bundle.project.about, lang), updated: bundle.project.updated, duties: bundle.obligations.length, authorities: Object.keys(bundle.authorities).length, countries, zones, verification: levels, pending, incident_types: TYPES.map((t) => ({ id: t, name: tr(bundle.incident_types[t], lang) })), disclaimer: core.ui(bundle, 'disclaimer', lang) };
     const md = [
       `# ${out.name}`, '', out.about, '',
       `Duties: ${out.duties}. Authorities: ${out.authorities}. Data checked on ${out.updated}.`, '',
       '## Countries', ...countries.map((c) => `- ${c.code} ${c.name}: ${c.duties}`), '',
+      '## Financial free zones', ...zones.map((z) => `- ${z.id} ${z.name} (${z.country}): ${z.duties}`), '',
       '## Verification', ...levels.map((l) => `- ${l.name} (${l.duties}): ${l.meaning}`), '',
       '## Still being verified', ...pending.map((p) => `- ${p.country} ${p.name}`), '',
       out.disclaimer,
@@ -101,6 +103,7 @@ const handlers = {
     const lang = pickLang(args);
     let list = bundle.obligations;
     if (args.country) list = list.filter((o) => o.country === args.country);
+    if (args.zone) list = list.filter((o) => o.zone === args.zone);
     if (args.trigger) list = list.filter((o) => o.trigger === args.trigger);
     if (args.sector && args.sector !== 'general') list = list.filter((o) => o.sectors.includes('all') || o.sectors.includes(args.sector));
     const page = paged(list.map((o) => dutyRow(o, lang)), args);
@@ -226,6 +229,7 @@ if (process.argv.includes('--selftest')) {
     const ov = call('najjab_overview').structuredContent;
     ok(ov.duties === 22 && ov.countries.length === 6 && ov.pending.length === 3, 'overview counts 22 duties, 6 countries, 3 pending');
     ok(call('najjab_list_obligations', { country: 'SA' }).structuredContent.total === 5, 'five Saudi duties');
+    ok(ov.zones.length === 3 && call('najjab_list_obligations', { zone: 'difc' }).structuredContent.total === 1, 'three zones, one DIFC duty');
     ok(call('najjab_list_obligations', { trigger: 'personal-data-breach' }).structuredContent.total === 11, 'eleven personal data duties');
     const fz = call('najjab_deadlines', { countries: ['AE', 'QA'], zones: ['adgm', 'qfc'], incident_type: 'data-breach', discovered_at: at }).structuredContent;
     ok(fz.duties.some((d) => d.id === 'ae-adgm-dp' && d.items[0].due === plus(72)) && fz.duties.some((d) => d.id === 'qa-qfc-dp') && !fz.duties.some((d) => d.id === 'ae-difc-dp'), 'free zone duties follow the zones chosen');

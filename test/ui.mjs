@@ -16,6 +16,14 @@ const server = spawn('python3', ['-m', 'http.server', String(PORT), '--directory
 await new Promise((r) => setTimeout(r, 800));
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROME || undefined, args: ['--no-sandbox'] });
 const errors = [];
+// Language purity: all text on the page, hidden panels included, minus the parts meant to be in the other language.
+const pageText = (pg, exclude) => pg.evaluate((ex) => {
+  const clone = document.body.cloneNode(true);
+  for (const sel of [...ex, 'script', 'noscript']) clone.querySelectorAll(sel).forEach((n) => n.remove());
+  return clone.textContent;
+}, exclude);
+const ARABIC = /[\u0600-\u06FF]/;
+const STRAY = /\b(null|undefined|NaN|\[object Object\])\b/;
 try {
   const page = await browser.newPage({ viewport: { width: 1360, height: 1000 } });
   page.on('pageerror', (e) => errors.push(e.message));
@@ -30,6 +38,9 @@ try {
   const c2 = await page.textContent('.slip .count');
   assert.notEqual(c1, c2, 'the countdown ticks');
   if (shots) await page.screenshot({ path: `${shots}/desktop-ar.png`, fullPage: false });
+  const latin = ((await pageText(page, ['#notice-en', '#lang'])).match(/[A-Za-z][A-Za-z0-9.\-/:+&]*/g) || []).filter((w) => !/^[A-Z0-9]/.test(w) && !w.includes('.'));
+  assert.deepEqual(latin, [], 'no lowercase English inside the Arabic page');
+  assert.ok(!STRAY.test(await pageText(page, [])), 'no stray null, undefined or NaN in the Arabic page');
   const [download] = await Promise.all([page.waitForEvent('download'), page.click('#calendar')]);
   assert.match(download.suggestedFilename(), /^najjab-\d{4}-\d{2}-\d{2}\.ics$/);
   // Qatar, critical: the NIA two hour duty appears.
@@ -54,6 +65,9 @@ try {
   await page.click('#lang');
   assert.equal(await page.getAttribute('html', 'dir'), 'ltr');
   assert.match(await page.textContent('#clock-title'), /Who to notify/);
+  const leak = (await pageText(page, ['#notice-ar', '#lang'])).split(/\s+/).filter((w) => ARABIC.test(w));
+  assert.deepEqual(leak, [], 'no Arabic inside the English page');
+  assert.ok(!STRAY.test(await pageText(page, [])), 'no stray null, undefined or NaN in the English page');
   if (shots) await page.screenshot({ path: `${shots}/desktop-en.png`, fullPage: true });
   const mobile = await browser.newPage({ viewport: { width: 390, height: 860 }, deviceScaleFactor: 2 });
   mobile.on('pageerror', (e) => errors.push(e.message));
@@ -61,6 +75,7 @@ try {
   await mobile.waitForSelector('.slip');
   const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   assert.ok(overflow <= 1, `no sideways scroll on a phone (overflow ${overflow}px)`);
+  assert.ok(!STRAY.test(await pageText(mobile, [])), 'no stray null, undefined or NaN on a phone');
   if (shots) await mobile.screenshot({ path: `${shots}/mobile-ar.png`, fullPage: true });
   assert.deepEqual(errors, [], 'no console errors');
   console.log('ui: all checks passed');

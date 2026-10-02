@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.1 (2026-10-02)
+
+- External link check over every source, secondary and authority link and the links in README and NOTICE, run by preflight: a 404 or 410 fails, sites that refuse robots are reported.
+- Fixed the QFC source link, which had moved, to the official breach reporting form that states the 72 hour rule.
+- The browser test now holds both languages pure: no lowercase English in the Arabic page and no Arabic in the English page.
+- MCP: the overview lists the free zones and the duty list filters by zone.
+- Using a tabletop scenario's countries now drops free zones outside them.
+- Fixed a stray "null" that the tabletop panel printed before the exercise ended, and the browser test now fails on any stray null, undefined or NaN in either language.
+- The site is served over HTTPS on najjab.3li.info.
+
 ## 0.4.0 (2026-10-02)
 
 - Financial free zones: pick DIFC, ADGM or QFC beside the country and their data protection duties join the clock, while federal duties stay for work outside the zone.

@@ -30,6 +30,9 @@ function walk(dir) {
 }
 walk(root);
 run([join(root, 'mcp/server.mjs'), '--selftest'], 'mcp selftest');
+// External links: a 404 or 410 fails; sites that refuse robots and network errors are reported only.
+const links = run([join(root, 'scripts/links.mjs')], 'external links');
+const linkSummary = (links.stdout.match(/^links: .*$/m) || [''])[0];
 const t = run(['--test', ...['data', 'engine', 'mcp', 'site'].map((n) => join(root, 'test', n + '.test.mjs'))], 'tests');
 if (problems.length) {
   console.error('PREFLIGHT FAILED');
@@ -37,4 +40,5 @@ if (problems.length) {
   process.exit(1);
 }
 console.log('preflight passed');
+if (linkSummary) console.log(linkSummary);
 console.log(t.stdout.split('\n').filter((l) => /^# (tests|pass|fail)/.test(l)).join('\n'));

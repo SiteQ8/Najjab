@@ -38,7 +38,7 @@ Names of authorities and frameworks belong to their owners and are used only to 
 | ae-adgm-dp | https://adgm.com/operating-in-adgm/office-of-data-protection/data-breach-notifications |
 | qa-ncsa-nia | NCSA National Information Assurance Standard v2.1, control IM 8 |
 | qa-pdppl | NCSA guideline PDPPL-02050217E v2.0 |
-| qa-qfc-dp | https://www.qfc.qa/en/operating-with-qfc/data-protection/data-protection-for-data-controllers-and-data-processors |
+| qa-qfc-dp | https://www.qfc.qa/media/stxham4h/qfc_data_protection_breach_reporting_form.pdf |
 | qa-qcb-data | https://www.qcb.gov.qa/Documents/InformationSecurity/Data%20Handling%20and%20Protection%20Regulation.pdf |
 | bh-cbb-banks | https://cbben.thomsonreuters.com/node/2300925 |
 | bh-ncsc-irp | https://www.ncsc.gov.bh/en/services/incident-response-plan.html |

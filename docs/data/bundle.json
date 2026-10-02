@@ -3,7 +3,7 @@
  "project": {
   "name_en": "Najjab",
   "name_ar": "نجّاب",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "domain": "najjab.3li.info",
   "repo": "https://github.com/SiteQ8/Najjab",
   "updated": "2026-10-02",
@@ -1025,7 +1025,7 @@
      "en": "Article 31",
      "ar": "المادة 31"
     },
-    "url": "https://www.qfc.qa/en/operating-with-qfc/data-protection/data-protection-for-data-controllers-and-data-processors"
+    "url": "https://www.qfc.qa/media/stxham4h/qfc_data_protection_breach_reporting_form.pdf"
    },
    "verification": "official"
   },

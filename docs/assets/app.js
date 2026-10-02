@@ -284,7 +284,7 @@ function renderWork() {
   panels.replaceChildren(...TABS.map((id) => {
     const p = h('div', { class: 'panel', role: 'tabpanel', id: `panel-${id}`, 'aria-labelledby': `tab-${id}`, tabindex: '0' });
     p.hidden = S.tab !== id;
-    p.append(...build[id]());
+    p.append(...build[id]().filter(Boolean));
     return p;
   }));
   renderDraftOutputs();
@@ -376,6 +376,7 @@ function panelTabletop() {
   const reset = h('button', { class: 'btn', type: 'button', text: t('tt_reset'), onclick: () => { S.tt = { type: S.type, started: null, shown: 0 }; save(); rerender('tabletop'); } });
   const useScenario = h('button', { class: 'btn', type: 'button', text: t('tt_load'), onclick: () => {
     S.countries = [...x.countries];
+    S.zones = S.zones.filter((z) => S.countries.includes(B.zones[z].country));
     S.sector = x.sector;
     save();
     renderForm();
@@ -416,7 +417,7 @@ function panelRegister() {
 function rerender(id) {
   const build = { playbook: panelPlaybook, draft: panelDraft, tabletop: panelTabletop, register: panelRegister };
   const p = $(`panel-${id}`);
-  p.replaceChildren(...build[id]());
+  p.replaceChildren(...build[id]().filter(Boolean));
   if (id === 'draft') renderDraftOutputs();
   tick();
 }
