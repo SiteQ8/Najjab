@@ -18,6 +18,7 @@
 
 - **ساعة الإبلاغ** وفيها تختار الدول التي تعمل فيها والقطاع ونوع الحادثة ودرجة خطورتها ووقت اكتشافها فتظهر كل جهة يجب إبلاغها مع موعدها بتوقيتك وبتوقيت الدولة وعدّاد تنازلي يتغير لونه كلما اقتربت المهلة.
 - **أدلة الاستجابة** ولكل من برمجيات الفدية واختراق البريد الإلكتروني للأعمال وتسرّب البيانات وانكشاف مفاتيح الوصول السحابية خطوات تبدأ بالساعة الأولى ثمّ الاحتواء والاستئصال والتعافي والأدلة الواجب حفظها وما بعد الحادثة.
+- **ملف التقويم** ويضيف كل مهلة بوقت محدد إلى Outlook أو تقويم Google أو تقويم Apple مع تنبيه قبلها بربع ساعة.
 - **مسودة الإشعار** وهي نص بالعربية والإنجليزية يجمع الحقائق التي تطلبها كل جهة أولاً ويُوجَّه تلقائياً إلى الجهات التي تستدعيها الحادثة.
 - **تمرين المحاكاة** وفيه سيناريو لكل نوع من الحوادث تُكشف تطوراته بالتتابع مع مؤقت للميسّر وأسئلة للنقاش.
 - **سجل الواجبات** ويعرض كل واجب مع نطاقه ومصدره ومستوى التحقق منه ثمّ الجهات التي ما زالت قيد التحقق.
@@ -42,10 +43,11 @@
 | قطر | الوكالة الوطنية للأمن السيبراني | خرق البيانات الشخصية | خلال 72 ساعة | النص الرسمي |
 | قطر | مصرف قطر المركزي | خروقات البيانات لدى المؤسسات المالية | وفق إرشادات المصرف مع إبلاغ الوكالة ووزارة الداخلية | النص الرسمي |
 | البحرين | مصرف البحرين المركزي | حوادث البنوك التي تمس العملاء أو الخدمات الحرجة | اتصال خلال ساعة ثمّ تقرير أولي خلال ساعتين وتقرير كامل خلال 10 أيام | النص الرسمي |
+| البحرين | المركز الوطني للأمن السيبراني | حوادث الجهات الحكومية والبنى التحتية الحساسة | بلا مهلة محددة في الخطة الوطنية للاستجابة | النص الرسمي |
 | البحرين | هيئة حماية البيانات الشخصية | خرق البيانات الشخصية | خلال 72 ساعة من الاكتشاف | مصدر ثانوي |
 | عُمان | وزارة النقل والاتصالات وتقنية المعلومات | خرق البيانات الشخصية | خلال 72 ساعة من العلم | مصدر ثانوي |
 
-وما زالت مهلة الإبلاغ عن الحوادث السيبرانية لدى مصرف قطر المركزي وقواعد البنك المركزي العُماني ومجلس الأمن السيبراني لدولة الإمارات والمركز الوطني للأمن السيبراني في البحرين ومركز الدفاع الإلكتروني في عُمان قيد التحقق ولن تدخل السجل قبل قراءتها في مصدر رسمي أو موثوق.
+وما زالت مهلة الإبلاغ عن الحوادث السيبرانية لدى مصرف قطر المركزي وقواعد البنك المركزي العُماني ومجلس الأمن السيبراني لدولة الإمارات ومركز الدفاع الإلكتروني في عُمان قيد التحقق ولن تدخل السجل قبل قراءتها في مصدر رسمي أو موثوق.
 
 ### سياسة التحقق
 
@@ -81,6 +83,7 @@ In the first hour of an incident everyone asks the same question: who do we noti
 
 - **The notification clock.** Pick the countries you operate in, your sector, the type of incident, its severity and when it was discovered. Every authority you must notify appears with its due time in your time zone and the country's, and a countdown that changes colour as the deadline nears.
 - **Playbooks.** Ransomware, business email compromise, data breach and exposed cloud access keys, each with how it shows up, the first hour, containment, eradication, recovery, the evidence to keep and what to do after.
+- **Calendar file.** Every deadline with a fixed time, as events for Outlook, Google Calendar or Apple Calendar with a reminder 15 minutes before each.
 - **Notice draft.** Arabic and English text that gathers the facts every regulator asks for first, addressed to the authorities the incident triggers.
 - **Tabletop exercise.** A scenario per incident type with developments revealed one at a time, a facilitator timer and questions for the room.
 - **Register.** Every duty with its scope, source and verification level, plus the authorities still being verified.
@@ -105,10 +108,11 @@ In the first hour of an incident everyone asks the same question: who do we noti
 | Qatar | NCSA | Personal data breach (PDPPL breach notification guideline) | Within 72 hours | Official text |
 | Qatar | Qatar Central Bank | Data breaches at licensed financial institutions (Data Handling and Protection Regulation, Article 16) | Under QCB incident reporting guidelines, also to NCSA and the Ministry of Interior | Official text |
 | Bahrain | Central Bank of Bahrain | Bank incidents affecting customers or critical services (Rulebook OM-5.5.57 and OM-5.5.58) | Call within 1 hour, Section A within 2 hours, Section B within 10 days | Official text |
+| Bahrain | National Cyber Security Center | Incidents at government entities and critical national infrastructure (National Cybersecurity Incident Response Plan) | No fixed period | Official text |
 | Bahrain | Personal Data Protection Authority | Personal data breach (Resolution 43 of 2022, Article 4(2)) | Within 72 hours of discovery | Secondary source |
 | Oman | Ministry of Transport, Communications and IT | Personal data breach (Ministerial Decision 34 of 2024, Articles 30 and 32) | Within 72 hours of awareness | Secondary source |
 
-Still being verified, and kept out of the register until their rules are read in an official or reliable source: the cyber incident timeline of Qatar Central Bank, the Central Bank of Oman, the UAE Cyber Security Council, Bahrain's National Cyber Security Center and the Oman Cyber Defense Center.
+Still being verified, and kept out of the register until their rules are read in an official or reliable source: the cyber incident timeline of Qatar Central Bank, the Central Bank of Oman, the UAE Cyber Security Council and the Oman Cyber Defense Center.
 
 ### Verification policy
 
@@ -138,6 +142,7 @@ To run the MCP server, add it to your assistant's configuration:
 | `najjab_deadlines` | Every duty an incident triggers across the given countries, soonest first, with due times computed from the discovery time. |
 | `najjab_playbook` | The playbook for an incident type. |
 | `najjab_tabletop` | A tabletop exercise for an incident type. |
+| `najjab_calendar` | An .ics file with one event per timed deadline and a reminder 15 minutes before each. |
 | `najjab_draft_notice` | A notice draft in Arabic or English addressed to the triggered authorities. |
 
 Every tool is read-only, answers in Arabic or English, and returns Markdown or JSON.

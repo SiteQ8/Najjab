@@ -30,6 +30,8 @@ try {
   const c2 = await page.textContent('.slip .count');
   assert.notEqual(c1, c2, 'the countdown ticks');
   if (shots) await page.screenshot({ path: `${shots}/desktop-ar.png`, fullPage: false });
+  const [download] = await Promise.all([page.waitForEvent('download'), page.click('#calendar')]);
+  assert.match(download.suggestedFilename(), /^najjab-\d{4}-\d{2}-\d{2}\.ics$/);
   // Qatar, critical: the NIA two hour duty appears.
   await page.click('label.chip:has(input[value="QA"])');
   await page.click('label.chip:has(input[value="critical"])');

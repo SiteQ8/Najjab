@@ -3,7 +3,7 @@
  "project": {
   "name_en": "Najjab",
   "name_ar": "نجّاب",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "domain": "najjab.3li.info",
   "repo": "https://github.com/SiteQ8/Najjab",
   "updated": "2026-10-02",
@@ -241,6 +241,12 @@
    "ar": "مصرف البحرين المركزي",
    "url": "https://www.cbb.gov.bh/"
   },
+  "bh-ncsc": {
+   "country": "BH",
+   "en": "National Cyber Security Center",
+   "ar": "المركز الوطني للأمن السيبراني",
+   "url": "https://www.ncsc.gov.bh/"
+  },
   "om-mtcit": {
    "country": "OM",
    "en": "Ministry of Transport, Communications and Information Technology",
@@ -262,11 +268,6 @@
    "country": "AE",
    "en": "UAE Cyber Security Council",
    "ar": "مجلس الأمن السيبراني لدولة الإمارات"
-  },
-  {
-   "country": "BH",
-   "en": "National Cyber Security Center of Bahrain",
-   "ar": "المركز الوطني للأمن السيبراني في البحرين"
   },
   {
    "country": "OM",
@@ -950,6 +951,42 @@
      "ar": "الفقرتان OM-5.5.57 وOM-5.5.58"
     },
     "url": "https://cbben.thomsonreuters.com/node/2300925"
+   },
+   "verification": "official"
+  },
+  {
+   "id": "bh-ncsc-irp",
+   "country": "BH",
+   "authority": "bh-ncsc",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "government",
+    "critical"
+   ],
+   "applies_to": {
+    "en": "Government entities and critical national infrastructure in Bahrain",
+    "ar": "الجهات الحكومية والبنى التحتية الوطنية الحساسة في البحرين"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "rule": "no-fixed-period"
+    }
+   ],
+   "summary": {
+    "en": "The national incident response plan makes reporting the affected entity's role: report the incident to the NCSC, give it access to the data it needs for analysis and fix the causes once the incident is closed, the plan sets no fixed period.",
+    "ar": "تجعل الخطة الوطنية للاستجابة للحوادث الإبلاغ دوراً على الجهة المتأثرة فتُبلّغ المركز بالحادثة وتمكّنه من البيانات اللازمة لتحليلها ثمّ تعالج أسبابها بعد إغلاقها ولا تحدد الخطة مهلة بعينها."
+   },
+   "source": {
+    "title": {
+     "en": "NCSC National Cybersecurity Incident Response Plan",
+     "ar": "الخطة الوطنية للاستجابة لحوادث الأمن السيبراني الصادرة عن المركز الوطني للأمن السيبراني"
+    },
+    "ref": {
+     "en": "Roles and responsibilities of the affected entity",
+     "ar": "أدوار الجهة المتأثرة ومسؤولياتها"
+    },
+    "url": "https://www.ncsc.gov.bh/en/services/incident-response-plan.html"
    },
    "verification": "official"
   },
@@ -2173,6 +2210,18 @@
   "cond_customer-or-critical": {
    "en": "if customer information is compromised or critical services are disrupted",
    "ar": "إذا مسّت الحادثة معلومات العملاء أو عطّلت خدمات حرجة"
+  },
+  "calendar": {
+   "en": "Add the deadlines to a calendar",
+   "ar": "أضف المواعيد إلى التقويم"
+  },
+  "cal_name": {
+   "en": "Najjab incident deadlines",
+   "ar": "مواعيد الإبلاغ في نجّاب"
+  },
+  "cal_none": {
+   "en": "No deadline with a fixed time to add yet.",
+   "ar": "لا توجد مهلة بوقت محدد لإضافتها بعد."
   }
  }
 }

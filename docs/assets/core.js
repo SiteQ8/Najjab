@@ -228,3 +228,43 @@ export function draftNotice(bundle, input, fields = {}, lang = 'en') {
   lines.push(`${L('n_summary')}: ${val(fields.summary)}`, `${L('n_actions')}: ${val(fields.actions)}`, `${L('n_next')}: ${val(fields.next_update)}`);
   return lines.join('\n');
 }
+
+// Calendar file (RFC 5545) with one event per timed deadline and a reminder 15 minutes before it.
+const icsTime = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+const icsText = (s) => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+function fold(line) {
+  const enc = new TextEncoder();
+  if (enc.encode(line).length <= 75) return line;
+  const out = [];
+  let cur = '';
+  let bytes = 0;
+  let limit = 75;
+  for (const ch of line) {
+    const b = enc.encode(ch).length;
+    if (bytes + b > limit) { out.push(cur); cur = ch; bytes = b; limit = 74; } else { cur += ch; bytes += b; }
+  }
+  out.push(cur);
+  return out.join('\r\n ');
+}
+
+export function calendar(bundle, input, lang = 'en', now = new Date()) {
+  const a = assess(bundle, input);
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Najjab//Incident deadlines//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', `X-WR-CALNAME:${icsText(ui(bundle, 'cal_name', lang))}`];
+  let events = 0;
+  for (const d of a.duties) {
+    const ob = obligation(bundle, d.id);
+    d.items.forEach((item, n) => {
+      if (!item.due) return;
+      events += 1;
+      const summary = `${tr(bundle.authorities[d.authority], lang)} | ${stageText(bundle, item.stage, lang)}`;
+      const details = [itemText(bundle, item, lang), sourceLine(bundle, ob, lang), ui(bundle, 'disclaimer', lang)].join('\n');
+      lines.push('BEGIN:VEVENT', `UID:${d.id}-${item.stage}-${n}-${icsTime(a.discovered)}@${bundle.project.domain}`, `DTSTAMP:${icsTime(now)}`,
+        `DTSTART:${icsTime(item.due)}`, `DTEND:${icsTime(new Date(item.due.getTime() + 15 * 60000))}`,
+        `SUMMARY:${icsText(summary)}`, `DESCRIPTION:${icsText(details)}`);
+      if (ob.source.url) lines.push(`URL:${ob.source.url}`);
+      lines.push('BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsText(summary)}`, 'TRIGGER:-PT15M', 'END:VALARM', 'END:VEVENT');
+    });
+  }
+  lines.push('END:VCALENDAR');
+  return { events, text: lines.map(fold).join('\r\n') + '\r\n' };
+}

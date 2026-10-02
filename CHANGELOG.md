@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 (2026-10-02)
+
+- Calendar file: every deadline with a fixed time as an iCalendar event with a reminder 15 minutes before it, from the site and from the new `najjab_calendar` MCP tool.
+- Bahrain National Cyber Security Center: its national incident response plan makes reporting the affected entity's role, with no fixed period.
+- The register now holds 18 duties, 13 read in the official text. Four authorities remain under verification.
+
 ## 0.2.0 (2026-10-02)
 
 - Central Bank of the UAE: Operational Risk Management Regulation, in force since 14 September 2026, with the 4 hour notice, the 24 hour summary report, the notice on return to normal operations and the 72 hour notice for high-risk incidents.

@@ -32,6 +32,7 @@ const tools = [
   { name: 'najjab_deadlines', title: 'Deadlines for an incident', description: 'Every notification duty an incident triggers across the given countries, soonest first, with the due time computed from the discovery time, follow up updates and closure reports, and notes when the severity grade changes the answer.', inputSchema: { type: 'object', properties: { ...INCIDENT, lang: LANG, response_format: FORMAT }, required: ['countries', 'incident_type', 'discovered_at'], additionalProperties: false }, annotations: RO },
   { name: 'najjab_playbook', title: 'Response playbook', description: 'The playbook for an incident type: how it shows up, the first hour, containment, eradication, recovery, the evidence to keep and what to do after.', inputSchema: { type: 'object', properties: { incident_type: TYPE, lang: LANG, response_format: FORMAT }, required: ['incident_type'], additionalProperties: false }, annotations: RO },
   { name: 'najjab_tabletop', title: 'Tabletop exercise', description: 'A ready tabletop exercise for an incident type: the scenario, the developments with the minute each is revealed, and the questions for the room.', inputSchema: { type: 'object', properties: { incident_type: TYPE, lang: LANG, response_format: FORMAT }, required: ['incident_type'], additionalProperties: false }, annotations: RO },
+  { name: 'najjab_calendar', title: 'Calendar of deadlines', description: 'An iCalendar (.ics) file with one event per timed deadline the incident triggers and a reminder 15 minutes before each, ready to import into Outlook, Google Calendar or Apple Calendar.', inputSchema: { type: 'object', properties: { ...INCIDENT, lang: LANG }, required: ['countries', 'incident_type', 'discovered_at'], additionalProperties: false }, annotations: RO },
   { name: 'najjab_draft_notice', title: 'Draft a notice', description: 'A plain notice in Arabic or English that gathers the facts every regulator asks for first, addressed to the authorities the incident triggers. Use the authority\'s own form and channel where one exists.', inputSchema: { type: 'object', properties: { ...INCIDENT, organization: { type: 'string' }, contact: { type: 'string' }, summary: { type: 'string' }, systems: { type: 'string' }, records: { type: 'string' }, actions: { type: 'string' }, next_update: { type: 'string' }, lang: LANG }, required: ['countries', 'incident_type', 'discovered_at'], additionalProperties: false }, annotations: RO },
 ];
 
@@ -154,6 +155,11 @@ const handlers = {
     const md = [`# ${x.title}`, '', x.setup, '', ...x.injects.map((i) => `- ${core.ui(bundle, 'tt_at', lang, { m: i.at })}: ${i.text}`), '', `## ${core.ui(bundle, 'tt_questions', lang)}`, ...x.questions.map((q) => `- ${q}`)].join('\n');
     return result(x, md, args);
   },
+  najjab_calendar(args) {
+    const lang = pickLang(args);
+    const cal = core.calendar(bundle, incidentInput(args), lang);
+    return { content: [{ type: 'text', text: cal.text }], structuredContent: { events: cal.events, ics: cal.text } };
+  },
   najjab_draft_notice(args) {
     const lang = pickLang(args);
     const text = core.draftNotice(bundle, incidentInput(args), args, lang);
@@ -210,9 +216,9 @@ if (process.argv.includes('--selftest')) {
   const at = '2026-10-04T08:00:00+03:00';
   const plus = (h) => new Date(Date.parse(at) + h * 3600000).toISOString();
   try {
-    ok(tools.length === 7, 'seven tools');
+    ok(tools.length === 8, 'eight tools');
     const ov = call('najjab_overview').structuredContent;
-    ok(ov.duties === 17 && ov.countries.length === 6 && ov.pending.length === 5, 'overview counts 17 duties, 6 countries, 5 pending');
+    ok(ov.duties === 18 && ov.countries.length === 6 && ov.pending.length === 4, 'overview counts 18 duties, 6 countries, 4 pending');
     ok(call('najjab_list_obligations', { country: 'SA' }).structuredContent.total === 5, 'five Saudi duties');
     ok(call('najjab_list_obligations', { trigger: 'personal-data-breach' }).structuredContent.total === 8, 'eight personal data duties');
     const gcc = call('najjab_deadlines', { countries: ['BH', 'AE'], sector: 'banking', incident_type: 'ransomware', severity: 'high', discovered_at: at }).structuredContent;
@@ -239,6 +245,8 @@ if (process.argv.includes('--selftest')) {
     ok(call('najjab_tabletop', { incident_type: 'ransomware', lang: 'ar' }).structuredContent.injects.length === 4, 'ransomware exercise has four developments');
     const d = call('najjab_draft_notice', { countries: ['KW'], sector: 'banking', incident_type: 'ransomware', discovered_at: at, organization: 'Example Co', lang: 'ar' }).structuredContent;
     ok(d.text.includes('Example Co') && d.text.includes('بنك الكويت المركزي'), 'Arabic draft addressed to CBK');
+    const cal = call('najjab_calendar', { countries: ['KW', 'BH'], sector: 'banking', incident_type: 'ransomware', discovered_at: at }).structuredContent;
+    ok(cal.events === 4 && cal.ics.startsWith('BEGIN:VCALENDAR') && cal.ics.includes('DTSTART:20261004T060000Z'), 'calendar has four timed deadlines');
     let threw = false; try { call('najjab_get_obligation', { id: 'nope' }); } catch (x) { threw = x instanceof ToolError; } ok(threw, 'unknown duty throws ToolError');
     threw = false; try { call('najjab_deadlines', { countries: ['XX'], incident_type: 'bec', discovered_at: at }); } catch (x) { threw = x instanceof ToolError; } ok(threw, 'unknown country throws ToolError');
     threw = false; try { call('najjab_deadlines', { countries: ['KW'], incident_type: 'bec', discovered_at: 'soon' }); } catch (x) { threw = x instanceof ToolError; } ok(threw, 'bad time throws ToolError');

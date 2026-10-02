@@ -92,6 +92,7 @@ function renderStatic() {
   $('incident-title').textContent = t('incident');
   $('clock-title').textContent = t('clock');
   $('print').textContent = t('print');
+  $('calendar').textContent = t('calendar');
   const other = S.lang === 'ar' ? 'en' : 'ar';
   $('lang').textContent = B.ui.lang_name[other];
   $('lang').setAttribute('lang', other);
@@ -216,16 +217,19 @@ function renderClock() {
   const count = $('count');
   if (!S.countries.length) {
     count.textContent = '';
+    $('calendar').disabled = true;
     box.replaceChildren(h('p', { class: 'empty', text: t('clock_empty') }));
     return;
   }
   const a = core.assess(B, incident());
   if (!a.duties.length) {
     count.textContent = '';
+    $('calendar').disabled = true;
     box.replaceChildren(h('p', { class: 'empty', text: t('clock_none') }));
     return;
   }
   count.textContent = t('count_fmt', { n: a.duties.filter((d) => d.lead).length });
+  $('calendar').disabled = !a.duties.some((d) => d.items.some((i) => i.due));
   box.replaceChildren(h('ol', { class: 'slips' }, a.duties.map(slip)));
 }
 
@@ -397,6 +401,17 @@ function rerender(id) {
   tick();
 }
 
+function downloadCalendar() {
+  const cal = core.calendar(B, incident(), S.lang);
+  if (!cal.events) { $('count').textContent = t('cal_none'); return; }
+  const url = URL.createObjectURL(new Blob([cal.text], { type: 'text/calendar;charset=utf-8' }));
+  const link = h('a', { href: url, download: `najjab-${S.discovered.slice(0, 10)}.ics` });
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
 function renderFoot() {
   const repo = B.project.repo;
   $('foot').replaceChildren(
@@ -429,6 +444,7 @@ async function boot() {
   save();
   $('lang').addEventListener('click', () => { S.lang = S.lang === 'ar' ? 'en' : 'ar'; save(); renderAll(); });
   $('print').addEventListener('click', () => window.print());
+  $('calendar').addEventListener('click', downloadCalendar);
   window.addEventListener('beforeprint', () => { for (const d of document.querySelectorAll('#panel-playbook details')) { d.dataset.wasOpen = d.open ? '1' : ''; d.open = true; } $('panel-playbook').hidden = false; });
   window.addEventListener('afterprint', () => { for (const d of document.querySelectorAll('#panel-playbook details')) d.open = d.dataset.wasOpen === '1'; $('panel-playbook').hidden = S.tab !== 'playbook'; });
   setInterval(tick, 1000);

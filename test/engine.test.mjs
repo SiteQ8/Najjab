@@ -80,6 +80,20 @@ test('Gulf central banks: Bahrain in one hour, the UAE in four with a 72 hour hi
   assert.equal(a.duties[0].id, 'bh-cbb-banks', 'soonest first');
 });
 
+test('the calendar file holds one event per timed deadline, in UTC, folded to 75 octets', () => {
+  const input = { countries: ['KW', 'BH'], sector: 'banking', type: 'ransomware', severity: 'high', discovered: at };
+  const cal = core.calendar(b, input, 'ar', new Date('2026-10-04T05:00:00Z'));
+  assert.equal(cal.events, 4);
+  assert.equal((cal.text.match(/BEGIN:VEVENT/g) || []).length, 4);
+  assert.ok(cal.text.startsWith('BEGIN:VCALENDAR\r\n') && cal.text.endsWith('END:VCALENDAR\r\n'));
+  assert.match(cal.text, /DTSTART:20261004T060000Z/);
+  assert.match(cal.text, /TRIGGER:-PT15M/);
+  for (const line of cal.text.split('\r\n')) assert.ok(new TextEncoder().encode(line).length <= 75, `folded: ${line}`);
+  const unfolded = cal.text.replace(/\r\n /g, '');
+  assert.match(unfolded, /SUMMARY:بنك الكويت المركزي \| الإبلاغ الأول/);
+  assert.equal(core.calendar(b, { countries: ['AE'], type: 'data-breach', discovered: at }, 'en').events, 0, 'no fixed time, no event');
+});
+
 test('Arabic counts agree with the number', () => {
   assert.equal(core.span(1, 'hour', 'ar'), 'ساعة');
   assert.equal(core.span(2, 'hour', 'ar'), 'ساعتين');

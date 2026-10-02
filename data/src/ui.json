@@ -506,5 +506,17 @@
   "cond_customer-or-critical": {
     "en": "if customer information is compromised or critical services are disrupted",
     "ar": "إذا مسّت الحادثة معلومات العملاء أو عطّلت خدمات حرجة"
+  },
+  "calendar": {
+    "en": "Add the deadlines to a calendar",
+    "ar": "أضف المواعيد إلى التقويم"
+  },
+  "cal_name": {
+    "en": "Najjab incident deadlines",
+    "ar": "مواعيد الإبلاغ في نجّاب"
+  },
+  "cal_none": {
+    "en": "No deadline with a fixed time to add yet.",
+    "ar": "لا توجد مهلة بوقت محدد لإضافتها بعد."
   }
 }

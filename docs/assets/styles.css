@@ -81,6 +81,7 @@ h3, h4 { margin: 0; }
 
 /* The clock: one dispatch slip per duty, soonest first. */
 .clock-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.clock-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .count-line { color: var(--muted); margin: -6px 0 14px; }
 .empty { background: var(--dusk); border-radius: 14px; padding: 22px; color: var(--muted); margin: 0; }
 .slips { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
