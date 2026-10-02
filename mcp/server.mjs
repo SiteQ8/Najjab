@@ -212,9 +212,12 @@ if (process.argv.includes('--selftest')) {
   try {
     ok(tools.length === 7, 'seven tools');
     const ov = call('najjab_overview').structuredContent;
-    ok(ov.duties === 14 && ov.countries.length === 6 && ov.pending.length === 7, 'overview counts 14 duties, 6 countries, 7 pending');
+    ok(ov.duties === 17 && ov.countries.length === 6 && ov.pending.length === 5, 'overview counts 17 duties, 6 countries, 5 pending');
     ok(call('najjab_list_obligations', { country: 'SA' }).structuredContent.total === 5, 'five Saudi duties');
-    ok(call('najjab_list_obligations', { trigger: 'personal-data-breach' }).structuredContent.total === 7, 'seven personal data duties');
+    ok(call('najjab_list_obligations', { trigger: 'personal-data-breach' }).structuredContent.total === 8, 'eight personal data duties');
+    const gcc = call('najjab_deadlines', { countries: ['BH', 'AE'], sector: 'banking', incident_type: 'ransomware', severity: 'high', discovered_at: at }).structuredContent;
+    ok(gcc.duties[0].id === 'bh-cbb-banks' && gcc.duties[0].items[0].due === plus(1), 'CBB due in one hour');
+    ok(gcc.duties.some((d) => d.id === 'ae-cbuae-oprisk' && d.items[0].due === plus(4)), 'CBUAE due in four hours');
     const g = call('najjab_get_obligation', { id: 'qa-ncsa-nia', lang: 'ar' }).structuredContent;
     ok(g.verification === 'official' && /[\u0600-\u06FF]/.test(g.summary), 'NIA duty in Arabic, official');
     const k = call('najjab_deadlines', { countries: ['KW'], sector: 'banking', incident_type: 'ransomware', severity: 'high', discovered_at: at }).structuredContent;

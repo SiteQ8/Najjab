@@ -36,13 +36,16 @@
 | السعودية | البنك المركزي السعودي | الحوادث التي تمس العملاء | فوراً ثمّ تقرير مفصل خلال 5 أيام | النص الرسمي |
 | السعودية | البنك المركزي السعودي | مقدمو خدمات المدفوعات | فوراً للمتوسطة فأعلى | النص الرسمي |
 | السعودية | الهيئة الوطنية للأمن السيبراني | الجهات الحكومية والبنى التحتية الحساسة | بلا مهلة محددة | النص الرسمي |
+| الإمارات | مصرف الإمارات العربية المتحدة المركزي | الأحداث التي تمس العمليات الحرجة | خلال 4 ساعات ثمّ تقرير موجز خلال 24 ساعة وإشعار بالحوادث عالية الخطورة خلال 72 ساعة | النص الرسمي |
 | الإمارات | مكتب الإمارات للبيانات | خرق البيانات الشخصية | عند العلم والمهلة متروكة للائحة التنفيذية | مصدر ثانوي |
 | قطر | الوكالة الوطنية للأمن السيبراني | الحوادث الحرجة | خلال ساعتين من التحديد | النص الرسمي |
 | قطر | الوكالة الوطنية للأمن السيبراني | خرق البيانات الشخصية | خلال 72 ساعة | النص الرسمي |
+| قطر | مصرف قطر المركزي | خروقات البيانات لدى المؤسسات المالية | وفق إرشادات المصرف مع إبلاغ الوكالة ووزارة الداخلية | النص الرسمي |
+| البحرين | مصرف البحرين المركزي | حوادث البنوك التي تمس العملاء أو الخدمات الحرجة | اتصال خلال ساعة ثمّ تقرير أولي خلال ساعتين وتقرير كامل خلال 10 أيام | النص الرسمي |
 | البحرين | هيئة حماية البيانات الشخصية | خرق البيانات الشخصية | خلال 72 ساعة من الاكتشاف | مصدر ثانوي |
 | عُمان | وزارة النقل والاتصالات وتقنية المعلومات | خرق البيانات الشخصية | خلال 72 ساعة من العلم | مصدر ثانوي |
 
-وما زالت قواعد مصرف الإمارات العربية المتحدة المركزي ومصرف قطر المركزي ومصرف البحرين المركزي والبنك المركزي العُماني ومجلس الأمن السيبراني لدولة الإمارات والمركز الوطني للأمن السيبراني في البحرين ومركز الدفاع الإلكتروني في عُمان قيد التحقق ولن تدخل السجل قبل قراءتها في مصدر رسمي أو موثوق.
+وما زالت مهلة الإبلاغ عن الحوادث السيبرانية لدى مصرف قطر المركزي وقواعد البنك المركزي العُماني ومجلس الأمن السيبراني لدولة الإمارات والمركز الوطني للأمن السيبراني في البحرين ومركز الدفاع الإلكتروني في عُمان قيد التحقق ولن تدخل السجل قبل قراءتها في مصدر رسمي أو موثوق.
 
 ### سياسة التحقق
 
@@ -96,13 +99,16 @@ In the first hour of an incident everyone asks the same question: who do we noti
 | Saudi Arabia | SAMA | Incidents affecting customers (IT Governance Framework 3.3.8) | Immediately, detailed report within 5 days | Official text |
 | Saudi Arabia | SAMA | Payment service providers (Payments Implementing Regulations, Article 121(2)) | Immediately, medium and higher | Official text |
 | Saudi Arabia | NCA | Government and critical national infrastructure (ECC-2:2024, 2-13-3) | No fixed period | Official text |
+| UAE | Central Bank of the UAE | Events affecting critical operations (Operational Risk Management Regulation, Articles 15.2 and 15.3) | Within 4 hours, summary report within 24 hours, high-risk incidents within 72 hours | Official text |
 | UAE | UAE Data Office | Personal data breach (Decree by Law 45 of 2021, Article 9) | Upon awareness, period left to executive regulations | Secondary source |
 | Qatar | NCSA | Critical incidents (NIA Standard v2.1, IM 8) | Within 2 hours of identification | Official text |
 | Qatar | NCSA | Personal data breach (PDPPL breach notification guideline) | Within 72 hours | Official text |
+| Qatar | Qatar Central Bank | Data breaches at licensed financial institutions (Data Handling and Protection Regulation, Article 16) | Under QCB incident reporting guidelines, also to NCSA and the Ministry of Interior | Official text |
+| Bahrain | Central Bank of Bahrain | Bank incidents affecting customers or critical services (Rulebook OM-5.5.57 and OM-5.5.58) | Call within 1 hour, Section A within 2 hours, Section B within 10 days | Official text |
 | Bahrain | Personal Data Protection Authority | Personal data breach (Resolution 43 of 2022, Article 4(2)) | Within 72 hours of discovery | Secondary source |
 | Oman | Ministry of Transport, Communications and IT | Personal data breach (Ministerial Decision 34 of 2024, Articles 30 and 32) | Within 72 hours of awareness | Secondary source |
 
-Still being verified, and kept out of the register until their rules are read in an official or reliable source: the Central Bank of the UAE, Qatar Central Bank, the Central Bank of Bahrain, the Central Bank of Oman, the UAE Cyber Security Council, Bahrain's National Cyber Security Center and the Oman Cyber Defense Center.
+Still being verified, and kept out of the register until their rules are read in an official or reliable source: the cyber incident timeline of Qatar Central Bank, the Central Bank of Oman, the UAE Cyber Security Council, Bahrain's National Cyber Security Center and the Oman Cyber Defense Center.
 
 ### Verification policy
 

@@ -33,8 +33,11 @@ Names of authorities and frameworks belong to their owners and are used only to 
 | sa-sama-payments | https://rulebook.sama.gov.sa/en/node/1574 |
 | sa-nca-ecc | NCA Essential Cybersecurity Controls ECC-2:2024, control 2-13-3 |
 | ae-pdpl | https://uaelegislation.gov.ae/en/legislations/1972 |
+| ae-cbuae-oprisk | https://rulebook.centralbank.ae/en/rulebook/operational-risk-management-regulation |
 | qa-ncsa-nia | NCSA National Information Assurance Standard v2.1, control IM 8 |
 | qa-pdppl | NCSA guideline PDPPL-02050217E v2.0 |
+| qa-qcb-data | https://www.qcb.gov.qa/Documents/InformationSecurity/Data%20Handling%20and%20Protection%20Regulation.pdf |
+| bh-cbb-banks | https://cbben.thomsonreuters.com/node/2300925 |
 | bh-pdpa | PDPA Resolution No. 43 of 2022, confirmed by Trowers and Hamlins and Lex Mundi |
 | om-pdpl | Ministerial Decision No. 34 of 2024, confirmed by Trowers and Hamlins and CMS |
 

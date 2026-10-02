@@ -95,6 +95,9 @@ export function assess(bundle, input) {
     if (!countries.includes(ob.country) || !triggers.includes(ob.trigger) || !sectorOk(ob, sector)) continue;
     const { rows, note } = rowsAt(ob, severity);
     const items = rows.flatMap((r) => resolve(bundle, ob, r, discovered, severity));
+    const first = (i) => (i.stage === 'initial' ? 0 : 1);
+    const at = (i) => (i.due ? i.due.getTime() : Number.MAX_SAFE_INTEGER);
+    items.sort((x, y) => first(x) - first(y) || at(x) - at(y));
     const lead = items.find((i) => i.stage === 'initial') || items[0] || null;
     duties.push({ id: ob.id, country: ob.country, authority: ob.authority, trigger: ob.trigger, verification: ob.verification, note, lead, items });
   }

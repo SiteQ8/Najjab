@@ -3,7 +3,7 @@
  "project": {
   "name_en": "Najjab",
   "name_ar": "نجّاب",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "domain": "najjab.3li.info",
   "repo": "https://github.com/SiteQ8/Najjab",
   "updated": "2026-10-02",
@@ -212,16 +212,34 @@
    "en": "UAE Data Office",
    "ar": "مكتب الإمارات للبيانات"
   },
+  "cbuae": {
+   "country": "AE",
+   "en": "Central Bank of the UAE",
+   "ar": "مصرف الإمارات العربية المتحدة المركزي",
+   "url": "https://www.centralbank.ae/"
+  },
   "ncsa": {
    "country": "QA",
    "en": "National Cyber Security Agency",
    "ar": "الوكالة الوطنية للأمن السيبراني",
    "url": "https://ncsa.gov.qa/"
   },
+  "qcb": {
+   "country": "QA",
+   "en": "Qatar Central Bank",
+   "ar": "مصرف قطر المركزي",
+   "url": "https://www.qcb.gov.qa/"
+  },
   "bh-pdpa": {
    "country": "BH",
    "en": "Personal Data Protection Authority",
    "ar": "هيئة حماية البيانات الشخصية"
+  },
+  "cbb": {
+   "country": "BH",
+   "en": "Central Bank of Bahrain",
+   "ar": "مصرف البحرين المركزي",
+   "url": "https://www.cbb.gov.bh/"
   },
   "om-mtcit": {
    "country": "OM",
@@ -231,19 +249,9 @@
  },
  "pending": [
   {
-   "country": "AE",
-   "en": "Central Bank of the UAE",
-   "ar": "مصرف الإمارات العربية المتحدة المركزي"
-  },
-  {
    "country": "QA",
-   "en": "Qatar Central Bank",
-   "ar": "مصرف قطر المركزي"
-  },
-  {
-   "country": "BH",
-   "en": "Central Bank of Bahrain",
-   "ar": "مصرف البحرين المركزي"
+   "en": "Qatar Central Bank, cyber incident timeline",
+   "ar": "مصرف قطر المركزي في مهلة الإبلاغ عن الحوادث السيبرانية"
   },
   {
    "country": "OM",
@@ -688,6 +696,61 @@
    "verification": "secondary"
   },
   {
+   "id": "ae-cbuae-oprisk",
+   "country": "AE",
+   "authority": "cbuae",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "banking",
+    "insurance",
+    "payments"
+   ],
+   "applies_to": {
+    "en": "Licensed financial institutions of the Central Bank of the UAE",
+    "ar": "المؤسسات المالية المرخصة من مصرف الإمارات العربية المتحدة المركزي"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "hours": 4,
+     "condition": "critical-ops"
+    },
+    {
+     "stage": "preliminary",
+     "hours": 24
+    },
+    {
+     "stage": "restored",
+     "when": "normal"
+    },
+    {
+     "stage": "high_risk",
+     "min_severity": "high",
+     "hours": 72
+    }
+   ],
+   "summary": {
+    "en": "Notify the Central Bank within 4 hours of an event that significantly affects or may affect critical operations, send a summary report within 24 hours, report the return to normal operations, and notify any high-risk incident within 72 hours.",
+    "ar": "يُخطَر المصرف المركزي خلال 4 ساعات من أي حدث يؤثر أو قد يؤثر تأثيراً كبيراً في العمليات الحرجة ثمّ يُرسل تقرير موجز خلال 24 ساعة ويُبلَّغ بعودة العمليات إلى طبيعتها ويُخطَر بأي حادثة عالية الخطورة خلال 72 ساعة."
+   },
+   "source": {
+    "title": {
+     "en": "CBUAE Operational Risk Management Regulation, Circular No. 1 of 2026",
+     "ar": "نظام إدارة المخاطر التشغيلية الصادر عن مصرف الإمارات العربية المتحدة المركزي بالتعميم رقم 1 لسنة 2026"
+    },
+    "ref": {
+     "en": "Articles 15.2 and 15.3",
+     "ar": "المادتان 15.2 و15.3"
+    },
+    "effective": "2026-09-14",
+    "url": "https://rulebook.centralbank.ae/en/rulebook/operational-risk-management-regulation"
+   },
+   "secondary": [
+    "https://www.trowers.com/insights/2026/september/uae-central-bank-raises-the-bar-on-operational-risk"
+   ],
+   "verification": "official"
+  },
+  {
    "id": "qa-ncsa-nia",
    "country": "QA",
    "authority": "ncsa",
@@ -768,6 +831,43 @@
    "verification": "official"
   },
   {
+   "id": "qa-qcb-data",
+   "country": "QA",
+   "authority": "qcb",
+   "trigger": "personal-data-breach",
+   "sectors": [
+    "banking",
+    "insurance",
+    "payments"
+   ],
+   "applies_to": {
+    "en": "Financial institutions licensed by Qatar Central Bank",
+    "ar": "المؤسسات المالية المرخصة من مصرف قطر المركزي"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "rule": "promptly"
+    }
+   ],
+   "summary": {
+    "en": "Treat every data breach as an incident, report it under the QCB incident reporting guidelines, and report it to the National Cyber Security Agency and the Ministry of Interior as well.",
+    "ar": "يُعامل كل خرق للبيانات معاملة الحادثة ويُبلَّغ به المصرف وفق إرشاداته للإبلاغ عن الحوادث ثمّ تُبلَّغ به الوكالة الوطنية للأمن السيبراني ووزارة الداخلية أيضاً."
+   },
+   "source": {
+    "title": {
+     "en": "QCB Data Handling and Protection Regulation",
+     "ar": "نظام التعامل مع البيانات وحمايتها الصادر عن مصرف قطر المركزي"
+    },
+    "ref": {
+     "en": "Articles 16.1 to 16.3",
+     "ar": "المواد من 16.1 إلى 16.3"
+    },
+    "url": "https://www.qcb.gov.qa/Documents/InformationSecurity/Data%20Handling%20and%20Protection%20Regulation.pdf"
+   },
+   "verification": "official"
+  },
+  {
    "id": "bh-pdpa",
    "country": "BH",
    "authority": "bh-pdpa",
@@ -806,6 +906,52 @@
     "https://www.lexmundi.com/guides/data-privacy-guide/jurisdictions/middle-east/bahrain/"
    ],
    "verification": "secondary"
+  },
+  {
+   "id": "bh-cbb-banks",
+   "country": "BH",
+   "authority": "cbb",
+   "trigger": "cyber-incident",
+   "sectors": [
+    "banking"
+   ],
+   "applies_to": {
+    "en": "Conventional and Islamic bank licensees of the Central Bank of Bahrain",
+    "ar": "البنوك التقليدية والإسلامية المرخصة من مصرف البحرين المركزي"
+   },
+   "deadlines": [
+    {
+     "stage": "initial",
+     "hours": 1,
+     "from": "discovery",
+     "condition": "customer-or-critical"
+    },
+    {
+     "stage": "preliminary",
+     "hours": 2,
+     "from": "discovery"
+    },
+    {
+     "stage": "report",
+     "days": 10
+    }
+   ],
+   "summary": {
+    "en": "Call the CBB immediately, within one hour, when an incident compromises customer information or disrupts critical services, send Section A of the incident report within two hours and Section B with the full root cause analysis within 10 calendar days.",
+    "ar": "يُتصل بالمصرف فوراً خلال ساعة إذا مسّت الحادثة معلومات العملاء أو عطّلت خدمات حرجة ثمّ يُرسل القسم الأول من تقرير الحادثة خلال ساعتين والقسم الثاني مع التحليل الكامل للسبب الجذري خلال 10 أيام تقويمية."
+   },
+   "source": {
+    "title": {
+     "en": "CBB Rulebook Volumes 1 and 2, Operational Risk Management Module",
+     "ar": "دليل أنظمة مصرف البحرين المركزي المجلدان 1 و2 ووحدة إدارة المخاطر التشغيلية"
+    },
+    "ref": {
+     "en": "Paragraphs OM-5.5.57 and OM-5.5.58",
+     "ar": "الفقرتان OM-5.5.57 وOM-5.5.58"
+    },
+    "url": "https://cbben.thomsonreuters.com/node/2300925"
+   },
+   "verification": "official"
   },
   {
    "id": "om-pdpl",
@@ -2003,6 +2149,30 @@
   "lang_name": {
    "en": "English",
    "ar": "العربية"
+  },
+  "stage_preliminary": {
+   "en": "Preliminary written report",
+   "ar": "التقرير الأولي المكتوب"
+  },
+  "stage_high_risk": {
+   "en": "High-risk incident notice",
+   "ar": "إشعار الحادثة عالية الخطورة"
+  },
+  "stage_restored": {
+   "en": "Normal service notice",
+   "ar": "إشعار انتهاء الأثر"
+  },
+  "when_normal": {
+   "en": "Once normal operations return",
+   "ar": "فور عودة العمليات إلى طبيعتها"
+  },
+  "cond_critical-ops": {
+   "en": "if critical operations are or may be significantly affected",
+   "ar": "إذا تأثرت العمليات الحرجة تأثراً كبيراً أو قد تتأثر"
+  },
+  "cond_customer-or-critical": {
+   "en": "if customer information is compromised or critical services are disrupted",
+   "ar": "إذا مسّت الحادثة معلومات العملاء أو عطّلت خدمات حرجة"
   }
  }
 }

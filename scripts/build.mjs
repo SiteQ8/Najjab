@@ -16,10 +16,10 @@ const tt = src('tabletop.json');
 const ui = src('ui.json');
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 
-const STAGES = new Set(['initial', 'update', 'closure', 'report', 'data_subjects']);
+const STAGES = new Set(['initial', 'preliminary', 'update', 'report', 'high_risk', 'data_subjects', 'restored', 'closure']);
 const RULES = new Set(['immediately', 'promptly', 'no-fixed-period', 'by-regulation', 'without-undue-delay', 'as-incident']);
 const FROM = new Set(['discovery', 'awareness', 'identification']);
-const WHEN = new Set(['resolution', 'monthly', 'resumed']);
+const WHEN = new Set(['resolution', 'monthly', 'resumed', 'normal']);
 
 if (project.version !== pkg.version) fail(`project.json version ${project.version} differs from package.json ${pkg.version}`);
 

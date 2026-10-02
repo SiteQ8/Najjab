@@ -482,5 +482,29 @@
   "lang_name": {
     "en": "English",
     "ar": "العربية"
+  },
+  "stage_preliminary": {
+    "en": "Preliminary written report",
+    "ar": "التقرير الأولي المكتوب"
+  },
+  "stage_high_risk": {
+    "en": "High-risk incident notice",
+    "ar": "إشعار الحادثة عالية الخطورة"
+  },
+  "stage_restored": {
+    "en": "Normal service notice",
+    "ar": "إشعار انتهاء الأثر"
+  },
+  "when_normal": {
+    "en": "Once normal operations return",
+    "ar": "فور عودة العمليات إلى طبيعتها"
+  },
+  "cond_critical-ops": {
+    "en": "if critical operations are or may be significantly affected",
+    "ar": "إذا تأثرت العمليات الحرجة تأثراً كبيراً أو قد تتأثر"
+  },
+  "cond_customer-or-critical": {
+    "en": "if customer information is compromised or critical services are disrupted",
+    "ar": "إذا مسّت الحادثة معلومات العملاء أو عطّلت خدمات حرجة"
   }
 }

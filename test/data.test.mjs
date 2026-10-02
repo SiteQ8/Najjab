@@ -14,8 +14,8 @@ test('every text exists in both languages and follows the Arabic writing rules',
   }
 });
 
-test('the register holds 14 duties across all six countries', () => {
-  assert.equal(b.obligations.length, 14);
+test('the register holds 17 duties across all six countries', () => {
+  assert.equal(b.obligations.length, 17);
   assert.deepEqual(Object.keys(b.countries), ['KW', 'SA', 'AE', 'QA', 'BH', 'OM']);
   for (const c of Object.keys(b.countries)) assert.ok(b.obligations.some((o) => o.country === c), `${c} has at least one duty`);
   assert.equal(new Set(b.obligations.map((o) => o.id)).size, b.obligations.length, 'ids are unique');
@@ -40,7 +40,7 @@ test('verification is honest: official duties link the text, secondary ones name
     if (o.verification === 'secondary') assert.ok((o.secondary || []).length > 0, `${o.id}: secondary sources listed`);
     for (const u of [o.source.url, ...(o.secondary || [])].filter(Boolean)) assert.match(u, /^https:\/\//, `${o.id}: https link`);
   }
-  assert.equal(b.obligations.filter((o) => o.verification === 'official').length, 9);
+  assert.equal(b.obligations.filter((o) => o.verification === 'official').length, 12);
   assert.equal(b.obligations.filter((o) => o.verification === 'secondary').length, 5);
 });
 
@@ -56,6 +56,13 @@ test('the deadlines encode what the sources say', () => {
   assert.equal(ob('sa-sama-itgf').deadlines.find((d) => d.stage === 'report').days, 5);
   assert.equal(first('ae-pdpl').rule, 'by-regulation');
   assert.equal(first('sa-nca-ecc').rule, 'no-fixed-period');
+  assert.equal(first('bh-cbb-banks').hours, 1);
+  assert.equal(ob('bh-cbb-banks').deadlines.find((d) => d.stage === 'preliminary').hours, 2);
+  assert.equal(ob('bh-cbb-banks').deadlines.find((d) => d.stage === 'report').days, 10);
+  assert.equal(first('ae-cbuae-oprisk').hours, 4);
+  assert.equal(ob('ae-cbuae-oprisk').deadlines.find((d) => d.stage === 'preliminary').hours, 24);
+  assert.equal(ob('ae-cbuae-oprisk').deadlines.find((d) => d.stage === 'high_risk').hours, 72);
+  assert.equal(first('qa-qcb-data').rule, 'promptly');
 });
 
 test('every incident type has a full playbook and a tabletop exercise', () => {

@@ -67,6 +67,19 @@ test('duties are ordered: immediate first, then by due time, open-ended last', (
   assert.equal(a.duties[a.duties.length - 1].lead, null, 'not triggered goes last');
 });
 
+test('Gulf central banks: Bahrain in one hour, the UAE in four with a 72 hour high-risk notice', () => {
+  const a = run({ countries: ['BH', 'AE'], sector: 'banking', type: 'ransomware', severity: 'high' });
+  const bh = duty(a, 'bh-cbb-banks');
+  assert.equal(bh.lead.due.getTime(), plus(1));
+  assert.deepEqual(bh.items.map((i) => i.stage), ['initial', 'preliminary', 'report']);
+  const ae = duty(a, 'ae-cbuae-oprisk');
+  assert.equal(ae.lead.due.getTime(), plus(4));
+  assert.deepEqual(ae.items.map((i) => i.stage), ['initial', 'preliminary', 'high_risk', 'restored']);
+  const medium = duty(run({ countries: ['AE'], sector: 'banking', type: 'ransomware', severity: 'medium' }), 'ae-cbuae-oprisk');
+  assert.ok(!medium.items.some((i) => i.stage === 'high_risk'), 'the 72 hour notice starts at high');
+  assert.equal(a.duties[0].id, 'bh-cbb-banks', 'soonest first');
+});
+
 test('Arabic counts agree with the number', () => {
   assert.equal(core.span(1, 'hour', 'ar'), 'ساعة');
   assert.equal(core.span(2, 'hour', 'ar'), 'ساعتين');

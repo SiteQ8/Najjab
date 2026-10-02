@@ -1,11 +1,14 @@
 {
   "name_en": "Najjab",
   "name_ar": "نجّاب",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "domain": "najjab.3li.info",
   "repo": "https://github.com/SiteQ8/Najjab",
   "updated": "2026-10-02",
-  "author": {"en": "Ali AlEnezi", "ar": "علي العنزي"},
+  "author": {
+    "en": "Ali AlEnezi",
+    "ar": "علي العنزي"
+  },
   "author_url": "https://3li.info",
   "about": {
     "en": "A guide to the first hours of a cyber incident in the Gulf that turns the incident into a list of who to notify and by when, with playbooks, a notice draft and a tabletop exercise.",
