@@ -386,8 +386,12 @@ input:disabled + .box, input:disabled + .switch { opacity: .55; }
 }
 .form select, .reg-filter select { appearance: none; -webkit-appearance: none; padding-inline-end: var(--s-10); }
 .row { display: flex; gap: var(--s-2); align-items: stretch; }
-.row input { flex: 1; min-width: 0; }
 .row .btn { min-height: var(--control-h); }
+/* The moment of discovery: shown as the page writes times, edited in the browser's picker that sits beneath it. */
+.moment { position: relative; flex: 1; min-width: 0; }
+.moment-btn { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); width: 100%; min-height: var(--control-h); padding: var(--s-2) var(--s-3); border: var(--hair) solid var(--line); background: var(--surface); color: var(--text); font-size: var(--fs-field); line-height: var(--lh-snug); text-align: start; cursor: pointer; transition: background-color var(--t-hover) var(--ease); }
+.form .moment-input { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; opacity: 0; pointer-events: none; }
+.form .moment.editing .moment-input { opacity: 1; pointer-events: auto; }
 
 /* The personal data switch: a square track and a square thumb */
 .toggle { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s-1) var(--s-3); cursor: pointer; }
@@ -404,7 +408,7 @@ input:checked + .switch::after { background: var(--on-turq); translate: -18px 0;
 @media (hover: hover) and (pointer: fine) {
   .chip:hover input:not(:checked) + .box, .opt:hover input:not(:checked) + .dot, .step:hover input:not(:checked) + .box { background: var(--raised); }
   .seg label:hover input:not(:checked) + span { color: var(--text); background: var(--raised); }
-  .form select:hover, .form input:hover, .fields input:hover, .fields textarea:hover, .reg-filter select:hover { background: var(--raised); }
+  .form select:hover, .form input:hover, .fields input:hover, .fields textarea:hover, .reg-filter select:hover, .moment-btn:hover { background: var(--raised); }
 }
 
 /* The clock: the question, the first notice and its countdown, the wall, the duties */
@@ -480,7 +484,7 @@ input:checked + .switch::after { background: var(--on-turq); translate: -18px 0;
   .tile .n { display: none; }
   .tile.due::before { inset: auto; top: calc(50% - 12px); inset-inline-start: calc(50% - 12px); width: 24px; height: 24px; }
   .tile.due.run-head::before { width: calc((var(--run, 1) - 1) * (100% + var(--hair)) + 24px); }
-  .tile.due.joined { pointer-events: none; }
+  .tile.due.joined, .tile:not(.due) { pointer-events: none; }
   .wall-zone, .day { padding-inline-end: var(--s-2); font-size: var(--fs-tag); }
 }
 

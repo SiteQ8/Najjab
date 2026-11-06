@@ -66,6 +66,9 @@ try {
   await page.locator('#discovered').scrollIntoViewIfNeeded();
   const box = await page.locator('#discovered').boundingBox();
   assert.ok(box && box.y >= 0 && box.y + box.height <= 1000, 'the discovery time can be reached beside the clock');
+  // The moment of discovery reads as the page writes times, and the browser's field beneath it takes no tab stop of its own.
+  assert.match(await page.textContent('#discovered-text'), /^\S+ \d{1,2} \S+ \d{2}:\d{2}$/, 'the discovery moment is shown in words');
+  assert.equal(await page.getAttribute('#discovered', 'tabindex'), '-1', 'one tab stop for the discovery moment');
   const latin = ((await pageText(page, ['#notice-en', '#lang'])).match(/[A-Za-z][A-Za-z0-9.\-/:+&]*/g) || []).filter((w) => !/^[A-Z0-9]/.test(w) && !w.includes('.'));
   assert.deepEqual(latin, [], 'no lowercase English inside the Arabic page');
   assert.ok(!STRAY.test(await pageText(page, [])), 'no stray null, undefined or NaN in the Arabic page');

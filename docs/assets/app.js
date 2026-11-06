@@ -43,6 +43,7 @@ const ICONS = {
   check: ['M3.25 8.5l3 3 6.5-7'],
   chevron: ['M4 6.25l4 4 4-4'],
   copy: ['M5.75 5.75h8v8h-8z', 'M10.25 5.75v-3.5h-8v8h3.5'],
+  calendar: ['M2.25 3.25h11.5v10.5H2.25z', 'M2.25 6.75h11.5M5.5 1.75v3M10.5 1.75v3'],
 };
 function icon(name, cls = '') {
   const svg = document.createElementNS(SVG, 'svg');
@@ -206,25 +207,57 @@ function renderForm() {
   const grades = h('fieldset', {}, h('legend', { text: t('severity') }), h('div', { class: 'seg' }, Object.keys(B.severities).map((k) => h('label', {},
     h('input', { type: 'radio', name: 'severity', value: k, checked: S.severity === k, onchange: () => { S.severity = k; changed('severity'); } }),
     h('span', { text: P(B.severities[k]) })))), h('p', { class: 'hint', text: t('severity_hint') }));
+  // The moment shows in the page's own words; the browser's picker, hidden beneath it, does the editing.
+  const input = h('input', { type: 'datetime-local', id: 'discovered', class: 'moment-input', step: '60', tabindex: '-1', 'aria-hidden': 'true', value: toLocalInput(S.discovered),
+    onchange: (e) => {
+      const d = new Date(e.target.value);
+      if (Number.isNaN(d.getTime())) return;
+      S.discovered = d.toISOString();
+      showMoment();
+      changed('time');
+    },
+    onblur: () => closePicker(input) });
+  const shown = h('button', { class: 'moment-btn', id: 'discovered-btn', type: 'button', 'aria-labelledby': 'discovered-label discovered-text', 'aria-describedby': 'discovered-hint', onclick: () => openPicker(input) },
+    h('span', { id: 'discovered-text' }), icon('calendar'));
   const time = h('div', { class: 'field' },
-    h('label', { class: 'field-label', for: 'discovered', text: t('discovered') }),
+    h('span', { class: 'field-label', id: 'discovered-label', text: t('discovered') }),
     h('div', { class: 'row' },
-      h('input', { type: 'datetime-local', id: 'discovered', step: '60', value: toLocalInput(S.discovered), onchange: (e) => {
-        const d = new Date(e.target.value);
-        if (Number.isNaN(d.getTime())) return;
-        S.discovered = d.toISOString();
-        changed('time');
-      } }),
+      h('div', { class: 'moment' }, shown, input),
       h('button', { class: 'btn', type: 'button', text: t('now'), onclick: () => {
         S.discovered = new Date().toISOString();
-        $('discovered').value = toLocalInput(S.discovered);
+        input.value = toLocalInput(S.discovered);
+        showMoment();
         changed('time');
       } })),
-    h('p', { class: 'hint', text: t('discovered_hint') }));
+    h('p', { class: 'hint', id: 'discovered-hint', text: t('discovered_hint') }));
   // The time of discovery leads: every countdown on the page counts from it.
   form.append(time, countries, h('div', { id: 'zones-wrap' }), sector, types, grades, h('div', { id: 'personal-wrap' }));
+  showMoment();
   renderZones();
   renderPersonal();
+}
+
+function showMoment() {
+  const text = $('discovered-text');
+  if (text) text.textContent = core.when(new Date(S.discovered), S.lang);
+}
+
+// The browser's own picker opens from the shown moment; where a browser has no picker to open, the field itself appears.
+function openPicker(input) {
+  if (typeof input.showPicker === 'function') {
+    try { input.showPicker(); return; } catch { /* fall through to the field */ }
+  }
+  input.closest('.moment').classList.add('editing');
+  input.removeAttribute('aria-hidden');
+  input.tabIndex = 0;
+  input.focus();
+}
+function closePicker(input) {
+  const box = input.closest('.moment');
+  if (!box || !box.classList.contains('editing')) return;
+  box.classList.remove('editing');
+  input.setAttribute('aria-hidden', 'true');
+  input.tabIndex = -1;
 }
 
 function renderZones() {

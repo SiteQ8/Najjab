@@ -6,6 +6,10 @@
 
 الموقع | Site: **https://najjab.3li.info**
 
+<img src="docs/screens/desk.png" alt="نجّاب على شاشة مكتب في الوضع النهاري مع جدار الساعات وأول إشعار وعدّاده | Najjab on a desk in the day theme, with the wall of hours and the first notice and its countdown" width="100%">
+
+<img src="docs/screens/phone.png" alt="نجّاب على الهاتف في الوضع الليلي | Najjab on a phone at night" width="300">
+
 ---
 
 ## بالعربية
