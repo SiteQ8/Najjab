@@ -174,3 +174,28 @@ test('the next deadline skips notices due immediately, and only fixed times coun
   assert.equal(core.urgency(5 * 3600000), 'soon');
   assert.equal(core.urgency(7 * 3600000), 'later');
 });
+
+test('the wall lays every fixed deadline on its local day, folds empty days into gaps and keeps the present day', () => {
+  const a = run({ countries: ['KW', 'BH'], sector: 'banking', type: 'data-breach', personal: true });
+  const stations = core.route(a).stations;
+  const day = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const w = core.wall(a, plus(40 / 60));
+  const first = w.rows[0];
+  const last = w.rows.at(-1);
+  assert.equal(first.kind, 'day');
+  assert.equal(first.date.getTime(), day(a.discovered), 'the wall opens on the day of discovery');
+  assert.equal(last.kind, 'day');
+  assert.equal(last.date.getTime(), day(stations.at(-1).due), 'and closes on the day of the last deadline');
+  const laid = w.rows.filter((r) => r.kind === 'day').flatMap((r) => r.stations.map((s) => ({ s, row: r.date.getTime() })));
+  assert.equal(laid.length, stations.length, 'every station is laid once');
+  assert.ok(laid.every(({ s, row }) => day(s.due) === row), 'each on its own day');
+  const gaps = w.rows.filter((r) => r.kind === 'gap');
+  assert.ok(gaps.length >= 1, 'the ten day report leaves empty days to fold');
+  assert.ok(gaps.every((g) => g.days >= 2), 'a single empty day keeps its row');
+  assert.ok(w.rows.every((r, i) => i === 0 || r.kind === 'day' || w.rows[i - 1].kind === 'day'), 'two gaps never touch');
+  const covered = w.rows.reduce((n, r) => n + (r.kind === 'gap' ? r.days : 1), 0);
+  assert.equal(covered, Math.round((last.date - first.date) / 864e5) + 1, 'no day is lost between the first and the last');
+  const fifth = core.wall(a, plus(5 * 24));
+  assert.ok(fifth.rows.some((r) => r.kind === 'day' && r.date.getTime() === day(new Date(plus(5 * 24)))), 'the present day keeps its own row');
+  assert.deepEqual(core.wall(run({ countries: ['SA'], sector: 'payments', type: 'ransomware' })).rows, [], 'no fixed time, no wall');
+});

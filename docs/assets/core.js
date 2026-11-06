@@ -182,6 +182,42 @@ export function route(a) {
   return { span, stations };
 }
 
+// The wall of hours: the fixed-time deadlines laid out by local day, one row a day from the day of discovery to the day of the
+// last deadline, each row holding its stations. A run of two or more days with nothing due folds into one gap, and the day
+// holding `now` keeps its own row while it lies on the wall, so the present hour always has a tile.
+const dayOf = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const dayAfter = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+
+export function wall(a, now = Date.now()) {
+  const { stations } = route(a);
+  if (!stations.length) return { rows: [] };
+  const first = dayOf(a.discovered);
+  const last = dayOf(stations[stations.length - 1].due);
+  const today = dayOf(new Date(now)).getTime();
+  const due = new Map();
+  for (const s of stations) {
+    const k = dayOf(s.due).getTime();
+    if (!due.has(k)) due.set(k, []);
+    due.get(k).push(s);
+  }
+  const rows = [];
+  let run = [];
+  const flush = () => {
+    if (run.length === 1) rows.push({ kind: 'day', date: run[0], stations: [] });
+    else if (run.length > 1) rows.push({ kind: 'gap', from: run[0], to: run[run.length - 1], days: run.length });
+    run = [];
+  };
+  for (let d = first; d <= last; d = dayAfter(d)) {
+    const k = d.getTime();
+    if (due.has(k) || k === first.getTime() || k === today) {
+      flush();
+      rows.push({ kind: 'day', date: d, stations: due.get(k) || [] });
+    } else run.push(d);
+  }
+  flush();
+  return { rows };
+}
+
 // The next deadline still ahead, and how many have already passed, at a given moment.
 // A notice due immediately has no moment of its own to pass, so it is neither next nor passed: its slip leads instead.
 export function nextDue(a, now = Date.now()) {

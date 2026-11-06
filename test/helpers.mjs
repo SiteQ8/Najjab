@@ -1,5 +1,6 @@
-import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, extname, relative } from 'node:path';
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { join, extname, relative, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 
@@ -49,14 +50,24 @@ export function pairs(value, path = '$', out = []) {
 }
 
 const TEXT = new Set(['.js', '.mjs', '.json', '.md', '.html', '.css', '.txt', '.xml', '.svg', '.yml', '']);
+const isText = (name) => TEXT.has(extname(name)) || ['LICENSE', 'CNAME', '.gitignore', '.nojekyll'].includes(basename(name));
+// Every text file that is or would be committed, as git sees it, so working folders the repository ignores stay out.
+// Outside a git checkout (an unpacked package, say) every file under the root is read instead.
 export function textFiles(dir = root) {
+  const git = spawnSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: dir, encoding: 'utf8' });
+  if (git.status === 0 && git.stdout) {
+    return git.stdout.split('\0').filter((f) => f && isText(f) && existsSync(join(dir, f)) && statSync(join(dir, f)).isFile());
+  }
+  return walk(dir);
+}
+function walk(dir) {
   const out = [];
   for (const name of readdirSync(dir)) {
     if (['.git', 'node_modules'].includes(name)) continue;
     const p = join(dir, name);
     const st = statSync(p);
-    if (st.isDirectory()) out.push(...textFiles(p));
-    else if (TEXT.has(extname(name)) || ['LICENSE', 'CNAME', '.gitignore', '.nojekyll'].includes(name)) out.push(relative(root, p));
+    if (st.isDirectory()) out.push(...walk(p));
+    else if (isText(name)) out.push(relative(root, p));
   }
   return out;
 }

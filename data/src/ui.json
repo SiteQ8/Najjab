@@ -368,8 +368,8 @@
     "ar": "نجّاب مرجع عملي لا يغني عن الاستشارة القانونية لذا يبقى النص الرسمي هو المعتمد دائماً."
   },
   "updated": {
-    "en": "Data checked on {date}",
-    "ar": "رُوجعت البيانات في {date}"
+    "en": "Data checked on {date}.",
+    "ar": "رُوجعت البيانات في {date}."
   },
   "mcp_note": {
     "en": "The same data answers AI assistants through the MCP server in the repository.",
@@ -559,27 +559,15 @@
     "en": "Done",
     "ar": "تم"
   },
-  "route": {
-    "en": "Route of deadlines",
-    "ar": "مسار المهل"
-  },
-  "route_start": {
-    "en": "Discovered {time}",
-    "ar": "الاكتشاف {time}"
-  },
-  "route_now": {
-    "en": "Now",
-    "ar": "الآن"
-  },
-  "route_item": {
+  "wall_item": {
     "en": "{stage} to {who}",
     "ar": "{stage} إلى {who}"
   },
-  "route_item_for": {
+  "wall_item_for": {
     "en": "{stage} to {who} for {what}",
     "ar": "{stage} إلى {who} عن {what}"
   },
-  "route_count": {
+  "wall_count": {
     "en": "{n} notices",
     "ar": "{n} من الإشعارات"
   },
@@ -616,8 +604,8 @@
     "ar": "مضت مواعيد المهل المحددة كلها."
   },
   "calendar_short": {
-    "en": "Calendar",
-    "ar": "التقويم"
+    "en": "Add to calendar",
+    "ar": "أضف إلى التقويم"
   },
   "print_short": {
     "en": "Print",
@@ -638,5 +626,73 @@
   "tab_register_short": {
     "en": "Duties",
     "ar": "السجل"
+  },
+  "wall": {
+    "en": "Deadlines hour by hour",
+    "ar": "المهل ساعة بساعة"
+  },
+  "wall_zone": {
+    "en": "Your time",
+    "ar": "بتوقيتك"
+  },
+  "wall_now": {
+    "en": "Now {time}",
+    "ar": "الآن {time}"
+  },
+  "wall_gap": {
+    "en": "No fixed deadline for {span}",
+    "ar": "لا مواعيد محددة خلال {span}"
+  },
+  "wall_range": {
+    "en": "{from} to {to}",
+    "ar": "{from} إلى {to}"
+  },
+  "key_gone": {
+    "en": "Since discovery",
+    "ar": "مضى منذ الاكتشاف"
+  },
+  "key_now": {
+    "en": "Due within the hour",
+    "ar": "خلال الساعة"
+  },
+  "key_soon": {
+    "en": "Due within six hours",
+    "ar": "خلال ست ساعات"
+  },
+  "key_later": {
+    "en": "Due after six hours",
+    "ar": "بعد ست ساعات"
+  },
+  "key_over": {
+    "en": "Deadline passed",
+    "ar": "مضى موعده"
+  },
+  "key_night": {
+    "en": "Night hours",
+    "ar": "ساعات الليل"
+  },
+  "col_left": {
+    "en": "Time left",
+    "ar": "المتبقي"
+  },
+  "col_who": {
+    "en": "Authority",
+    "ar": "الجهة"
+  },
+  "col_when": {
+    "en": "Stage and time",
+    "ar": "المرحلة والموعد"
+  },
+  "col_src": {
+    "en": "Source",
+    "ar": "السند"
+  },
+  "group_open": {
+    "en": "No fixed time",
+    "ar": "بلا وقت محدد"
+  },
+  "group_off": {
+    "en": "Not at this grade",
+    "ar": "لا يسري عند هذه الدرجة"
   }
 }

@@ -42,8 +42,8 @@ test('verification is honest: official duties link the text, secondary ones name
     if (o.verification === 'secondary') assert.ok((o.secondary || []).length > 0, `${o.id}: secondary sources listed`);
     for (const u of [o.source.url, ...(o.secondary || [])].filter(Boolean)) assert.match(u, /^https:\/\//, `${o.id}: https link`);
   }
-  assert.equal(b.obligations.filter((o) => o.verification === 'official').length, 16);
-  assert.equal(b.obligations.filter((o) => o.verification === 'secondary').length, 6);
+  assert.equal(b.obligations.filter((o) => o.verification === 'official').length, 17);
+  assert.equal(b.obligations.filter((o) => o.verification === 'secondary').length, 5);
 });
 
 test('the deadlines encode what the sources say', () => {

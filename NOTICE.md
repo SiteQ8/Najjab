@@ -27,7 +27,7 @@ Names of authorities and frameworks belong to their owners and are used only to 
 | kw-cbk-incident, kw-cbk-pdb | Central Bank of Kuwait, Cyber and Operational Resilience Framework v1.0 (issued 2025-12-03): https://www.cbk.gov.kw/en/images/corf-170113_v10_tcm10-170113.pdf |
 | kw-ncsc-rs1 | NCSC Decision No. 2 of 2026, Annex 1, control RS-1, Kuwait Al Youm issue 1785 |
 | kw-citra-pdb | CITRA Resolution No. 26 of 2024, confirmed by Al Tamimi and Company |
-| sa-sdaia-pdb | PDPL Implementing Regulation, Article 24, confirmed by Clyde and Co |
+| sa-sdaia-pdb | https://sdaia.gov.sa/en/SDAIA/about/Documents/ImplementingRegulationPersonalDataProtectionLaw.pdf |
 | sa-sama-csf | https://rulebook.sama.gov.sa/node/3956 |
 | sa-sama-itgf | https://www.rulebook.sama.gov.sa/en/node/4199 |
 | sa-sama-payments | https://rulebook.sama.gov.sa/en/node/1574 |
@@ -46,4 +46,4 @@ Names of authorities and frameworks belong to their owners and are used only to 
 | om-pdpl | Ministerial Decision No. 34 of 2024, confirmed by Trowers and Hamlins and CMS |
 | om-cdc | Royal Decree 64/2020, recorded by the National Cyber Security Index of the e-Governance Academy |
 
-Fonts: IBM Plex Sans Arabic and Reem Kufi, under the SIL Open Font License 1.1 (`docs/fonts/OFL.txt`).
+Fonts: Noto Kufi Arabic and Kufam, under the SIL Open Font License 1.1 (`docs/fonts/OFL.txt`).

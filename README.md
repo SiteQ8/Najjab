@@ -17,8 +17,8 @@
 ### ماذا يقدّم
 
 - **ساعة الإبلاغ** وفيها تختار الدول التي تعمل فيها والمناطق الحرة المالية والقطاع ونوع الحادثة ودرجة خطورتها ووقت اكتشافها فتظهر كل جهة يجب إبلاغها مع موعدها بتوقيتك وبتوقيت الدولة وعدّاد تنازلي يتغير لونه كلما اقتربت المهلة.
-- **مسار المهل** ويرسم كل مهلة بوقت محدد محطةً على طريق يبدأ من لحظة الاكتشاف ويتقدم عليه مؤشر الآن بينما يتصدر الساعةَ الإبلاغُ القادم وعدّاده وتنقلك كل محطة إلى بطاقة جهتها.
-- **الوضع النهاري والليلي** ويتبع الموقع إعداد جهازك ما لم تختر أحدهما ويُبقي اللون للمهل وحدها فالأحمر لما بقي عليه أقل من ساعة أو فات موعده والكهرماني لما بقي عليه أقل من ست ساعات. وعلى الهاتف تُطوى الحادثة في سطر موجز فتأتي الساعة أولاً.
+- **جدار الساعات** ويضع كل مهلة بوقت محدد على جدار من البلاط فلكل يوم صف ولكل ساعة مربع يُلوَّن إذا حلّت فيه مهلة ويمتلئ بالفيروزي ما مضى منذ الاكتشاف ويحيط إطار بالساعة الحالية بينما يتصدر الصفحةَ الإبلاغُ القادم وعدّاده ثمّ تنقلك كل ساعة ملوّنة إلى واجب جهتها.
+- **الوضع النهاري والليلي** ويتبع الموقع إعداد جهازك ما لم تختر أحدهما ولا يضع اللون إلا حيث يعني شيئاً فالأحمر لما بقي عليه أقل من ساعة أو فات موعده والأصفر الترابي لما بقي عليه أقل من ست ساعات والفيروزي للوقت الذي مضى ولكل ما تختاره وعلى الهاتف تُطوى الحادثة في سطر موجز فتأتي المهل أولاً.
 - **أدلة الاستجابة** ولكل من برمجيات الفدية واختراق البريد الإلكتروني للأعمال وتسرّب البيانات وانكشاف مفاتيح الوصول السحابية خطوات تبدأ بالساعة الأولى ثمّ الاحتواء والاستئصال والتعافي والأدلة الواجب حفظها وما بعد الحادثة.
 - **ملف التقويم** ويضيف كل مهلة بوقت محدد إلى Outlook أو تقويم Google أو تقويم Apple مع تنبيه قبلها بربع ساعة.
 - **مسودة الإشعار** وهي نص بالعربية والإنجليزية يجمع الحقائق التي تطلبها كل جهة أولاً ويُوجَّه تلقائياً إلى الجهات التي تستدعيها الحادثة.
@@ -34,7 +34,7 @@
 | الكويت | بنك الكويت المركزي | خرق البيانات الشخصية | وفق مهل الإبلاغ عن الحوادث | النص الرسمي |
 | الكويت | المركز الوطني للأمن السيبراني | الحوادث السيبرانية | دون تأخير وضمن المهل التي يحددها المركز | النص الرسمي |
 | الكويت | الهيئة العامة للاتصالات وتقنية المعلومات | خرق البيانات الشخصية لدى المرخص لهم | خلال 24 ساعة من العلم | مصدر ثانوي |
-| السعودية | الهيئة السعودية للبيانات والذكاء الاصطناعي | خرق البيانات الشخصية | خلال 72 ساعة من العلم | مصدر ثانوي |
+| السعودية | الهيئة السعودية للبيانات والذكاء الاصطناعي | خرق البيانات الشخصية | خلال 72 ساعة من العلم | النص الرسمي |
 | السعودية | البنك المركزي السعودي | الحوادث المتوسطة والعالية | فوراً | النص الرسمي |
 | السعودية | البنك المركزي السعودي | الحوادث التي تمس العملاء | فوراً ثمّ تقرير مفصل خلال 5 أيام | النص الرسمي |
 | السعودية | البنك المركزي السعودي | مقدمو خدمات المدفوعات | فوراً للمتوسطة فأعلى | النص الرسمي |
@@ -88,8 +88,8 @@ In the first hour of an incident everyone asks the same question: who do we noti
 ### What it does
 
 - **The notification clock.** Pick the countries and financial free zones you operate in, your sector, the type of incident, its severity and when it was discovered. Every authority you must notify appears with its due time in your time zone and the country's, and a countdown that changes colour as the deadline nears.
-- **The route of deadlines.** Every deadline with a fixed time is a station on a road that starts at discovery, with a marker for now moving along it. The next notice leads the clock with its own countdown, and each station takes you to its authority's slip.
-- **Day and night.** The site follows your device unless you pick one, and spends colour only on deadlines: red inside the last hour and once a deadline passes, amber inside six hours. On a phone the incident folds into a short summary so the clock comes first.
+- **The wall of hours.** Every deadline with a fixed time sits on a wall of tiles, a row for each day and a tile for each hour. The hour a notice falls due is glazed in its urgency colour, the time since discovery fills turquoise and the present hour carries a ring. The next notice leads the page with its own countdown, and each glazed tile takes you to its authority's duty.
+- **Day and night.** The site follows your device unless you pick one, and spends colour only where it means something: red inside the last hour and once a deadline passes, ochre inside six hours, turquoise for time gone and for what you choose. On a phone the incident folds into a short summary so the deadlines come first.
 - **Playbooks.** Ransomware, business email compromise, data breach and exposed cloud access keys, each with how it shows up, the first hour, containment, eradication, recovery, the evidence to keep and what to do after.
 - **Calendar file.** Every deadline with a fixed time, as events for Outlook, Google Calendar or Apple Calendar with a reminder 15 minutes before each.
 - **Notice draft.** Arabic and English text that gathers the facts every regulator asks for first, addressed to the authorities the incident triggers.
@@ -105,7 +105,7 @@ In the first hour of an incident everyone asks the same question: who do we noti
 | Kuwait | Central Bank of Kuwait | Personal data breach (CORF control 5.11.2.4) | On the incident reporting timelines | Official text |
 | Kuwait | National Cyber Security Center | Cyber incidents (NBCC control RS-1) | Promptly, within the Center's timelines | Official text |
 | Kuwait | CITRA | Personal data breach at licensed providers (Resolution 26 of 2024) | Within 24 hours of awareness | Secondary source |
-| Saudi Arabia | SDAIA | Personal data breach (PDPL Implementing Regulation, Article 24) | Within 72 hours of awareness | Secondary source |
+| Saudi Arabia | SDAIA | Personal data breach (PDPL Implementing Regulation, Article 24) | Within 72 hours of awareness | Official text |
 | Saudi Arabia | SAMA | Medium and high incidents (Cyber Security Framework 3.3.15) | Immediately | Official text |
 | Saudi Arabia | SAMA | Incidents affecting customers (IT Governance Framework 3.3.8) | Immediately, detailed report within 5 days | Official text |
 | Saudi Arabia | SAMA | Payment service providers (Payments Implementing Regulations, Article 121(2)) | Immediately, medium and higher | Official text |

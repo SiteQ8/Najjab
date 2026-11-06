@@ -1,4 +1,4 @@
-// Browser check of the published page: renders, counts down, walks the route, switches language and theme, folds on a phone, and logs no errors.
+// Browser check of the published page: renders, counts down, walks the wall of hours, switches language and theme, folds on a phone, and logs no errors.
 // Run: npm run test:ui (needs Playwright; set PW_MODULE and PW_CHROME when they are not on the default paths).
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
@@ -30,28 +30,32 @@ try {
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   await page.goto(`http://localhost:${PORT}/?c=KW&s=banking&t=ransomware&v=high&p=0&lang=ar`, { waitUntil: 'networkidle' });
   assert.equal(await page.getAttribute('html', 'dir'), 'rtl');
-  await page.waitForSelector('.slip');
-  const first = await page.textContent('.slip .who');
+  await page.waitForSelector('.duty');
+  const first = await page.textContent('.duty .who');
   assert.match(first, /بنك الكويت المركزي/);
-  const c1 = await page.textContent('.slip .count');
+  const c1 = await page.textContent('.duty .count');
   await page.waitForTimeout(1200);
-  const c2 = await page.textContent('.slip .count');
+  const c2 = await page.textContent('.duty .count');
   assert.notEqual(c1, c2, 'the countdown ticks');
   if (shots) await page.screenshot({ path: `${shots}/desktop-ar.png`, fullPage: false });
-  // The next deadline leads the clock, and the route has a station for it that rings its slip.
+  // The next deadline leads the clock, and the wall has a glazed tile for it that rings its duty.
   assert.match(await page.textContent('#finding'), /بنك الكويت المركزي/);
   assert.match(await page.textContent('#lead-count'), /^\d{2,}:\d{2}:\d{2}$/);
-  const stations = page.locator('#route .station');
-  assert.ok(await stations.count() >= 1, 'the route has stations');
-  const target = (await stations.first().getAttribute('href')).slice(1);
-  await stations.first().locator('.dot').click();
-  assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.id), target, 'a station takes focus to its slip');
-  assert.ok(await page.locator(`#${target}.arrived`).count() === 1, 'the slip is rung');
+  const glazed = page.locator('#wall .tile.due');
+  assert.ok(await glazed.count() >= 1, 'the wall has glazed tiles');
+  const shape = await page.evaluate(() => ({ days: document.querySelectorAll('#wall .day:not(.gap-day)').length, tiles: document.querySelectorAll('#wall .tile').length, present: document.querySelectorAll('#wall .tile.present').length, unnamed: [...document.querySelectorAll('#wall .tile.due')].filter((a) => !a.getAttribute('aria-label')).length }));
+  assert.equal(shape.tiles, shape.days * 24, 'every day on the wall has 24 hour tiles');
+  assert.equal(shape.present, 1, 'the present hour carries the ring');
+  assert.equal(shape.unnamed, 0, 'every glazed tile says what falls due in it');
+  const target = (await glazed.first().getAttribute('href')).slice(1);
+  await glazed.first().click();
+  assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.id), target, 'a glazed tile takes focus to its duty');
+  assert.ok(await page.locator(`#${target}.arrived`).count() === 1, 'the duty is rung');
   // Let the pointer's ring clear first, then arrive by keyboard.
   await page.waitForSelector(`#${target}.arrived`, { state: 'detached' });
   await page.locator('#lang').focus();
   await page.waitForTimeout(800);
-  const last = page.locator('#route .station').last();
+  const last = page.locator('#wall .tile.due').last();
   const target2 = (await last.getAttribute('href')).slice(1);
   await page.keyboard.press('Tab');
   await last.focus();
@@ -85,7 +89,7 @@ try {
   const runTogether = await page.evaluate(() => {
     const word = /[0-9A-Za-z\u0620-\u064A\u066E-\u06D3]/;
     const bad = [];
-    const lines = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, summary, label, dt, dd, button, li:not(.slip), .foot-links, .rlabel');
+    const lines = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, summary, label, dt, dd, button, li:not(.duty), .foot-links, .tick, .day, .gap');
     for (const line of lines) {
       const parts = [...line.childNodes].filter((n) => (n.nodeType === Node.TEXT_NODE ? n.textContent !== '' : !['SELECT', 'INPUT', 'TEXTAREA'].includes(n.tagName) && getComputedStyle(n).display !== 'none'));
       for (let i = 1; i < parts.length; i++) {
@@ -102,12 +106,12 @@ try {
   // Qatar, critical: the NIA two hour duty appears.
   await page.click('label.chip:has(input[value="QA"])');
   await page.click('.seg label:has(input[value="critical"])');
-  assert.equal(await page.locator('.slip', { hasText: 'الوكالة الوطنية للأمن السيبراني' }).count(), 1);
+  assert.equal(await page.locator('.duty', { hasText: 'الوكالة الوطنية للأمن السيبراني' }).count(), 1);
   // Free zones show up with their country and add their duties.
   await page.click('label.chip:has(input[value="AE"])');
   await page.click('label.chip:has(input[value="difc"])');
   await page.click('label.opt:has(input[value="data-breach"])');
-  assert.equal(await page.locator('.slip', { hasText: 'مفوض حماية البيانات في مركز دبي المالي العالمي' }).count(), 1);
+  assert.equal(await page.locator('.duty', { hasText: 'مفوض حماية البيانات في مركز دبي المالي العالمي' }).count(), 1);
   // Work tabs.
   await page.click('#tab-draft');
   assert.match(await page.textContent('#notice-ar'), /بنك الكويت المركزي/);
@@ -115,7 +119,7 @@ try {
   await page.click('#panel-tabletop .btn.primary');
   assert.equal(await page.locator('#panel-tabletop .injects li').count(), 1);
   await page.click('#tab-register');
-  assert.ok(await page.locator('#panel-register .duty').count() >= 22);
+  assert.ok(await page.locator('#panel-register .reg-duty').count() >= 22);
   await page.click('#tab-playbook');
   // Theme: the switch flips the ground and remembers the choice.
   const ground = () => page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor);
@@ -125,7 +129,7 @@ try {
   const chosen = await page.getAttribute('html', 'data-theme');
   await page.reload({ waitUntil: 'networkidle' });
   assert.equal(await page.getAttribute('html', 'data-theme'), chosen, 'the theme is remembered');
-  await page.waitForSelector('.slip');
+  await page.waitForSelector('.duty');
   // English.
   await page.click('#lang');
   assert.equal(await page.getAttribute('html', 'dir'), 'ltr');
@@ -137,7 +141,7 @@ try {
   const mobile = await browser.newPage({ viewport: { width: 390, height: 860 }, deviceScaleFactor: 2 });
   mobile.on('pageerror', (e) => errors.push(e.message));
   await mobile.goto(`http://localhost:${PORT}/?c=KW,SA&s=banking&t=data-breach&v=medium&lang=ar`, { waitUntil: 'networkidle' });
-  await mobile.waitForSelector('.slip');
+  await mobile.waitForSelector('.duty');
   const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   assert.ok(overflow <= 1, `no sideways scroll on a phone (overflow ${overflow}px)`);
   // On a phone the incident folds into its summary above the clock, and the actions take short names.
@@ -157,35 +161,37 @@ try {
   for (const [lang, ago] of [['en', 20 * 60e3], ['ar', 20 * 60e3], ['en', 400 * 3600e3], ['ar', 9000 * 3600e3]]) {
     const found = encodeURIComponent(new Date(Date.now() - ago).toISOString());
     await narrow.goto(`http://localhost:${PORT}/?c=KW,BH,AE,SA,QA,OM&z=difc,adgm,qfc&s=banking&t=ransomware&v=critical&p=1&d=${found}&lang=${lang}`, { waitUntil: 'networkidle' });
-    await narrow.waitForSelector('.slip');
+    await narrow.waitForSelector('.duty');
     await narrow.waitForTimeout(1100);
     const spill = await narrow.evaluate(() => {
       const out = [];
       const doc = document.documentElement;
       if (doc.scrollWidth > doc.clientWidth + 1) out.push(`page ${doc.scrollWidth}>${doc.clientWidth}`);
-      for (const s of document.querySelectorAll('.seal')) for (const c of s.children) if (c.scrollWidth > s.clientWidth) out.push(`seal "${c.textContent}" ${c.scrollWidth}>${s.clientWidth}`);
-      for (const l of document.querySelectorAll('.rlabel:not(.gone)')) {
+      for (const s of document.querySelectorAll('.cd')) for (const c of s.children) if (c.scrollWidth > s.clientWidth) out.push(`tile "${c.textContent}" ${c.scrollWidth}>${s.clientWidth}`);
+      for (const l of document.querySelectorAll('#wall .tick:not(.hidden), #wall .day, #wall .gap, #wall .tile, #wall-key li')) {
         const r = l.getBoundingClientRect();
-        if (r.width && (r.left < 0 || r.right > innerWidth)) out.push(`route label "${l.textContent}" ${Math.round(r.left)}..${Math.round(r.right)}`);
+        if (r.width && getComputedStyle(l).display !== 'none' && (r.left < -0.5 || r.right > innerWidth + 0.5)) out.push(`wall "${l.textContent}" ${Math.round(r.left)}..${Math.round(r.right)}`);
       }
       return out;
     });
     assert.deepEqual(spill, [], `nothing spills on a 320px phone (${lang}, found ${Math.round(ago / 3600e3)} hours ago)`);
   }
-  assert.ok(await narrow.locator('#lantern[hidden]').count() === 1, 'the lantern steps off the road once every deadline has passed');
-  // A notice due immediately leads its slip, and is neither a station nor a deadline that has passed.
+  assert.equal(await narrow.locator('#wall .tile.present').count(), 0, 'once every deadline has passed the present hour is off the wall');
+  assert.equal(await narrow.locator('#wall .tile.due:not(.u-over)').count(), 0, 'and every glazed tile shows its time has passed');
+  // A notice due immediately leads its duty, and is neither a glazed tile nor a deadline that has passed.
   const saudi = encodeURIComponent(new Date(Date.now() - 40 * 60e3).toISOString());
   await narrow.goto(`http://localhost:${PORT}/?c=SA&s=banking&t=data-breach&v=high&p=1&d=${saudi}&lang=ar`, { waitUntil: 'networkidle' });
-  await narrow.waitForSelector('.slip');
-  assert.equal(await narrow.textContent('.slip .word'), 'فوراً', 'the seal of a notice due immediately says so');
+  await narrow.waitForSelector('.duty');
+  assert.equal(await narrow.textContent('.duty .word'), 'فوراً', 'the tile of a notice due immediately says so');
   assert.equal(await narrow.locator('#finding .passed').count(), 0, 'forty minutes in, nothing with a fixed time has passed');
-  assert.equal(await narrow.locator('#route .station.u-over').count(), 0, 'no station is drawn overdue');
+  assert.equal(await narrow.locator('#wall .tile.due.u-over').count(), 0, 'no tile is drawn past due');
   // Only immediate notices and no fixed time: the finding leads with the immediate notice, and there is nothing for a calendar.
   await narrow.goto(`http://localhost:${PORT}/?c=SA&s=payments&t=ransomware&v=high&p=0&lang=ar`, { waitUntil: 'networkidle' });
-  await narrow.waitForSelector('.slip');
+  await narrow.waitForSelector('.duty');
   assert.match(await narrow.textContent('#finding'), /فوراً/);
   assert.ok(await narrow.isDisabled('#calendar'), 'no calendar file without a fixed time');
-  assert.equal(await narrow.locator('.slip .due').count(), 0, 'a notice due immediately prints no due time');
+  assert.equal(await narrow.locator('.duty .due').count(), 0, 'a notice due immediately prints no due time');
+  assert.ok(await narrow.locator('#wall-wrap').isHidden(), 'with no fixed time there is no wall to draw');
   // An immediate notice and a fixed deadline together: the immediate one is named first, then the countdown.
   await narrow.goto(`http://localhost:${PORT}/?c=SA&s=banking&t=ransomware&v=high&p=0&lang=ar`, { waitUntil: 'networkidle' });
   await narrow.waitForSelector('#lead-count');
@@ -193,12 +199,12 @@ try {
   assert.match(await narrow.textContent('#lead-count'), /^\d{2,}:\d{2}:\d{2}$/);
   // Nothing applies at the chosen grade: the finding says so instead of asking for prompt notice.
   await narrow.goto(`http://localhost:${PORT}/?c=SA&s=banking&t=ransomware&v=low&p=0&lang=en`, { waitUntil: 'networkidle' });
-  await narrow.waitForSelector('.slip');
+  await narrow.waitForSelector('.duty');
   assert.match(await narrow.textContent('#finding'), /None of these duties applies/);
-  // With no fixed time anywhere, the duty count still shows above the slips.
+  // With no fixed time anywhere, the duty count still shows above the duties.
   await narrow.goto(`http://localhost:${PORT}/?c=KW&s=general&t=ransomware&v=high&lang=ar`, { waitUntil: 'networkidle' });
-  await narrow.waitForSelector('.slip');
-  assert.ok(await narrow.isVisible('#count'), 'the duty count shows when the route has nothing to draw');
+  await narrow.waitForSelector('.duty');
+  assert.ok(await narrow.isVisible('#count'), 'the duty count shows when the wall has nothing to draw');
   assert.match(await narrow.textContent('#count'), /1/);
   // The lead never goes blank when its deadline passes and the next one takes over.
   const edge = encodeURIComponent(new Date(Date.now() - (60 * 60e3 - 2500)).toISOString());

@@ -14,32 +14,38 @@
 <meta property="og:image" content="https://najjab.3li.info/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#F4F3F1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0E0D0C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#1F3A8A" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A2D6E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/noto-kufi-arabic-400-arabic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/kufam-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/styles.css">
 <script type="module" src="assets/app.js"></script>
 </head>
 <body>
 <a class="skip" id="skip" href="#clock">انتقل إلى المهل</a>
-<header class="bar">
-  <div class="brand">
-    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <circle class="mark-seal" cx="16" cy="16" r="15"/>
-      <circle class="mark-rim" cx="16" cy="16" r="12.25" stroke-width="1" stroke-opacity=".55" stroke-dasharray="2 2.4"/>
-      <path class="mark-glass" d="M11 9.5h10M11 22.5h10M12.25 9.5c0 4.2 7.5 4.4 7.5 6.5s-7.5 2.3-7.5 6.5M19.75 9.5c0 4.2-7.5 4.4-7.5 6.5s7.5 2.3 7.5 6.5" stroke-width="1.9" stroke-linecap="round"/>
-      <path class="mark-sand" d="M13.6 21.4h4.8L16 18.9z"/>
-    </svg>
-    <h1 class="wordmark" id="wordmark">نجّاب</h1>
-  </div>
-  <p class="tagline" id="tagline">دليل الساعات الأولى من الحادثة السيبرانية في الخليج يحدد من نبلّغ ومتى وماذا نفعل.</p>
-  <div class="bar-actions">
-    <button class="icon-btn" id="theme" type="button" aria-label="الوضع الليلي">
-      <svg class="i i-moon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13.25 9.6A5.5 5.5 0 1 1 6.4 2.75a4.4 4.4 0 0 0 6.85 6.85z"/></svg>
-      <svg class="i i-sun" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="3"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.2 3.2l1.05 1.05M11.75 11.75l1.05 1.05M3.2 12.8l1.05-1.05M11.75 4.25l1.05-1.05"/></svg>
-    </button>
-    <button class="btn ghost" id="lang" type="button" lang="en">English</button>
+<header class="band">
+  <div class="band-in">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 95 47" aria-hidden="true" focusable="false" shape-rendering="crispEdges">
+        <rect x="0" y="30" width="5" height="5"/><rect x="6" y="30" width="5" height="5"/><rect x="12" y="30" width="5" height="5"/><rect x="18" y="30" width="5" height="5"/><rect x="24" y="30" width="5" height="5"/><rect x="24" y="24" width="5" height="5"/><rect x="24" y="18" width="5" height="5"/><rect x="0" y="24" width="5" height="5"/>
+        <rect x="36" y="0" width="5" height="5"/><rect x="36" y="6" width="5" height="5"/><rect x="36" y="12" width="5" height="5"/><rect x="36" y="18" width="5" height="5"/><rect x="36" y="24" width="5" height="5"/><rect x="36" y="30" width="5" height="5"/>
+        <rect x="42" y="30" width="5" height="5"/><rect x="48" y="30" width="5" height="5"/><rect x="54" y="30" width="5" height="5"/><rect x="60" y="30" width="5" height="5"/><rect x="66" y="30" width="5" height="5"/><rect x="72" y="30" width="5" height="5"/><rect x="78" y="30" width="5" height="5"/><rect x="84" y="30" width="5" height="5"/><rect x="90" y="30" width="5" height="5"/>
+        <rect x="54" y="6" width="5" height="5"/><rect x="60" y="6" width="5" height="5"/><rect x="66" y="6" width="5" height="5"/><rect x="72" y="6" width="5" height="5"/><rect x="72" y="12" width="5" height="5"/><rect x="72" y="18" width="5" height="5"/><rect x="72" y="24" width="5" height="5"/>
+        <rect x="90" y="18" width="5" height="5"/><rect x="90" y="24" width="5" height="5"/>
+        <rect class="mark-dot" x="12" y="42" width="5" height="5"/><rect class="mark-dot" x="60" y="18" width="5" height="5"/><rect class="mark-dot" x="90" y="6" width="5" height="5"/>
+      </svg>
+      <h1 class="wordmark" id="wordmark">نجّاب</h1>
+    </div>
+    <p class="tagline" id="tagline">دليل الساعات الأولى من الحادثة السيبرانية في الخليج يحدد من نبلّغ ومتى وماذا نفعل.</p>
+    <div class="band-actions">
+      <button class="band-btn" id="lang" type="button" lang="en">English</button>
+      <button class="band-btn icon" id="theme" type="button" aria-label="الوضع الليلي">
+        <svg class="i i-moon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13.25 9.6A5.5 5.5 0 1 1 6.4 2.75a4.4 4.4 0 0 0 6.85 6.85z"/></svg>
+        <svg class="i i-sun" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.25" y="5.25" width="5.5" height="5.5"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.2 3.2l1.05 1.05M11.75 11.75l1.05 1.05M3.2 12.8l1.05-1.05M11.75 4.25l1.05-1.05"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 <main class="desk">
@@ -51,36 +57,38 @@
     </div>
     <div class="form" id="form"></div>
   </section>
-  <section class="clock" id="clock" aria-labelledby="clock-title" tabindex="-1">
-    <div class="clock-head">
-      <div class="clock-title">
-        <h2 id="clock-title">من نبلّغ ومتى</h2>
-        <p class="finding" id="finding"></p>
+  <div class="sheet">
+    <section class="clock" id="clock" aria-labelledby="clock-title" tabindex="-1">
+      <div class="clock-head">
+        <div class="clock-title">
+          <h2 id="clock-title">من نبلّغ ومتى</h2>
+          <p class="finding" id="finding"></p>
+          <p class="count-line" id="count" aria-live="polite"></p>
+        </div>
+        <div class="clock-actions">
+          <button class="btn primary" id="calendar" type="button">
+            <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2.25" y="3.25" width="11.5" height="10.5"/><path d="M2.25 6.75h11.5M5.5 1.75v3M10.5 1.75v3"/></svg>
+            <span class="label long" id="calendar-long">أضف المواعيد إلى التقويم</span>
+            <span class="label short" id="calendar-short">التقويم</span>
+          </button>
+          <button class="btn" id="print" type="button">
+            <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5 5.75v-3.5h7v3.5M4.5 11.25H2V5.75h12v5.5h-2.5M4.5 9.25h7v4.5h-7z"/></svg>
+            <span class="label long" id="print-long">اطبع ورقة الحادثة</span>
+            <span class="label short" id="print-short">اطبع</span>
+          </button>
+        </div>
       </div>
-      <div class="clock-actions">
-        <button class="btn" id="calendar" type="button">
-          <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2.25" y="3.25" width="11.5" height="10.5" rx="2"/><path d="M2.25 6.75h11.5M5.5 1.75v3M10.5 1.75v3"/></svg>
-          <span class="label long" id="calendar-long">أضف المواعيد إلى التقويم</span>
-          <span class="label short" id="calendar-short">التقويم</span>
-        </button>
-        <button class="btn" id="print" type="button">
-          <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5 5.75v-3.5h7v3.5M4.5 11.25h-1a1.5 1.5 0 0 1-1.5-1.5v-2.5a1.5 1.5 0 0 1 1.5-1.5h9a1.5 1.5 0 0 1 1.5 1.5v2.5a1.5 1.5 0 0 1-1.5 1.5h-1M4.5 9.25h7v4.5h-7z"/></svg>
-          <span class="label long" id="print-long">اطبع ورقة الحادثة</span>
-          <span class="label short" id="print-short">اطبع</span>
-        </button>
+      <dl class="brief print-only" id="brief"></dl>
+      <div class="wall-wrap" id="wall-wrap">
+        <div class="wall" id="wall"></div>
       </div>
-    </div>
-    <dl class="brief print-only" id="brief"></dl>
-    <p class="count-line" id="count" aria-live="polite"></p>
-    <div class="route-wrap" id="route-wrap">
-      <div class="route" id="route"></div>
-    </div>
-    <div id="slips"></div>
-  </section>
-  <section class="work" id="work" aria-labelledby="tab-playbook">
-    <div class="tabs" role="tablist" id="tabs"></div>
-    <div id="panels"></div>
-  </section>
+      <div class="duties-wrap" id="duties"></div>
+    </section>
+    <section class="work" id="work" aria-labelledby="tab-playbook">
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div id="panels"></div>
+    </section>
+  </div>
 </main>
 <footer class="foot" id="foot"></footer>
 <noscript><p class="noscript">يحتاج نجّاب إلى JavaScript لحساب المهل. Najjab needs JavaScript to calculate the deadlines.</p></noscript>

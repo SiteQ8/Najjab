@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.0 (2026-11-06)
+
+- A new visual world, the wall of hours, taken from square Kufic tilework: a cobalt band carrying the name as a square Kufic logotype, a gypsum ground by day and a deep blue night, square corners and flat tiles for every control.
+- The wall of hours replaces the route. Every deadline with a fixed time is glazed on a wall with a row for each day and a tile for each hour: brick inside the hour, ochre inside six hours, ink for later, and a hollow brick tile once its time has passed. The time since discovery fills turquoise, the present hour carries a ring, runs of empty days fold into one line, and the key lists only what the wall shows. Each glazed tile takes you to its duty and rings it.
+- The duties read as one ruled list under shared labels for time left, authority, stage and time, and source, each countdown on its own tile. Notices with no fixed time follow under their own rule, and duties that do not apply at the chosen grade under another.
+- The first notice's countdown is set large in Kufam. The faces are now Kufam for the name, the headings and the figures, and Noto Kufi Arabic for everything else, both self hosted.
+- On a phone the band keeps the name and both settings on one line, and the wall keeps all 24 hours of every day.
+- The browser test now walks the wall: 24 tiles a day, the present hour ringed, every glazed tile named for screen readers, a tile taking focus to its duty, and nothing spilling on a 320 pixel phone. The engine tests cover how the wall lays out days and gaps, and the house style check reads exactly the files git would commit.
+- New favicon and social image.
+- The SDAIA breach rule is now read in the official text, Article 24 of the PDPL Implementing Regulation: 72 hours from becoming aware. Its old source page had moved, so the link now opens the regulation itself, and the register holds 17 duties read in the official text and 5 confirmed by secondary sources.
+
 ## 0.5.0 (2026-11-06)
 
 - A new design with a day theme in sand stone and a night theme in lamp black. The site follows the device unless you choose, and colour is spent only on deadlines: red inside the last hour and once a deadline passes, amber inside six hours.

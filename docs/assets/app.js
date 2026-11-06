@@ -1,4 +1,4 @@
-// Najjab site: renders the incident form, the next deadline, the route, the slips and the work tabs from the data bundle.
+// Najjab site: renders the incident form, the first notice, the wall of hours, the duties and the work tabs from the data bundle.
 import * as core from './core.js';
 
 const KEY = 'najjab:v1';
@@ -8,13 +8,19 @@ const FIELDS = ['organization', 'contact', 'summary', 'systems', 'records', 'act
 const FIELD_LABEL = { organization: 'f_org', contact: 'f_contact', summary: 'f_summary', systems: 'f_systems', records: 'f_records', actions: 'f_actions', next_update: 'f_next' };
 const LONG = new Set(['summary', 'actions']);
 const URGENCY = ['u-over', 'u-now', 'u-soon', 'u-later'];
+const KINDS = { gone: 'key_gone', 'u-now': 'key_now', 'u-soon': 'key_soon', 'u-later': 'key_later', 'u-over': 'key_over', night: 'key_night' };
+const HOUR = 3600000;
+const TICKS = [0, 3, 6, 9, 12, 15, 18, 21];
 const SVG = 'http://www.w3.org/2000/svg';
 const $ = (id) => document.getElementById(id);
 let B;
 let S;
 let A = null;
-let R = { span: 0, stations: [] };
-let drawn = false;
+let wallDay = null;
+let wallHour = null;
+let paintedMinute = -1;
+let keySig = '';
+let firstWall = true;
 let freshInject = false;
 
 // Build elements without innerHTML; handlers are attached as listeners, never as attributes.
@@ -32,11 +38,11 @@ function h(tag, props = {}, ...kids) {
   return n;
 }
 
-// One drawn icon set: 16px grid, 1.5px stroke, round ends.
+// One drawn icon set: 16px grid, 1.5px stroke, square ends like the tiles.
 const ICONS = {
   check: ['M3.25 8.5l3 3 6.5-7'],
   chevron: ['M4 6.25l4 4 4-4'],
-  copy: ['M5.75 5.75h6.5a1.5 1.5 0 0 1 1.5 1.5v5.5a1.5 1.5 0 0 1-1.5 1.5h-5.5a1.5 1.5 0 0 1-1.5-1.5z', 'M10.25 5.75V3.75a1.5 1.5 0 0 0-1.5-1.5h-5a1.5 1.5 0 0 0-1.5 1.5v5a1.5 1.5 0 0 0 1.5 1.5h2'],
+  copy: ['M5.75 5.75h8v8h-8z', 'M10.25 5.75v-3.5h-8v8h3.5'],
 };
 function icon(name, cls = '') {
   const svg = document.createElementNS(SVG, 'svg');
@@ -59,14 +65,21 @@ const personal = () => S.personal || B.incident_types[S.type].triggers.includes(
 const incident = () => ({ countries: S.countries, zones: S.zones, sector: S.sector, type: S.type, severity: S.severity, personal: personal(), discovered: S.discovered });
 const tokenMs = (token) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(token)) || 0;
 const lowerFirst = (s) => (S.lang === 'en' ? s.charAt(0).toLowerCase() + s.slice(1) : s);
+const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Keep a number with the word after it, so a period such as 72 hours never breaks across two lines.
-const bind = (s) => s.replace(/(\d) (?=\S)/g, '$1\u00A0');
+const bind = (s) => s.replace(/(\d) (?=\S)/g, '$1 ');
+// Day, date, month and time as separate words, from the one formatter the engine uses.
+const parts = (date) => { const [weekday, day, month, time] = core.when(date, S.lang).split(' '); return { weekday, day, month, time }; };
+const dayKey = (ms) => { const d = new Date(ms); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); };
 
 // Fill a template whose {t} slot is an element rather than text.
 function fillWith(template, vars, slot) {
   const [before, after = ''] = core.fill(template, vars).split('{t}');
   return [before, slot, after].filter((x) => x !== '');
 }
+
+// Neighbouring elements that are read as one line get a real space between them; flex gaps alone leave the words joined.
+const spaced = (nodes) => nodes.flatMap((n, i) => (i ? [' ', n] : [n]));
 
 function defaults() {
   return { lang: 'ar', countries: ['KW'], zones: [], sector: 'banking', type: 'ransomware', severity: 'high', personal: false, discovered: new Date().toISOString(), checks: {}, draft: {}, tab: 'playbook', tt: { type: null, started: null, shown: 0 }, reg: 'all' };
@@ -120,7 +133,7 @@ function changed(what) {
   tick();
 }
 
-/* Theme: the visitor's choice, or the system's when they have made none */
+/* Theme: the visitor's choice, or the system's when they have made none. The browser's bar takes the band's colour. */
 function currentTheme() {
   const set = document.documentElement.dataset.theme;
   if (set === 'light' || set === 'dark') return set;
@@ -130,8 +143,8 @@ function applyTheme(choice) {
   const root = document.documentElement;
   if (choice === 'light' || choice === 'dark') root.dataset.theme = choice;
   else delete root.dataset.theme;
-  const ground = getComputedStyle(root).getPropertyValue('--ground').trim();
-  for (const m of document.querySelectorAll('meta[name="theme-color"]')) if (choice) m.setAttribute('content', ground);
+  const band = getComputedStyle(root).getPropertyValue('--band').trim();
+  for (const m of document.querySelectorAll('meta[name="theme-color"]')) if (choice) m.setAttribute('content', band);
 }
 function themeLabel() {
   const btn = $('theme');
@@ -156,8 +169,6 @@ function renderStatic() {
   $('print-short').textContent = t('print_short');
   $('calendar-long').textContent = t('calendar');
   $('calendar-short').textContent = t('calendar_short');
-  $('route').setAttribute('aria-label', t('route'));
-  $('route').setAttribute('role', 'group');
   const other = S.lang === 'ar' ? 'en' : 'ar';
   $('lang').textContent = B.ui.lang_name[other];
   $('lang').setAttribute('lang', other);
@@ -165,24 +176,32 @@ function renderStatic() {
   renderToggle();
 }
 
-/* Incident form */
+/* Incident form: square boxes and round radios, both filled in turquoise once chosen */
+function checkTile(cls, name, value, label, checked, onchange) {
+  return h('label', { class: cls },
+    h('input', { type: 'checkbox', name, value, checked, onchange }),
+    h('span', { class: 'box', 'aria-hidden': 'true' }, icon('check')),
+    h('span', { text: label }));
+}
+
 function renderForm() {
   const form = $('form');
   form.replaceChildren();
-  const countries = h('fieldset', {}, h('legend', { text: t('countries') }), h('div', { class: 'chips' }, Object.keys(B.countries).map((c) => h('label', { class: 'chip' },
-    h('input', { type: 'checkbox', name: 'country', value: c, checked: S.countries.includes(c), onchange: (e) => {
-      S.countries = Object.keys(B.countries).filter((k) => (k === c ? e.target.checked : S.countries.includes(k)));
-      S.zones = S.zones.filter((z) => S.countries.includes(B.zones[z].country));
-      renderZones();
-      changed('countries');
-    } }),
-    h('span', {}, icon('check'), P(B.countries[c]))))));
+  const countries = h('fieldset', {}, h('legend', { text: t('countries') }), h('div', { class: 'chips' }, Object.keys(B.countries).map((c) => checkTile('chip', 'country', c, P(B.countries[c]), S.countries.includes(c), (e) => {
+    S.countries = Object.keys(B.countries).filter((k) => (k === c ? e.target.checked : S.countries.includes(k)));
+    S.zones = S.zones.filter((z) => S.countries.includes(B.zones[z].country));
+    renderZones();
+    changed('countries');
+  }))));
   const sector = h('div', { class: 'field' },
     h('label', { class: 'field-label', for: 'sector', text: t('sector') }),
-    h('select', { id: 'sector', onchange: (e) => { S.sector = e.target.value; changed('sector'); } },
-      Object.keys(B.sectors).map((s) => h('option', { value: s, text: P(B.sectors[s]), selected: s === S.sector }))));
+    h('div', { class: 'select' },
+      h('select', { id: 'sector', onchange: (e) => { S.sector = e.target.value; changed('sector'); } },
+        Object.keys(B.sectors).map((s) => h('option', { value: s, text: P(B.sectors[s]), selected: s === S.sector }))),
+      icon('chevron')));
   const types = h('fieldset', {}, h('legend', { text: t('type') }), h('div', { class: 'opts' }, Object.keys(B.incident_types).map((k) => h('label', { class: 'opt' },
     h('input', { type: 'radio', name: 'type', value: k, checked: S.type === k, onchange: () => { S.type = k; renderPersonal(); changed('type'); } }),
+    h('span', { class: 'dot', 'aria-hidden': 'true' }),
     h('span', { text: P(B.incident_types[k]) })))));
   const grades = h('fieldset', {}, h('legend', { text: t('severity') }), h('div', { class: 'seg' }, Object.keys(B.severities).map((k) => h('label', {},
     h('input', { type: 'radio', name: 'severity', value: k, checked: S.severity === k, onchange: () => { S.severity = k; changed('severity'); } }),
@@ -202,7 +221,8 @@ function renderForm() {
         changed('time');
       } })),
     h('p', { class: 'hint', text: t('discovered_hint') }));
-  form.append(countries, h('div', { id: 'zones-wrap' }), sector, types, grades, h('div', { id: 'personal-wrap' }), time);
+  // The time of discovery leads: every countdown on the page counts from it.
+  form.append(time, countries, h('div', { id: 'zones-wrap' }), sector, types, grades, h('div', { id: 'personal-wrap' }));
   renderZones();
   renderPersonal();
 }
@@ -212,32 +232,31 @@ function renderZones() {
   const open = Object.keys(B.zones).filter((z) => S.countries.includes(B.zones[z].country));
   if (!open.length) { wrap.replaceChildren(); return; }
   wrap.replaceChildren(h('fieldset', {}, h('legend', { text: t('zones') }),
-    h('div', { class: 'chips' }, open.map((z) => h('label', { class: 'chip' },
-      h('input', { type: 'checkbox', name: 'zone', value: z, checked: S.zones.includes(z), onchange: (e) => {
-        S.zones = Object.keys(B.zones).filter((k) => (k === z ? e.target.checked : S.zones.includes(k)));
-        changed('zones');
-      } }),
-      h('span', {}, icon('check'), P(B.zones[z]))))),
+    h('div', { class: 'chips wide' }, open.map((z) => checkTile('chip', 'zone', z, P(B.zones[z]), S.zones.includes(z), (e) => {
+      S.zones = Object.keys(B.zones).filter((k) => (k === z ? e.target.checked : S.zones.includes(k)));
+      changed('zones');
+    }))),
     h('p', { class: 'hint', text: t('zones_hint') })));
 }
 
 function renderPersonal() {
   const locked = B.incident_types[S.type].triggers.includes('personal-data-breach');
   $('personal-wrap').replaceChildren(h('label', { class: `toggle${locked ? ' locked' : ''}` },
-    h('input', { type: 'checkbox', id: 'personal', checked: locked || S.personal, disabled: locked, onchange: (e) => { S.personal = e.target.checked; changed('personal'); } }),
-    h('span', { text: t('personal') }), ' ',
+    h('input', { type: 'checkbox', id: 'personal', role: 'switch', checked: locked || S.personal, disabled: locked, onchange: (e) => { S.personal = e.target.checked; changed('personal'); } }),
+    h('span', { class: 'switch', 'aria-hidden': 'true' }),
+    h('span', { class: 'toggle-text', text: t('personal') }), ' ',
     h('small', { class: 'hint', text: locked ? t('personal_locked') : P(B.incident_types[S.type].personal_hint) })));
 }
 
 /* On a phone the incident folds into one summary line above the clock */
 function renderSummary() {
   const items = [
+    core.when(new Date(S.discovered), S.lang),
     S.countries.length ? S.countries.map((c) => P(B.countries[c])).join(and()) : t('summary_none'),
     ...S.zones.map((z) => P(B.zones[z])),
     P(B.sectors[S.sector]),
     P(B.incident_types[S.type]),
     P(B.severities[S.severity]),
-    core.when(new Date(S.discovered), S.lang),
   ];
   $('incident-summary').replaceChildren(...items.map((x) => h('li', { text: x })));
 }
@@ -248,8 +267,8 @@ function renderToggle() {
   btn.setAttribute('aria-expanded', String(open));
 }
 
-/* The clock */
-function sealFor(d) {
+/* The duties: one ruled row per authority, its countdown on a tile */
+function tileFor(d) {
   const lead = d.lead;
   if (!lead) return { cls: 'u-off', word: t('seal_off') };
   if (lead.kind === 'deadline') return { cls: '', count: true };
@@ -271,13 +290,10 @@ function itemLine(item) {
   return [h('b', { text: core.stageText(B, item.stage, S.lang) }), ' ', bind(core.itemText(B, item, S.lang))];
 }
 
-// Neighbouring elements that are read as one line get a real space between them; flex gaps alone leave the words joined.
-const spaced = (nodes) => nodes.flatMap((n, i) => (i ? [' ', n] : [n]));
-
 function sourceBits(ob) {
   const line = core.sourceLine(B, ob, S.lang);
   const level = B.verification_levels[ob.verification];
-  const bits = [h('span', { class: `tag v-${ob.verification}`, title: P(level.about) }, ob.verification === 'official' ? icon('check') : null, P(level))];
+  const bits = [h('span', { class: `tag v-${ob.verification}`, title: P(level.about) }, P(level))];
   bits.push(ob.source.url ? h('a', { href: ob.source.url, rel: 'noopener noreferrer', target: '_blank', text: line }) : h('span', { text: line }));
   if (ob.secondary && ob.secondary.length) {
     bits.push(h('span', { text: t('confirmed_by') }));
@@ -286,25 +302,40 @@ function sourceBits(ob) {
   return spaced(bits);
 }
 
-function slip(d) {
+function dutyRow(d) {
   const ob = core.obligation(B, d.id);
-  const seal = sealFor(d);
-  const li = h('li', { class: `slip ${seal.cls}`.trim(), id: `slip-${d.id}`, tabindex: '-1' });
-  if (seal.count) li.dataset.due = d.lead.due.toISOString();
-  li.append(h('div', { class: 'seal', 'aria-hidden': 'true' }, seal.count ? [h('span', { class: 'count' }), h('span', { class: 'count-label' })] : h('span', { class: 'word', text: seal.word })));
-  const body = h('div', { class: 'slip-body' },
-    h('h3', { class: 'who' }, P(B.authorities[d.authority]), ' ', h('span', { class: 'where', text: P(B.countries[d.country]) })),
-    h('p', { class: 'when' }, d.lead ? itemLine(d.lead) : t('note_conditional')),
-    d.lead && d.lead.kind === 'deadline' ? dueLine(d.lead.due, d.country) : null,
-    d.note ? h('p', { class: 'note', text: bind(core.noteText(B, d.note, S.lang)) }) : null,
-    h('p', { class: 'applies', text: `${t('applies_to')} ${lowerFirst(P(ob.applies_to))}` }));
-  li.append(body);
+  const tile = tileFor(d);
+  const li = h('li', { class: `duty ${tile.cls}`.trim(), id: `duty-${d.id}`, tabindex: '-1' });
+  if (tile.count) li.dataset.due = d.lead.due.toISOString();
+  li.append(h('div', { class: 'cd', 'aria-hidden': 'true' }, tile.count ? [h('span', { class: 'count' }), h('span', { class: 'count-label' })] : h('span', { class: 'word', text: tile.word })));
+  li.append(h('div', { class: 'who-col' },
+    h('h3', { class: 'who', text: P(B.authorities[d.authority]) }),
+    h('p', { class: 'where', text: P(B.countries[d.country]) }),
+    h('p', { class: 'applies', text: `${t('applies_to')} ${lowerFirst(P(ob.applies_to))}` })));
   const rest = d.items.filter((i) => i !== d.lead);
-  if (rest.length) {
-    li.append(h('div', { class: 'perf' }, h('ul', {}, rest.map((i) => h('li', {}, itemLine(i), i.due && i.kind === 'deadline' ? [' ', h('span', { class: 'tz', text: core.when(i.due, S.lang) })] : null)))));
-  }
-  li.append(h('p', { class: 'src' }, sourceBits(ob)));
+  const why = d.note ? bind(core.noteText(B, d.note, S.lang)) : t('note_conditional');
+  li.append(h('div', { class: 'when-col' },
+    h('p', { class: 'when' }, d.lead ? itemLine(d.lead) : why),
+    d.lead && d.lead.kind === 'deadline' ? dueLine(d.lead.due, d.country) : null,
+    d.lead && d.note ? h('p', { class: 'note', text: why }) : null,
+    rest.length ? h('ul', { class: 'more' }, rest.map((i) => h('li', {}, itemLine(i), i.due && i.kind === 'deadline' ? [' ', h('span', { class: 'tz', text: core.when(i.due, S.lang) })] : null))) : null));
+  li.append(h('div', { class: 'src-col' }, h('p', { class: 'src' }, sourceBits(ob))));
   return li;
+}
+
+// Duties with a moment to meet lead under the shared labels; the rest follow under their own rule.
+function dutyGroups() {
+  const timed = A.duties.filter((d) => d.lead && (d.lead.kind === 'deadline' || d.lead.kind === 'immediate'));
+  const open = A.duties.filter((d) => d.lead && !timed.includes(d));
+  const off = A.duties.filter((d) => !d.lead);
+  const out = [];
+  if (timed.length) {
+    out.push(h('div', { class: 'duties-head', 'aria-hidden': 'true' }, ['col_left', 'col_who', 'col_when', 'col_src'].map((k) => h('span', { text: t(k) }))));
+    out.push(h('ol', { class: 'duties' }, timed.map(dutyRow)));
+  }
+  if (open.length) out.push(h('h3', { class: 'group-title', text: t('group_open') }), h('ol', { class: 'duties' }, open.map(dutyRow)));
+  if (off.length) out.push(h('h3', { class: 'group-title', text: t('group_off') }), h('ol', { class: 'duties' }, off.map(dutyRow)));
+  return out;
 }
 
 function renderBrief() {
@@ -320,130 +351,208 @@ function renderBrief() {
   $('brief').replaceChildren(...pairs.flatMap(([k, v]) => [h('dt', { text: k }), h('dd', { text: v })]));
 }
 
-// A station or marker on the route: a zero-width anchor at its place on the road, with a dot and a label.
-function marker(cls, x, label, extra = {}) {
-  const tag = extra.href ? 'a' : 'div';
-  const el = h(tag, { class: cls, ...extra }, h('span', { class: 'dot', 'aria-hidden': 'true' }), label);
-  el.style.insetInlineStart = `${(x * 100).toFixed(3)}%`;
-  el.dataset.x = String(x);
-  return el;
-}
+/* The wall of hours */
 
+// What a glazed tile holds, read aloud: the time, how many notices, and each one by stage and authority.
 function stationText(s) {
   const same = (i) => s.items.filter((o) => o.stage === i.stage && o.authority === i.authority).length > 1;
   const names = s.items.map((i) => {
     const vars = { stage: core.stageText(B, i.stage, S.lang), who: P(B.authorities[i.authority]) };
-    return same(i) ? t('route_item_for', { ...vars, what: lowerFirst(P(B.triggers[core.obligation(B, i.id).trigger])) }) : t('route_item', vars);
+    return same(i) ? t('wall_item_for', { ...vars, what: lowerFirst(P(B.triggers[core.obligation(B, i.id).trigger])) }) : t('wall_item', vars);
   });
-  const count = s.items.length > 1 ? ` ${t('route_count', { n: s.items.length })}` : '';
+  const count = s.items.length > 1 ? ` ${t('wall_count', { n: s.items.length })}` : '';
   return `${clockTime(s.due)}${count} ${names.join(and())}`;
 }
 
-// A station's label: the time alone on the day of discovery, the weekday and time within the week, the date and time beyond it.
+// A time as the wall and its tiles name it: the time alone on the day of discovery, the weekday within the week, the date beyond it.
 function clockTime(date) {
-  const [weekday, day, month, time] = core.when(date, S.lang).split(' ');
+  const { weekday, day, month, time } = parts(date);
   const start = new Date(S.discovered);
   if (date.toDateString() === start.toDateString()) return time;
-  if (date - start < 6 * 24 * 3600000) return `${weekday} ${time}`;
+  if (date - start < 6 * 24 * HOUR) return `${weekday} ${time}`;
   return `${day} ${month} ${time}`;
 }
 
-function renderRoute() {
-  const wrap = $('route-wrap');
-  const box = $('route');
-  R = A ? core.route(A) : { span: 0, stations: [] };
-  if (!R.stations.length) { wrap.hidden = true; box.replaceChildren(); return; }
-  wrap.hidden = false;
-  const start = new Date(S.discovered);
-  const parts = [h('div', { class: 'route-track', 'aria-hidden': 'true' }), h('div', { class: 'route-trail', id: 'route-trail', 'aria-hidden': 'true' }),
-    marker('route-start', 0, h('span', { class: 'rlabel row-1', text: t('route_start', { time: clockTime(start) }) }), { 'aria-hidden': 'true' })];
-  for (const s of R.stations) {
-    const label = h('span', { class: 'rlabel row-0' }, clockTime(s.due), s.items.length > 1 ? [' ', h('span', { class: 'rcount', text: String(s.items.length) })] : null);
-    parts.push(marker('station', s.x, label, { href: `#slip-${s.items[0].id}`, 'aria-label': stationText(s), 'data-due': s.due.toISOString(), onclick: goToSlip }));
+function dayRow(r, withMonth, isToday) {
+  const { weekday, day, month } = parts(r.date);
+  const cells = [h('span', { class: `day${isToday ? ' today' : ''}`, text: withMonth ? `${weekday} ${day} ${month}` : `${weekday} ${day}` })];
+  const byHour = new Map();
+  for (const s of r.stations) {
+    const hr = s.due.getHours();
+    if (!byHour.has(hr)) byHour.set(hr, []);
+    byHour.get(hr).push(s);
   }
-  parts.push(marker('lantern', 0, h('span', { class: 'rlabel row-1', text: t('route_now') }), { id: 'lantern', 'aria-hidden': 'true' }));
-  box.replaceChildren(...parts);
-  if (!drawn && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    drawn = true;
-    box.classList.add('draw');
-    box.addEventListener('animationend', () => box.classList.remove('draw'), { once: true });
+  for (let hr = 0; hr < 24; hr++) {
+    const start = new Date(r.date.getFullYear(), r.date.getMonth(), r.date.getDate(), hr).getTime();
+    const here = byHour.get(hr);
+    let tile;
+    if (here) {
+      const n = here.reduce((sum, s) => sum + s.items.length, 0);
+      tile = h('a', { class: 'tile due', href: `#duty-${here[0].items[0].id}`, 'aria-label': here.map(stationText).join(and()), onclick: goToDuty },
+        n > 1 ? h('span', { class: 'n', text: String(n) }) : null);
+      tile.dataset.dues = here.map((s) => s.due.getTime()).join(' ');
+    } else {
+      tile = h('span', { class: `tile${hr < 6 || hr >= 18 ? ' night' : ''}` });
+    }
+    tile.dataset.start = String(start);
+    cells.push(tile);
   }
-  drawn = true;
-  placeLantern();
-  layoutLabels();
+  // Glazed tiles that touch share one target where the wall is too narrow for a thumb: the first leads to the earliest duty.
+  for (let i = 1; i < cells.length; i++) {
+    if (!cells[i].classList.contains('due') || !cells[i - 1].classList.contains('due')) continue;
+    let head = i - 1;
+    while (cells[head].classList.contains('joined')) head -= 1;
+    cells[head].classList.add('run-head');
+    cells[head].style.setProperty('--run', String(i - head + 1));
+    cells[i].classList.add('joined');
+  }
+  return cells;
 }
 
-// A station takes the reader to its slip and rings it briefly, so the eye lands on the right one.
-function goToSlip(e) {
+function gapRow(r, withMonth) {
+  const a = parts(r.from);
+  const b = parts(r.to);
+  const from = withMonth || a.month !== b.month ? `${a.day} ${a.month}` : a.day;
+  const to = a.month !== b.month ? `${b.day} ${b.month}` : b.day;
+  return [h('span', { class: 'day gap-day', text: t('wall_range', { from, to }) }),
+    h('span', { class: 'gap', text: t('wall_gap', { span: core.span(r.days, 'day', S.lang) }) })];
+}
+
+function renderWall() {
+  const wrap = $('wall-wrap');
+  const box = $('wall');
+  const now = Date.now();
+  const W = A ? core.wall(A, now) : { rows: [] };
+  wallDay = dayKey(now);
+  wallHour = new Date(now).getHours();
+  paintedMinute = -1;
+  keySig = '';
+  if (!W.rows.length) { wrap.hidden = true; box.replaceChildren(); return; }
+  wrap.hidden = false;
+  box.setAttribute('role', 'group');
+  box.setAttribute('aria-label', t('wall'));
+  const today = W.rows.some((r) => r.kind === 'day' && r.date.getTime() === wallDay);
+  const grid = h('div', { class: 'wall-grid' }, h('span', { class: 'wall-zone', text: t('wall_zone') }));
+  for (const hr of TICKS) {
+    const mark = h('span', { class: `tick${hr % 6 ? ' minor' : ''}`, 'aria-hidden': 'true', text: String(hr).padStart(2, '0') });
+    mark.style.gridColumn = String(hr + 2);
+    grid.append(mark);
+  }
+  if (today) {
+    const at = wallHour <= 1 ? ' at-start' : wallHour >= 22 ? ' at-end' : '';
+    const nowTick = h('span', { class: `tick now${at}`, id: 'wall-now', text: t('wall_now', { time: parts(new Date(now)).time }) });
+    nowTick.style.gridColumn = String(wallHour + 2);
+    grid.append(nowTick);
+  }
+  let month = null;
+  W.rows.forEach((r) => {
+    const m = (r.kind === 'gap' ? r.from : r.date).getMonth();
+    const withMonth = m !== month;
+    month = r.kind === 'gap' ? r.to.getMonth() : m;
+    grid.append(...(r.kind === 'gap' ? gapRow(r, withMonth) : dayRow(r, withMonth, r.date.getTime() === wallDay)));
+  });
+  box.replaceChildren(grid, h('ul', { class: 'key', id: 'wall-key' }));
+  paintWall(now);
+  layoutTicks();
+  // The tiles set once, row after row in reading order, the first time the wall is drawn.
+  if (firstWall && !reduced()) {
+    let row = -1;
+    let last = 0;
+    for (const el of grid.children) {
+      if (el.classList.contains('day')) row += 1;
+      if (el.classList.contains('gap')) el.style.setProperty('--d', `${row * 36}ms`);
+      if (!el.classList.contains('tile')) continue;
+      const delay = row * 36 + new Date(Number(el.dataset.start)).getHours() * 7;
+      last = Math.max(last, delay);
+      el.style.setProperty('--d', `${delay}ms`);
+    }
+    box.classList.add('draw');
+    setTimeout(() => box.classList.remove('draw'), last + tokenMs('--t-set') + 50);
+  }
+  firstWall = false;
+}
+
+// The present hour carries the ring, time gone fills turquoise, and each glazed tile takes its most pressing notice's colour.
+function paintWall(now) {
+  const box = $('wall');
+  if (!box || $('wall-wrap').hidden) return;
+  const found = Date.parse(S.discovered);
+  const minute = Math.floor(now / 60000);
+  if (minute !== paintedMinute) {
+    paintedMinute = minute;
+    for (const tile of box.querySelectorAll('.tile')) {
+      const start = Number(tile.dataset.start);
+      const end = start + HOUR;
+      tile.classList.toggle('present', now >= start && now < end);
+      if (tile.classList.contains('due')) continue;
+      const from = Math.max(start, found);
+      const to = Math.min(end, now);
+      const whole = from <= start && to >= end;
+      tile.classList.toggle('gone', whole);
+      let fill = tile.querySelector('.fill');
+      if (!whole && to > from) {
+        if (!fill) { fill = h('span', { class: 'fill' }); tile.append(fill); }
+        fill.style.insetInlineStart = `${(((from - start) / HOUR) * 100).toFixed(2)}%`;
+        fill.style.width = `${(((to - from) / HOUR) * 100).toFixed(2)}%`;
+      } else if (fill) fill.remove();
+    }
+    const nowTick = $('wall-now');
+    if (nowTick) { nowTick.textContent = t('wall_now', { time: parts(new Date(now)).time }); layoutTicks(); }
+  }
+  for (const tile of box.querySelectorAll('.tile.due')) {
+    const ahead = tile.dataset.dues.split(' ').map(Number).filter((ms) => ms >= now);
+    const u = ahead.length ? `u-${core.urgency(Math.min(...ahead) - now)}` : 'u-over';
+    for (const c of URGENCY) tile.classList.toggle(c, c === u);
+  }
+  paintKey(now, found);
+}
+
+// An hour mark that would touch the present time's label steps aside; the label always wins.
+function layoutTicks() {
+  const box = $('wall');
+  if (!box || $('wall-wrap').hidden) return;
+  const marks = [...box.querySelectorAll('.tick:not(.now)')];
+  for (const m of marks) m.classList.remove('hidden');
+  const now = $('wall-now');
+  const r = now && now.getBoundingClientRect();
+  if (!r || !r.width) return;
+  const room = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s-3')) || 0;
+  for (const m of marks) {
+    const q = m.getBoundingClientRect();
+    if (q.width && q.right + room > r.left && q.left - room < r.right) m.classList.add('hidden');
+  }
+}
+
+// The key lists only the kinds the wall shows, each with its own tile as the swatch.
+function paintKey(now, found) {
+  const box = $('wall');
+  const kinds = [];
+  if (now > found && box.querySelector('.tile.gone, .tile .fill')) kinds.push('gone');
+  for (const u of ['u-now', 'u-soon', 'u-later', 'u-over']) if (box.querySelector(`.tile.due.${u}`)) kinds.push(u);
+  if (box.querySelector('.tile.night:not(.gone)')) kinds.push('night');
+  const sig = kinds.join(' ');
+  if (sig !== keySig) {
+    keySig = sig;
+    $('wall-key').replaceChildren(...kinds.map((k) => h('li', {}, h('span', { class: `sw ${k}`, 'aria-hidden': 'true' }),
+      k === 'gone' ? spaced([h('span', { text: t(KINDS[k]) }), h('span', { class: 'val', id: 'key-gone' })]) : h('span', { text: t(KINDS[k]) }))));
+  }
+  const val = $('key-gone');
+  if (val) val.textContent = core.clock(now - found);
+}
+
+// A glazed tile takes the reader to its duty and rings it briefly, so the eye lands on the right one.
+function goToDuty(e) {
   const el = document.getElementById(e.currentTarget.getAttribute('href').slice(1));
   if (!el) return;
   e.preventDefault();
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  el.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
   el.classList.add('arrived');
   el.focus({ preventScroll: true });
   clearTimeout(el.ringTimer);
   el.ringTimer = setTimeout(() => el.classList.remove('arrived'), tokenMs('--t-hold'));
 }
 
-// The playhead rides at the present moment; its label is laid out again only when it has moved a few pixels.
-function placeLantern() {
-  const lantern = $('lantern');
-  if (!lantern || !R.stations.length) return;
-  const hours = (Date.now() - Date.parse(S.discovered)) / 3600000;
-  const x = core.routeAt(hours, R.span);
-  const width = $('route').clientWidth || 1;
-  // Past the last deadline there is no road left: the trail runs full and the lantern steps off it.
-  const past = hours >= R.span;
-  if (past !== lantern.hidden) {
-    lantern.hidden = past;
-    lantern.dataset.px = '';
-    lantern.dataset.laid = '';
-  }
-  if (Math.abs(Number(lantern.dataset.px || -99) - x * width) < 0.5) return;
-  const moved = Math.abs(Number(lantern.dataset.laid || -99) - x * width) >= 4;
-  lantern.dataset.x = String(x);
-  lantern.dataset.px = String(x * width);
-  lantern.style.insetInlineStart = `${(x * 100).toFixed(3)}%`;
-  $('route-trail').style.width = `${(x * 100).toFixed(3)}%`;
-  if (moved) { lantern.dataset.laid = String(x * width); layoutLabels(); }
-}
-
-// Labels sit above the road, or below it when they would touch a neighbour; a label with no room hides and its station keeps its name for screen readers.
-function layoutLabels() {
-  const box = $('route');
-  if (!box || !box.isConnected) return;
-  const width = box.clientWidth;
-  if (!width) return;
-  const half = parseFloat(getComputedStyle(box).getPropertyValue('--dot')) / 2 || 0;
-  const items = [...box.querySelectorAll('.station, .lantern:not([hidden]), .route-start')].map((el) => ({ el, label: el.querySelector('.rlabel'), x: Number(el.dataset.x) }));
-  for (const it of items) {
-    it.label.classList.remove('gone', 'at-start', 'at-end', 'at-mid');
-    const w = it.label.offsetWidth;
-    const px = it.x * width;
-    const align = px - w / 2 < -half ? 'at-start' : px + w / 2 > width + half ? 'at-end' : 'at-mid';
-    it.label.classList.add(align);
-    it.from = align === 'at-start' ? px - half : align === 'at-end' ? px - w + half : px - w / 2;
-    it.to = it.from + w;
-  }
-  const rows = [[], []];
-  const space = parseFloat(getComputedStyle(box).getPropertyValue('--s-3')) || 0;
-  const fits = (row, it) => rows[row].every((o) => it.to + space <= o.from || it.from >= o.to + space);
-  const start = items.find((it) => it.el.classList.contains('route-start'));
-  const lantern = items.find((it) => it.el.classList.contains('lantern'));
-  const stations = items.filter((it) => it.el.classList.contains('station')).sort((a, b) => a.x - b.x);
-  // Below the road: the lantern first, then the discovery time when there is room beside it.
-  if (lantern) rows[1].push(lantern);
-  if (start) { if (fits(1, start)) rows[1].push(start); else start.label.classList.add('gone'); }
-  for (const it of stations) {
-    const row = fits(0, it) ? 0 : fits(1, it) ? 1 : -1;
-    it.label.classList.toggle('row-0', row !== 1);
-    it.label.classList.toggle('row-1', row === 1);
-    if (row === -1) it.label.classList.add('gone');
-    else rows[row].push(it);
-  }
-}
-
+/* The first notice and its countdown */
 function renderFinding() {
   const box = $('finding');
   if (!A || !A.duties.length) { box.replaceChildren(); return; }
@@ -455,24 +564,24 @@ function renderFinding() {
   const timed = live.some((d) => d.items.some((i) => i.kind === 'deadline'));
   if (!timed) { box.replaceChildren(now || t('finding_none')); return; }
   const { next, passed } = core.nextDue(A);
-  const parts = now ? [h('span', { class: 'now', text: now }), ' '] : [];
+  const out = now ? [h('span', { class: 'now', text: now }), ' '] : [];
   if (next) {
     const lead = h('strong', { class: 'lead', id: 'lead-count', 'data-due': next.item.due.toISOString() });
     const stage = core.stageText(B, next.item.stage, S.lang);
     const vars = { stage: now ? lowerFirst(stage) : stage, who: P(B.authorities[next.duty.authority]) };
-    parts.push(...fillWith(t(now ? 'finding_then' : 'finding_next'), vars, lead));
+    out.push(...fillWith(t(now ? 'finding_then' : 'finding_next'), vars, lead));
   } else {
-    parts.push(t('finding_all_passed'));
+    out.push(t('finding_all_passed'));
   }
-  if (passed && next) parts.push(' ', h('span', { class: 'passed', text: t(passed === 1 ? 'finding_passed_one' : 'finding_passed', { n: passed }) }));
-  box.replaceChildren(...parts);
+  if (passed && next) out.push(' ', h('span', { class: 'passed', text: t(passed === 1 ? 'finding_passed_one' : 'finding_passed', { n: passed }) }));
+  box.replaceChildren(...out);
   fillLead(Date.now());
   box.dataset.key = next ? `${next.duty.id}:${next.item.stage}:${next.item.due.getTime()}:${passed}` : `none:${passed}`;
 }
 
 function renderClock() {
   renderBrief();
-  const box = $('slips');
+  const box = $('duties');
   const count = $('count');
   A = null;
   if (!S.countries.length) {
@@ -489,11 +598,11 @@ function renderClock() {
       const n = A.duties.filter((d) => d.lead).length;
       count.textContent = t(n === 1 ? 'count_fmt_one' : 'count_fmt', { n });
       $('calendar').disabled = !A.duties.some((d) => d.items.some((i) => i.kind === 'deadline'));
-      box.replaceChildren(h('ol', { class: 'slips' }, A.duties.map(slip)));
+      box.replaceChildren(...dutyGroups());
     }
   }
   renderFinding();
-  renderRoute();
+  renderWall();
 }
 
 // The lead countdown and its urgency; called by the finding as it is built and by every tick after.
@@ -508,26 +617,24 @@ function fillLead(now) {
 
 function tick() {
   const now = Date.now();
-  for (const li of document.querySelectorAll('.slip[data-due]')) {
+  for (const li of document.querySelectorAll('.duty[data-due]')) {
     const ms = Date.parse(li.dataset.due) - now;
     const u = `u-${core.urgency(ms)}`;
     for (const c of URGENCY) li.classList.toggle(c, c === u);
     const count = li.querySelector('.count');
     count.textContent = core.clock(ms);
-    // Past a hundred hours the count gains a digit, so it steps down a size to stay inside the seal.
+    // Past a hundred hours the count gains a digit, so it steps down a size to stay inside its tile.
     count.classList.toggle('wide', count.textContent.length > 8);
     li.querySelector('.count-label').textContent = ms < 0 ? t('seal_over') : t('seal_left');
-  }
-  for (const st of document.querySelectorAll('.station[data-due]')) {
-    const u = `u-${core.urgency(Date.parse(st.dataset.due) - now)}`;
-    for (const c of URGENCY) st.classList.toggle(c, c === u);
   }
   const lead = $('lead-count');
   if (lead) {
     if (Date.parse(lead.dataset.due) - now < 0) renderFinding();
     else fillLead(now);
   }
-  placeLantern();
+  // A new day or a new hour moves the present tile and may add a row, so the wall is laid again; otherwise it is repainted.
+  if (A && (dayKey(now) !== wallDay || new Date(now).getHours() !== wallHour)) renderWall();
+  else paintWall(now);
   const el = $('tt-elapsed');
   if (el && S.tt.started) el.textContent = `${t('tt_elapsed')} ${core.clock(now - Date.parse(S.tt.started))}`;
 }
@@ -581,12 +688,13 @@ function panelPlaybook() {
       det.classList.toggle('done', done() === keys.length);
     };
     det.append(h('summary', {}, icon('chevron', 'chev'), h('span', { text: ph.title }), ' ', progress),
-      h('ul', { class: 'steps' }, ph.steps.map((s, i) => h('li', {}, h('label', {},
+      h('ul', { class: 'steps' }, ph.steps.map((s, i) => h('li', {}, h('label', { class: 'step' },
         h('input', { type: 'checkbox', checked: Boolean(S.checks[keys[i]]), onchange: (e) => {
           if (e.target.checked) S.checks[keys[i]] = true; else delete S.checks[keys[i]];
           save();
           refresh();
         } }),
+        h('span', { class: 'box', 'aria-hidden': 'true' }, icon('check')),
         h('span', { text: s }))))));
     refresh();
     return det;
@@ -645,7 +753,7 @@ function panelTabletop() {
   const x = core.exercise(B, S.type, S.lang);
   if (S.tt.type !== S.type) S.tt = { type: S.type, started: null, shown: 0 };
   const shown = x.injects.slice(0, S.tt.shown);
-  const list = h('ol', { class: 'injects' }, shown.map((i, n) => h('li', { class: freshInject && n === shown.length - 1 ? 'fresh' : null }, h('span', { class: 'at', text: t('tt_at', { m: i.at }) }), ' ', i.text)));
+  const list = h('ol', { class: 'injects' }, shown.map((i, n) => h('li', { class: freshInject && n === shown.length - 1 ? 'fresh' : null }, h('span', { class: 'at', text: t('tt_at', { m: i.at }) }), ' ', h('span', { text: i.text }))));
   freshInject = false;
   const all = S.tt.shown >= x.injects.length;
   const next = h('button', { class: 'btn primary', type: 'button', disabled: all, text: S.tt.started ? t('tt_next') : t('tt_start'), onclick: () => {
@@ -680,12 +788,14 @@ function panelTabletop() {
 
 function panelRegister() {
   const codes = S.reg === 'all' ? Object.keys(B.countries) : [S.reg];
-  const filter = h('label', { class: 'reg-filter' }, h('span', { text: t('reg_country') }),
-    h('select', { onchange: (e) => { S.reg = e.target.value; save(); rerender('register'); } },
-      h('option', { value: 'all', text: t('reg_all'), selected: S.reg === 'all' }),
-      Object.keys(B.countries).map((c) => h('option', { value: c, text: P(B.countries[c]), selected: S.reg === c }))));
+  const filter = h('label', { class: 'reg-filter' }, h('span', { text: t('reg_country') }), ' ',
+    h('div', { class: 'select' },
+      h('select', { onchange: (e) => { S.reg = e.target.value; save(); rerender('register'); } },
+        h('option', { value: 'all', text: t('reg_all'), selected: S.reg === 'all' }),
+        Object.keys(B.countries).map((c) => h('option', { value: c, text: P(B.countries[c]), selected: S.reg === c }))),
+      icon('chevron')));
   const groups = codes.map((c) => h('section', { class: 'reg-group' }, h('h4', { text: P(B.countries[c]) }),
-    B.obligations.filter((o) => o.country === c).map((ob) => h('article', { class: 'duty' },
+    B.obligations.filter((o) => o.country === c).map((ob) => h('article', { class: 'reg-duty' },
       h('h5', { text: P(B.authorities[ob.authority]) }),
       h('p', { class: 'applies', text: `${t('applies_to')} ${lowerFirst(P(ob.applies_to))}` }),
       h('p', { text: P(ob.summary) }),
@@ -716,12 +826,18 @@ function downloadCalendar() {
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
+// A calendar date in words, with western digits in both languages.
+function longDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Intl.DateTimeFormat(S.lang === 'ar' ? 'ar-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(y, m - 1, d));
+}
+
 function renderFoot() {
   const repo = B.project.repo;
   $('foot').replaceChildren(
     h('div', { class: 'foot-main' },
       h('p', { text: t('disclaimer') }),
-      h('p', { text: t('updated', { date: B.project.updated }) }),
+      h('p', { text: t('updated', { date: longDate(B.project.updated) }) }),
       h('p', { text: t('mcp_note') })),
     h('div', { class: 'foot-links' }, spaced([
       h('a', { href: repo, rel: 'noopener', text: t('source_code') }),
@@ -747,7 +863,7 @@ async function boot() {
     if (!res.ok) throw new Error(String(res.status));
     B = await res.json();
   } catch {
-    $('slips').textContent = 'تعذّر تحميل البيانات فأعد تحميل الصفحة. Najjab could not load its data, reload the page.';
+    $('duties').textContent = 'تعذّر تحميل البيانات فأعد تحميل الصفحة. Najjab could not load its data, reload the page.';
     return;
   }
   S = load();
@@ -766,8 +882,8 @@ async function boot() {
   $('calendar').addEventListener('click', downloadCalendar);
   window.addEventListener('beforeprint', () => { for (const d of document.querySelectorAll('#panel-playbook details')) { d.dataset.wasOpen = d.open ? '1' : ''; d.open = true; } $('panel-playbook').hidden = false; });
   window.addEventListener('afterprint', () => { for (const d of document.querySelectorAll('#panel-playbook details')) d.open = d.dataset.wasOpen === '1'; $('panel-playbook').hidden = S.tab !== 'playbook'; });
-  new ResizeObserver(() => layoutLabels()).observe($('route'));
-  document.fonts.ready.then(() => layoutLabels());
+  new ResizeObserver(() => layoutTicks()).observe($('wall-wrap'));
+  document.fonts.ready.then(() => layoutTicks());
   setInterval(tick, 1000);
 }
 
