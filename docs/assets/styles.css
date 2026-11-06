@@ -396,6 +396,7 @@ h2 { font-size: var(--fs-title); font-weight: 600; line-height: var(--lh-snug); 
 .finding .lead { font-size: var(--fs-lead); font-weight: 600; line-height: var(--lh-tight); color: var(--text); direction: ltr; unicode-bidi: isolate; transition: color var(--t-state) var(--ease); }
 .finding .lead.u-soon { color: var(--lantern); }
 .finding .lead.u-now { color: var(--seal); }
+.finding .now { flex-basis: 100%; color: var(--seal); font-weight: 600; }
 .finding .passed { flex-basis: 100%; color: var(--seal); font-size: var(--fs-small); }
 .clock-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 

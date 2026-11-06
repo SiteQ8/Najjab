@@ -581,7 +581,7 @@
   },
   "route_count": {
     "en": "{n} notices",
-    "ar": "عدد الإشعارات {n}"
+    "ar": "{n} من الإشعارات"
   },
   "finding_next": {
     "en": "{stage} to {who} in {t}",
@@ -606,6 +606,10 @@
   "finding_now": {
     "en": "{stage} to {who} immediately",
     "ar": "{stage} إلى {who} فوراً"
+  },
+  "finding_then": {
+    "en": "Then {stage} to {who} in {t}",
+    "ar": "ثمّ {stage} إلى {who} بعد {t}"
   },
   "finding_all_passed": {
     "en": "Every deadline with a fixed time has passed.",

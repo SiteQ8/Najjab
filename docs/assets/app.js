@@ -449,19 +449,18 @@ function renderFinding() {
   if (!A || !A.duties.length) { box.replaceChildren(); return; }
   const live = A.duties.filter((d) => d.lead);
   if (!live.length) { box.replaceChildren(t('finding_off')); return; }
+  // A notice due immediately is named first: it has no moment to count down to, and nothing comes before it.
+  const first = live.find((d) => d.lead.kind === 'immediate');
+  const now = first ? t('finding_now', { stage: core.stageText(B, first.lead.stage, S.lang), who: P(B.authorities[first.authority]) }) : null;
   const timed = live.some((d) => d.items.some((i) => i.kind === 'deadline'));
-  if (!timed) {
-    // No fixed time anywhere: a notice due immediately leads, otherwise every authority's own channel does.
-    const now = live.find((d) => d.lead.kind === 'immediate');
-    box.replaceChildren(now ? t('finding_now', { stage: core.stageText(B, now.lead.stage, S.lang), who: P(B.authorities[now.authority]) }) : t('finding_none'));
-    return;
-  }
+  if (!timed) { box.replaceChildren(now || t('finding_none')); return; }
   const { next, passed } = core.nextDue(A);
-  const parts = [];
+  const parts = now ? [h('span', { class: 'now', text: now }), ' '] : [];
   if (next) {
     const lead = h('strong', { class: 'lead', id: 'lead-count', 'data-due': next.item.due.toISOString() });
-    const vars = { stage: core.stageText(B, next.item.stage, S.lang), who: P(B.authorities[next.duty.authority]) };
-    parts.push(...fillWith(t('finding_next'), vars, lead));
+    const stage = core.stageText(B, next.item.stage, S.lang);
+    const vars = { stage: now ? lowerFirst(stage) : stage, who: P(B.authorities[next.duty.authority]) };
+    parts.push(...fillWith(t(now ? 'finding_then' : 'finding_next'), vars, lead));
   } else {
     parts.push(t('finding_all_passed'));
   }

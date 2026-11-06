@@ -186,6 +186,11 @@ try {
   assert.match(await narrow.textContent('#finding'), /فوراً/);
   assert.ok(await narrow.isDisabled('#calendar'), 'no calendar file without a fixed time');
   assert.equal(await narrow.locator('.slip .due').count(), 0, 'a notice due immediately prints no due time');
+  // An immediate notice and a fixed deadline together: the immediate one is named first, then the countdown.
+  await narrow.goto(`http://localhost:${PORT}/?c=SA&s=banking&t=ransomware&v=high&p=0&lang=ar`, { waitUntil: 'networkidle' });
+  await narrow.waitForSelector('#lead-count');
+  assert.match(await narrow.textContent('#finding .now'), /فوراً/);
+  assert.match(await narrow.textContent('#lead-count'), /^\d{2,}:\d{2}:\d{2}$/);
   // Nothing applies at the chosen grade: the finding says so instead of asking for prompt notice.
   await narrow.goto(`http://localhost:${PORT}/?c=SA&s=banking&t=ransomware&v=low&p=0&lang=en`, { waitUntil: 'networkidle' });
   await narrow.waitForSelector('.slip');

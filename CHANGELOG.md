@@ -4,7 +4,7 @@
 
 - A new design with a day theme in sand stone and a night theme in lamp black. The site follows the device unless you choose, and colour is spent only on deadlines: red inside the last hour and once a deadline passes, amber inside six hours.
 - The route of deadlines: every deadline with a fixed time is a station on a road that starts at discovery, with a marker for now moving along it. Each station takes you to its authority's slip and rings it. Notices due immediately lead the slips and stay off the road.
-- The next notice leads the clock with its own countdown, and the number of deadlines already passed sits under it.
+- The next notice leads the clock with its own countdown. A notice due immediately is named above it, and the number of deadlines already passed sits under it.
 - On a phone the incident folds into a summary above the clock, each slip puts its seal beside the authority, and the actions and tabs take short names. Nothing spills sideways even with every country and zone selected on a 320 pixel screen.
 - Fixed Arabic letters joining across neighbouring elements, which cut the last letter of stage names and authority names, and words in neighbouring parts of one line, such as a verification tag and its source, running together when read aloud or copied.
 - Seals stay whole for counts past a hundred hours and for the longest stamp on the narrowest phone.
