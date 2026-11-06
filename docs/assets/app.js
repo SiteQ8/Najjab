@@ -208,7 +208,7 @@ function renderForm() {
     h('input', { type: 'radio', name: 'severity', value: k, checked: S.severity === k, onchange: () => { S.severity = k; changed('severity'); } }),
     h('span', { text: P(B.severities[k]) })))), h('p', { class: 'hint', text: t('severity_hint') }));
   // The moment shows in the page's own words; the browser's picker, hidden beneath it, does the editing.
-  const input = h('input', { type: 'datetime-local', id: 'discovered', class: 'moment-input', step: '60', tabindex: '-1', 'aria-hidden': 'true', value: toLocalInput(S.discovered),
+  const input = h('input', { type: 'datetime-local', id: 'discovered', class: 'moment-input', step: '60', tabindex: '-1', 'aria-hidden': 'true', 'aria-labelledby': 'discovered-label', value: toLocalInput(S.discovered),
     onchange: (e) => {
       const d = new Date(e.target.value);
       if (Number.isNaN(d.getTime())) return;
@@ -242,15 +242,16 @@ function showMoment() {
   if (text) text.textContent = core.when(new Date(S.discovered), S.lang);
 }
 
-// The browser's own picker opens from the shown moment; where a browser has no picker to open, the field itself appears.
+// The field itself opens over the shown moment, so its hour and minute can always be typed, and the browser's picker opens with it
+// where there is one; some pickers offer only the date.
 function openPicker(input) {
-  if (typeof input.showPicker === 'function') {
-    try { input.showPicker(); return; } catch { /* fall through to the field */ }
-  }
   input.closest('.moment').classList.add('editing');
   input.removeAttribute('aria-hidden');
   input.tabIndex = 0;
   input.focus();
+  if (typeof input.showPicker === 'function') {
+    try { input.showPicker(); } catch { /* the open field is enough */ }
+  }
 }
 function closePicker(input) {
   const box = input.closest('.moment');
@@ -315,7 +316,7 @@ function dueLine(date, countryCode) {
   const country = B.countries[countryCode];
   const mine = core.when(date, S.lang);
   const theirs = core.when(date, S.lang, country.tz);
-  return h('p', { class: 'due' }, t('due_local', { time: mine }), theirs !== mine ? [' ', h('span', { class: 'tz', text: t('due_country', { time: theirs, country: P(country) }) })] : null);
+  return h('p', { class: 'due-line' }, t('due_local', { time: mine }), theirs !== mine ? [' ', h('span', { class: 'tz', text: t('due_country', { time: theirs, country: P(country) }) })] : null);
 }
 
 function itemLine(item) {
@@ -430,15 +431,23 @@ function dayRow(r, withMonth, isToday) {
     tile.dataset.start = String(start);
     cells.push(tile);
   }
-  // Glazed tiles that touch share one target where the wall is too narrow for a thumb: the first leads to the earliest duty.
+  // Glazed tiles that touch, or stand one plain tile apart, share one target where the wall is too narrow for a thumb,
+  // so no two 24px targets overlap there: the first leads to the earliest duty, the list below reaches the rest.
+  let head = null;
   for (let i = 1; i < cells.length; i++) {
-    if (!cells[i].classList.contains('due') || !cells[i - 1].classList.contains('due')) continue;
-    let head = i - 1;
-    while (cells[head].classList.contains('joined')) head -= 1;
-    cells[head].classList.add('run-head');
-    cells[head].style.setProperty('--run', String(i - head + 1));
-    cells[i].classList.add('joined');
+    if (!cells[i].classList.contains('due')) continue;
+    const near = head && i - Number(head.dataset.last) <= 2;
+    if (near) {
+      head.classList.add('run-head');
+      head.style.setProperty('--run', String(i - cells.indexOf(head) + 1));
+      cells[i].classList.add('joined');
+      head.dataset.last = String(i);
+    } else {
+      head = cells[i];
+      head.dataset.last = String(i);
+    }
   }
+  for (const c of cells) delete c.dataset.last;
   return cells;
 }
 

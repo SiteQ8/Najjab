@@ -481,6 +481,10 @@ input:checked + .switch::after { background: var(--on-turq); translate: -18px 0;
   .tick.minor { display: none; }
 }
 @container (max-width: 460px) {
+  /* Too narrow for a square a thumb can find: each hour becomes a brick standing on its end, a full 24px row tall, so a
+     glazed tile's target never reaches into the row above or below. */
+  .wall-grid { grid-auto-rows: minmax(calc(24px - var(--hair)), auto); }
+  .tile { aspect-ratio: auto; align-self: stretch; }
   .tile .n { display: none; }
   .tile.due::before { inset: auto; top: calc(50% - 12px); inset-inline-start: calc(50% - 12px); width: 24px; height: 24px; }
   .tile.due.run-head::before { width: calc((var(--run, 1) - 1) * (100% + var(--hair)) + 24px); }
@@ -537,7 +541,7 @@ input:checked + .switch::after { background: var(--on-turq); translate: -18px 0;
 .applies { margin-top: var(--s-2); color: var(--muted); font-size: var(--fs-small); line-height: var(--lh-snug); }
 .when { line-height: var(--lh-snug); }
 .when b { margin-inline-end: var(--s-1); }
-.due { margin-top: var(--s-1); font-size: var(--fs-small); line-height: var(--lh-snug); }
+.due-line { margin-top: var(--s-1); font-size: var(--fs-small); line-height: var(--lh-snug); }
 .tz { color: var(--faint); white-space: nowrap; }
 .note { margin-top: var(--s-1); font-size: var(--fs-small); color: var(--ochre-text); line-height: var(--lh-snug); }
 .more { list-style: none; margin: var(--s-3) 0 0; padding: var(--s-2) 0 0; border-top: var(--hair) dashed var(--grout); display: grid; gap: var(--s-1); font-size: var(--fs-small); line-height: var(--lh-snug); }

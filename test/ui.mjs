@@ -193,7 +193,7 @@ try {
   await narrow.waitForSelector('.duty');
   assert.match(await narrow.textContent('#finding'), /فوراً/);
   assert.ok(await narrow.isDisabled('#calendar'), 'no calendar file without a fixed time');
-  assert.equal(await narrow.locator('.duty .due').count(), 0, 'a notice due immediately prints no due time');
+  assert.equal(await narrow.locator('.duty .due-line').count(), 0, 'a notice due immediately prints no due time');
   assert.ok(await narrow.locator('#wall-wrap').isHidden(), 'with no fixed time there is no wall to draw');
   // An immediate notice and a fixed deadline together: the immediate one is named first, then the countdown.
   await narrow.goto(`http://localhost:${PORT}/?c=SA&s=banking&t=ransomware&v=high&p=0&lang=ar`, { waitUntil: 'networkidle' });
