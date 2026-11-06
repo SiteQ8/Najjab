@@ -161,6 +161,51 @@ export function noteText(bundle, note, lang) {
   return '';
 }
 
+// The route: every timed deadline as a station on one road from discovery. Duties due at the same moment share a station.
+// Positions run on a log scale so an hour and ten days both read on one line; x is 0 at discovery and 1 at the last station.
+export const routeAt = (hours, span) => (span > 0 ? Math.min(1, Math.max(0, Math.log1p(Math.max(0, hours)) / Math.log1p(span))) : 0);
+
+export function route(a) {
+  const start = a.discovered.getTime();
+  const byTime = new Map();
+  for (const d of a.duties) {
+    for (const item of d.items) {
+      if (item.kind !== 'deadline') continue;
+      const at = item.due.getTime();
+      if (!byTime.has(at)) byTime.set(at, { due: item.due, hours: (at - start) / HOUR, items: [] });
+      byTime.get(at).items.push({ id: d.id, authority: d.authority, stage: item.stage });
+    }
+  }
+  const stations = [...byTime.values()].sort((x, y) => x.due - y.due);
+  const span = stations.length ? Math.max(...stations.map((s) => s.hours)) : 0;
+  for (const s of stations) s.x = routeAt(s.hours, span);
+  return { span, stations };
+}
+
+// The next deadline still ahead, and how many have already passed, at a given moment.
+// A notice due immediately has no moment of its own to pass, so it is neither next nor passed: its slip leads instead.
+export function nextDue(a, now = Date.now()) {
+  let next = null;
+  let passed = 0;
+  for (const d of a.duties) {
+    for (const item of d.items) {
+      if (item.kind !== 'deadline') continue;
+      const at = item.due.getTime();
+      if (at < now) { passed += 1; continue; }
+      if (!next || at < next.item.due.getTime()) next = { duty: d, item };
+    }
+  }
+  return { next, passed };
+}
+
+// Urgency of a moment still to come or already gone: past it, inside the hour, inside six hours, or later.
+export function urgency(ms) {
+  if (ms < 0) return 'over';
+  if (ms < HOUR) return 'now';
+  if (ms < 6 * HOUR) return 'soon';
+  return 'later';
+}
+
 // Countdown text: hours can run past 24, as the deadlines do.
 export function clock(ms) {
   const s = Math.floor(Math.abs(ms) / 1000);

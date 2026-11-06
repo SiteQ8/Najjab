@@ -17,6 +17,8 @@
 ### ماذا يقدّم
 
 - **ساعة الإبلاغ** وفيها تختار الدول التي تعمل فيها والمناطق الحرة المالية والقطاع ونوع الحادثة ودرجة خطورتها ووقت اكتشافها فتظهر كل جهة يجب إبلاغها مع موعدها بتوقيتك وبتوقيت الدولة وعدّاد تنازلي يتغير لونه كلما اقتربت المهلة.
+- **مسار المهل** ويرسم كل مهلة بوقت محدد محطةً على طريق يبدأ من لحظة الاكتشاف ويتقدم عليه مؤشر الآن بينما يتصدر الساعةَ الإبلاغُ القادم وعدّاده وتنقلك كل محطة إلى بطاقة جهتها.
+- **الوضع النهاري والليلي** ويتبع الموقع إعداد جهازك ما لم تختر أحدهما ويُبقي اللون للمهل وحدها فالأحمر لما بقي عليه أقل من ساعة أو فات موعده والكهرماني لما بقي عليه أقل من ست ساعات. وعلى الهاتف تُطوى الحادثة في سطر موجز فتأتي الساعة أولاً.
 - **أدلة الاستجابة** ولكل من برمجيات الفدية واختراق البريد الإلكتروني للأعمال وتسرّب البيانات وانكشاف مفاتيح الوصول السحابية خطوات تبدأ بالساعة الأولى ثمّ الاحتواء والاستئصال والتعافي والأدلة الواجب حفظها وما بعد الحادثة.
 - **ملف التقويم** ويضيف كل مهلة بوقت محدد إلى Outlook أو تقويم Google أو تقويم Apple مع تنبيه قبلها بربع ساعة.
 - **مسودة الإشعار** وهي نص بالعربية والإنجليزية يجمع الحقائق التي تطلبها كل جهة أولاً ويُوجَّه تلقائياً إلى الجهات التي تستدعيها الحادثة.
@@ -86,6 +88,8 @@ In the first hour of an incident everyone asks the same question: who do we noti
 ### What it does
 
 - **The notification clock.** Pick the countries and financial free zones you operate in, your sector, the type of incident, its severity and when it was discovered. Every authority you must notify appears with its due time in your time zone and the country's, and a countdown that changes colour as the deadline nears.
+- **The route of deadlines.** Every deadline with a fixed time is a station on a road that starts at discovery, with a marker for now moving along it. The next notice leads the clock with its own countdown, and each station takes you to its authority's slip.
+- **Day and night.** The site follows your device unless you pick one, and spends colour only on deadlines: red inside the last hour and once a deadline passes, amber inside six hours. On a phone the incident folds into a short summary so the clock comes first.
 - **Playbooks.** Ransomware, business email compromise, data breach and exposed cloud access keys, each with how it shows up, the first hour, containment, eradication, recovery, the evidence to keep and what to do after.
 - **Calendar file.** Every deadline with a fixed time, as events for Outlook, Google Calendar or Apple Calendar with a reminder 15 minutes before each.
 - **Notice draft.** Arabic and English text that gathers the facts every regulator asks for first, addressed to the authorities the incident triggers.

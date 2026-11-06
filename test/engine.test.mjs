@@ -141,3 +141,35 @@ test('bad input fails with a clear message', () => {
   assert.throws(() => run({ countries: ['KW'], type: 'meteor' }), /Unknown incident type/);
   assert.throws(() => core.assess(b, { countries: ['KW'], type: 'bec', discovered: 'soon' }), /not a valid date/);
 });
+
+test('the route places fixed-time deadlines on a log road and leaves notices due immediately off it', () => {
+  const a = run({ countries: ['SA', 'BH'], sector: 'banking', type: 'data-breach', personal: true });
+  const r = core.route(a);
+  assert.ok(r.stations.length > 0);
+  assert.ok(r.stations.every((s) => s.items.length && s.x >= 0 && s.x <= 1), 'every station sits on the road');
+  assert.equal(r.stations.at(-1).x, 1, 'the last deadline ends the road');
+  assert.ok(r.stations.every((s, i) => i === 0 || s.due > r.stations[i - 1].due), 'stations run in time order, one per moment');
+  const immediate = a.duties.flatMap((d) => d.items).filter((i) => i.kind === 'immediate');
+  assert.ok(immediate.length, 'SAMA has notices due immediately');
+  assert.ok(r.stations.every((s) => s.hours > 0), 'nothing sits on the moment of discovery');
+  assert.equal(core.routeAt(0, 240), 0);
+  assert.equal(core.routeAt(240, 240), 1);
+  assert.ok(core.routeAt(1, 240) > 1 / 240, 'the first hour gets more road than a straight line would give it');
+});
+
+test('the next deadline skips notices due immediately, and only fixed times count as passed', () => {
+  const a = run({ countries: ['SA', 'BH'], sector: 'banking', type: 'data-breach', personal: true });
+  const forty = core.nextDue(a, plus(40 / 60));
+  assert.equal(forty.passed, 0, 'forty minutes in, no fixed deadline has passed yet');
+  assert.equal(forty.next.item.kind, 'deadline');
+  assert.equal(forty.next.item.due.getTime(), plus(1), 'the Bahrain call within the hour leads');
+  const later = core.nextDue(a, plus(3));
+  assert.ok(later.passed >= 2, 'the one hour call and the two hour report have passed');
+  assert.ok(later.next.item.due.getTime() > plus(3));
+  const end = core.nextDue(a, plus(24 * 400));
+  assert.equal(end.next, null);
+  assert.equal(core.urgency(-1), 'over');
+  assert.equal(core.urgency(30 * 60000), 'now');
+  assert.equal(core.urgency(5 * 3600000), 'soon');
+  assert.equal(core.urgency(7 * 3600000), 'later');
+});

@@ -3,7 +3,7 @@
  "project": {
   "name_en": "Najjab",
   "name_ar": "نجّاب",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "domain": "najjab.3li.info",
   "repo": "https://github.com/SiteQ8/Najjab",
   "updated": "2026-10-02",
@@ -1962,6 +1962,10 @@
    "en": "Pick at least one country to see the deadlines.",
    "ar": "اختر دولة واحدة على الأقل لتظهر المهل."
   },
+  "summary_none": {
+   "en": "No country yet",
+   "ar": "لم تُختر دولة بعد"
+  },
   "clock_none": {
    "en": "No published notification duty matches this incident in the selected countries and sector.",
    "ar": "لا يوجد واجب إبلاغ منشور يطابق هذه الحادثة في الدول والقطاع المختارين."
@@ -2378,6 +2382,10 @@
    "en": "{n} duties",
    "ar": "عدد الواجبات {n}"
   },
+  "count_fmt_one": {
+   "en": "1 duty",
+   "ar": "عدد الواجبات 1"
+  },
   "personal_locked": {
    "en": "A data breach always involves personal data here.",
    "ar": "يُعدّ تسرّب البيانات هنا ماساً بالبيانات الشخصية دائماً."
@@ -2437,6 +2445,82 @@
   "cond_high-risk": {
    "en": "if the risk to the people concerned is high",
    "ar": "إذا كان الخطر على أصحاب البيانات كبيراً"
+  },
+  "theme_dark": {
+   "en": "Night mode",
+   "ar": "الوضع الليلي"
+  },
+  "theme_light": {
+   "en": "Day mode",
+   "ar": "الوضع النهاري"
+  },
+  "edit": {
+   "en": "Edit",
+   "ar": "تعديل"
+  },
+  "done": {
+   "en": "Done",
+   "ar": "تم"
+  },
+  "route": {
+   "en": "Route of deadlines",
+   "ar": "مسار المهل"
+  },
+  "route_start": {
+   "en": "Discovered {time}",
+   "ar": "الاكتشاف {time}"
+  },
+  "route_now": {
+   "en": "Now",
+   "ar": "الآن"
+  },
+  "route_item": {
+   "en": "{stage} to {who}",
+   "ar": "{stage} إلى {who}"
+  },
+  "finding_next": {
+   "en": "{stage} to {who} in {t}",
+   "ar": "{stage} إلى {who} بعد {t}"
+  },
+  "finding_passed": {
+   "en": "{n} deadlines have passed",
+   "ar": "مضى موعد {n} من المهل"
+  },
+  "finding_passed_one": {
+   "en": "One deadline has passed",
+   "ar": "مضى موعد مهلة واحدة"
+  },
+  "finding_none": {
+   "en": "No deadline here has a fixed time, so notify promptly through each authority's channel.",
+   "ar": "لا تحدد هذه الواجبات وقتاً بعينه لذا يكون الإبلاغ دون تأخير عبر قناة كل جهة."
+  },
+  "finding_all_passed": {
+   "en": "Every deadline with a fixed time has passed.",
+   "ar": "مضت مواعيد المهل المحددة كلها."
+  },
+  "calendar_short": {
+   "en": "Calendar",
+   "ar": "التقويم"
+  },
+  "print_short": {
+   "en": "Print",
+   "ar": "اطبع"
+  },
+  "tab_playbook_short": {
+   "en": "Playbook",
+   "ar": "الدليل"
+  },
+  "tab_draft_short": {
+   "en": "Notice",
+   "ar": "الإشعار"
+  },
+  "tab_tabletop_short": {
+   "en": "Tabletop",
+   "ar": "التمرين"
+  },
+  "tab_register_short": {
+   "en": "Duties",
+   "ar": "السجل"
   }
  }
 }
