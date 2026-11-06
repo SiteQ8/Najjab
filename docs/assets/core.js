@@ -303,7 +303,7 @@ export function calendar(bundle, input, lang = 'en', now = new Date()) {
   for (const d of a.duties) {
     const ob = obligation(bundle, d.id);
     d.items.forEach((item, n) => {
-      if (!item.due) return;
+      if (item.kind !== 'deadline') return;
       events += 1;
       const summary = `${tr(bundle.authorities[d.authority], lang)} | ${stageText(bundle, item.stage, lang)}`;
       const details = [itemText(bundle, item, lang), sourceLine(bundle, ob, lang), ui(bundle, 'disclaimer', lang)].join('\n');

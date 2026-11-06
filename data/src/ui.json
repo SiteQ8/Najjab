@@ -575,6 +575,14 @@
     "en": "{stage} to {who}",
     "ar": "{stage} إلى {who}"
   },
+  "route_item_for": {
+    "en": "{stage} to {who} for {what}",
+    "ar": "{stage} إلى {who} عن {what}"
+  },
+  "route_count": {
+    "en": "{n} notices",
+    "ar": "عدد الإشعارات {n}"
+  },
   "finding_next": {
     "en": "{stage} to {who} in {t}",
     "ar": "{stage} إلى {who} بعد {t}"
@@ -590,6 +598,14 @@
   "finding_none": {
     "en": "No deadline here has a fixed time, so notify promptly through each authority's channel.",
     "ar": "لا تحدد هذه الواجبات وقتاً بعينه لذا يكون الإبلاغ دون تأخير عبر قناة كل جهة."
+  },
+  "finding_off": {
+    "en": "None of these duties applies at this grade.",
+    "ar": "لا يسري أي من هذه الواجبات عند هذه الدرجة."
+  },
+  "finding_now": {
+    "en": "{stage} to {who} immediately",
+    "ar": "{stage} إلى {who} فوراً"
   },
   "finding_all_passed": {
     "en": "Every deadline with a fixed time has passed.",

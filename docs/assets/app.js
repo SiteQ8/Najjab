@@ -295,7 +295,7 @@ function slip(d) {
   const body = h('div', { class: 'slip-body' },
     h('h3', { class: 'who' }, P(B.authorities[d.authority]), ' ', h('span', { class: 'where', text: P(B.countries[d.country]) })),
     h('p', { class: 'when' }, d.lead ? itemLine(d.lead) : t('note_conditional')),
-    d.lead && d.lead.due ? dueLine(d.lead.due, d.country) : null,
+    d.lead && d.lead.kind === 'deadline' ? dueLine(d.lead.due, d.country) : null,
     d.note ? h('p', { class: 'note', text: bind(core.noteText(B, d.note, S.lang)) }) : null,
     h('p', { class: 'applies', text: `${t('applies_to')} ${lowerFirst(P(ob.applies_to))}` }));
   li.append(body);
@@ -330,8 +330,13 @@ function marker(cls, x, label, extra = {}) {
 }
 
 function stationText(s) {
-  const who = [...new Set(s.items.map((i) => core.fill(t('route_item'), { stage: core.stageText(B, i.stage, S.lang), who: P(B.authorities[i.authority]) })))];
-  return `${clockTime(s.due)} ${who.join(and())}`;
+  const same = (i) => s.items.filter((o) => o.stage === i.stage && o.authority === i.authority).length > 1;
+  const names = s.items.map((i) => {
+    const vars = { stage: core.stageText(B, i.stage, S.lang), who: P(B.authorities[i.authority]) };
+    return same(i) ? t('route_item_for', { ...vars, what: lowerFirst(P(B.triggers[core.obligation(B, i.id).trigger])) }) : t('route_item', vars);
+  });
+  const count = s.items.length > 1 ? ` ${t('route_count', { n: s.items.length })}` : '';
+  return `${clockTime(s.due)}${count} ${names.join(and())}`;
 }
 
 // A station's label: the time alone on the day of discovery, the weekday and time within the week, the date and time beyond it.
@@ -375,8 +380,8 @@ function goToSlip(e) {
   e.preventDefault();
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-  el.focus({ preventScroll: true });
   el.classList.add('arrived');
+  el.focus({ preventScroll: true });
   clearTimeout(el.ringTimer);
   el.ringTimer = setTimeout(() => el.classList.remove('arrived'), tokenMs('--t-hold'));
 }
@@ -442,8 +447,15 @@ function layoutLabels() {
 function renderFinding() {
   const box = $('finding');
   if (!A || !A.duties.length) { box.replaceChildren(); return; }
-  const timed = A.duties.some((d) => d.items.some((i) => i.kind === 'deadline'));
-  if (!timed) { box.replaceChildren(t('finding_none')); return; }
+  const live = A.duties.filter((d) => d.lead);
+  if (!live.length) { box.replaceChildren(t('finding_off')); return; }
+  const timed = live.some((d) => d.items.some((i) => i.kind === 'deadline'));
+  if (!timed) {
+    // No fixed time anywhere: a notice due immediately leads, otherwise every authority's own channel does.
+    const now = live.find((d) => d.lead.kind === 'immediate');
+    box.replaceChildren(now ? t('finding_now', { stage: core.stageText(B, now.lead.stage, S.lang), who: P(B.authorities[now.authority]) }) : t('finding_none'));
+    return;
+  }
   const { next, passed } = core.nextDue(A);
   const parts = [];
   if (next) {
@@ -477,7 +489,7 @@ function renderClock() {
     } else {
       const n = A.duties.filter((d) => d.lead).length;
       count.textContent = t(n === 1 ? 'count_fmt_one' : 'count_fmt', { n });
-      $('calendar').disabled = !A.duties.some((d) => d.items.some((i) => i.due));
+      $('calendar').disabled = !A.duties.some((d) => d.items.some((i) => i.kind === 'deadline'));
       box.replaceChildren(h('ol', { class: 'slips' }, A.duties.map(slip)));
     }
   }

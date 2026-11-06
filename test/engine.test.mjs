@@ -92,6 +92,7 @@ test('the calendar file holds one event per timed deadline, in UTC, folded to 75
   const unfolded = cal.text.replace(/\r\n /g, '');
   assert.match(unfolded, /SUMMARY:بنك الكويت المركزي \| الإبلاغ الأول/);
   assert.equal(core.calendar(b, { countries: ['AE'], type: 'data-breach', discovered: at }, 'en').events, 0, 'no fixed time, no event');
+  assert.equal(core.calendar(b, { countries: ['SA'], sector: 'payments', type: 'ransomware', severity: 'high', discovered: at }, 'en').events, 0, 'a notice due immediately is not a calendar event');
 });
 
 test('free zone duties appear only for the zones chosen, alongside the federal ones', () => {

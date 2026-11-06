@@ -47,6 +47,17 @@ try {
   await stations.first().locator('.dot').click();
   assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.id), target, 'a station takes focus to its slip');
   assert.ok(await page.locator(`#${target}.arrived`).count() === 1, 'the slip is rung');
+  // Let the pointer's ring clear first, then arrive by keyboard.
+  await page.waitForSelector(`#${target}.arrived`, { state: 'detached' });
+  await page.locator('#lang').focus();
+  await page.waitForTimeout(800);
+  const last = page.locator('#route .station').last();
+  const target2 = (await last.getAttribute('href')).slice(1);
+  await page.keyboard.press('Tab');
+  await last.focus();
+  await page.keyboard.press('Enter');
+  const ring = await page.evaluate((id) => getComputedStyle(document.getElementById(id)).outlineColor, target2);
+  assert.match(ring, /^rgb\(/, `a keyboard arrival rings at once (${ring})`);
   // The incident column scrolls on its own, so the time of discovery is always reachable.
   await page.locator('#discovered').scrollIntoViewIfNeeded();
   const box = await page.locator('#discovered').boundingBox();
@@ -169,6 +180,16 @@ try {
   assert.equal(await narrow.textContent('.slip .word'), 'فوراً', 'the seal of a notice due immediately says so');
   assert.equal(await narrow.locator('#finding .passed').count(), 0, 'forty minutes in, nothing with a fixed time has passed');
   assert.equal(await narrow.locator('#route .station.u-over').count(), 0, 'no station is drawn overdue');
+  // Only immediate notices and no fixed time: the finding leads with the immediate notice, and there is nothing for a calendar.
+  await narrow.goto(`http://localhost:${PORT}/?c=SA&s=payments&t=ransomware&v=high&p=0&lang=ar`, { waitUntil: 'networkidle' });
+  await narrow.waitForSelector('.slip');
+  assert.match(await narrow.textContent('#finding'), /فوراً/);
+  assert.ok(await narrow.isDisabled('#calendar'), 'no calendar file without a fixed time');
+  assert.equal(await narrow.locator('.slip .due').count(), 0, 'a notice due immediately prints no due time');
+  // Nothing applies at the chosen grade: the finding says so instead of asking for prompt notice.
+  await narrow.goto(`http://localhost:${PORT}/?c=SA&s=banking&t=ransomware&v=low&p=0&lang=en`, { waitUntil: 'networkidle' });
+  await narrow.waitForSelector('.slip');
+  assert.match(await narrow.textContent('#finding'), /None of these duties applies/);
   // With no fixed time anywhere, the duty count still shows above the slips.
   await narrow.goto(`http://localhost:${PORT}/?c=KW&s=general&t=ransomware&v=high&lang=ar`, { waitUntil: 'networkidle' });
   await narrow.waitForSelector('.slip');
