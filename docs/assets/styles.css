@@ -32,6 +32,7 @@
   --ochre: #C4891A;
   --ochre-text: #7F5400;
   --on-ochre: #1B1B1F;
+  --soon-edge: #7F5400;
   --later: #1B1B1F;
   --on-later: #F2F2EF;
   --primary: #1B1B1F;
@@ -88,6 +89,11 @@
   --icon: 16px;
   --cd-w: 108px;
   --cd-h: 64px;
+  --switch-w: 40px;
+  --switch-h: 22px;
+  --thumb: 13px;
+  --thumb-inset: 3px;
+  --thumb-travel: calc(var(--switch-w) - 2 * var(--box-line) - var(--thumb) - 2 * var(--thumb-inset));
   --mark-w: 95px;
   --mark-h: 47px;
 
@@ -131,12 +137,13 @@
   --turq: #22A098;
   --turq-text: #5DD0C7;
   --on-turq: #08101F;
-  --brick: #B23A26;
+  --brick: #C2402A;
   --brick-text: #F07A62;
   --on-brick: #F2F2EF;
   --ochre: #C4891A;
   --ochre-text: #E8B04F;
   --on-ochre: #0C1430;
+  --soon-edge: #C4891A;
   --later: #E9E8E4;
   --on-later: #0C1430;
   --primary: #E9E8E4;
@@ -167,12 +174,13 @@
     --turq: #22A098;
     --turq-text: #5DD0C7;
     --on-turq: #08101F;
-    --brick: #B23A26;
+    --brick: #C2402A;
     --brick-text: #F07A62;
     --on-brick: #F2F2EF;
     --ochre: #C4891A;
     --ochre-text: #E8B04F;
     --on-ochre: #0C1430;
+  --soon-edge: #C4891A;
     --later: #E9E8E4;
     --on-later: #0C1430;
     --primary: #E9E8E4;
@@ -395,13 +403,13 @@ input:disabled + .box, input:disabled + .switch { opacity: .55; }
 
 /* The personal data switch: a square track and a square thumb */
 .toggle { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s-1) var(--s-3); cursor: pointer; }
-.toggle input { inset-inline-start: auto; inset-inline-end: 0; top: calc(var(--s-4) + 11px); width: 40px; height: 22px; margin: -11px 0 0; }
+.toggle input { inset-inline-start: auto; inset-inline-end: 0; top: calc(var(--s-4) + var(--switch-h) / 2); width: var(--switch-w); height: var(--switch-h); margin: calc(var(--switch-h) / -2) 0 0; }
 .toggle-text { font-size: var(--fs-small); font-weight: 600; line-height: var(--lh-snug); }
-.switch { grid-column: 2; grid-row: 1; position: relative; width: 40px; height: 22px; border: var(--box-line) solid var(--line); background: var(--surface); transition: background-color var(--t-state) var(--ease-out), border-color var(--t-state) var(--ease-out); }
-.switch::after { content: ''; position: absolute; top: 3px; inset-inline-start: 3px; width: 13px; height: 13px; background: var(--line); transition: translate var(--t-state) var(--ease-out), background-color var(--t-state) var(--ease-out); }
+.switch { grid-column: 2; grid-row: 1; position: relative; width: var(--switch-w); height: var(--switch-h); border: var(--box-line) solid var(--line); background: var(--surface); transition: background-color var(--t-state) var(--ease-out), border-color var(--t-state) var(--ease-out); }
+.switch::after { content: ''; position: absolute; top: var(--thumb-inset); inset-inline-start: var(--thumb-inset); width: var(--thumb); height: var(--thumb); background: var(--line); transition: translate var(--t-state) var(--ease-out), background-color var(--t-state) var(--ease-out); }
 input:checked + .switch { background: var(--turq); border-color: var(--turq); }
-input:checked + .switch::after { background: var(--on-turq); translate: -18px 0; }
-[dir="ltr"] input:checked + .switch::after { translate: 18px 0; }
+input:checked + .switch::after { background: var(--on-turq); translate: calc(-1 * var(--thumb-travel)) 0; }
+[dir="ltr"] input:checked + .switch::after { translate: var(--thumb-travel) 0; }
 .toggle .hint { grid-column: 1 / -1; margin: 0; }
 .toggle.locked { cursor: default; }
 
@@ -443,7 +451,7 @@ input:checked + .switch::after { background: var(--on-turq); translate: -18px 0;
 .tile.gone { background: var(--turq); }
 .tile .fill { position: absolute; inset-block: 0; background: var(--turq); }
 .tile.due { display: grid; place-items: center; background: var(--later); color: var(--on-later); cursor: pointer; transition: transform var(--t-press) var(--ease-out), background-color var(--t-state) var(--ease), color var(--t-state) var(--ease); }
-.tile.due.u-soon { background: var(--ochre); color: var(--on-ochre); }
+.tile.due.u-soon { background: var(--ochre); color: var(--on-ochre); outline-color: var(--soon-edge); }
 .tile.due.u-now { background: var(--brick); color: var(--on-brick); }
 .tile.due.u-over { background: var(--tile); color: var(--brick-text); }
 .tile.due.u-over::after { content: ''; position: absolute; inset: 0; border: var(--rim) solid var(--brick); }
@@ -469,7 +477,7 @@ input:checked + .switch::after { background: var(--on-turq); translate: -18px 0;
 .key .sw { flex: none; width: var(--s-3); height: var(--s-3); border: var(--hair) solid var(--grout); background: var(--tile); }
 .key .sw.gone { background: var(--turq); border-color: var(--turq); }
 .key .sw.u-later { background: var(--later); border-color: var(--later); }
-.key .sw.u-soon { background: var(--ochre); border-color: var(--ochre); }
+.key .sw.u-soon { background: var(--ochre); border-color: var(--soon-edge); }
 .key .sw.u-now { background: var(--brick); border-color: var(--brick); }
 .key .sw.u-over { border: var(--stroke) solid var(--brick); }
 .key .sw.night { background: var(--tile-night); }
@@ -700,7 +708,7 @@ input:checked + .switch::after { background: var(--on-turq); translate: -18px 0;
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-property: opacity, color, background-color, border-color, outline-color !important; translate: none !important; }
   .btn:active, .band-btn:active, .tile.due:active, .chip:active .box, .opt:active .dot, .step:active .box, .seg label:active span { transform: none; }
-  input:checked + .switch::after { translate: none; inset-inline-start: auto; inset-inline-end: 3px; }
+  input:checked + .switch::after { translate: none; inset-inline-start: auto; inset-inline-end: var(--thumb-inset); }
 }
 
 @media print {
